@@ -17,12 +17,13 @@ public class Wall : MonoBehaviour
     }
 
 
-    void OnCollisionEnter(Collision Collision)
+    void OnCollisionEnter(Collision collision)
     {
-        if (Collision.gameObject.CompareTag("Ball"))
-        {
-       //     RigidBody ballRb = collision.gameObject.GetComponent<rigidBody>();
-        }
+       // if (collision.gameObject.CompareTag("Ball"))
+        //{
+          //  Rigidbody ballRb = collision.gameObject.GetComponent<Rigidbody>();
+            //if(ballRb!=null)
+        //}
 
 
     }
