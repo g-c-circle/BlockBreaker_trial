@@ -43,7 +43,7 @@ public class BlockScript : MonoBehaviour
     // ブロックがボールに触れたら作動する関数
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.name == "debug(sphere)")//もしボールに触れたら
+        if (collision.gameObject.tag == "debug(sphere)")//もしボールに触れたら
         {
             Destroy(gameObject);//ブロック削除
         }
