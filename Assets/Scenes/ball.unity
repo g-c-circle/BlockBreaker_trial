@@ -168,8 +168,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ballPrefab: {fileID: 7182231126691508785, guid: 5f482f65c220af44c8a8d96ac02140d4, type: 3}
-  ballNum: 10
-  generateSpeed: 0.2
+  ballNum: 1
+  generateSpeed: 1
 --- !u!1 &791983310
 GameObject:
   m_ObjectHideFlags: 0

@@ -14,7 +14,7 @@ public class GenerateBalls : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // stdBallを編集する例 一度変えると内部的に値が保持されるっぽい？使わない方がよさそう
+        // stdBallを編集する例 一度変えるとunity上のチェックボックスが書き換わるので注意
         //stdBall cs = ballPrefab.GetComponent<stdBall>();
         //cs.isAutoInit = false;
         //cs.InitSpeed(5, 5);
@@ -32,10 +32,13 @@ public class GenerateBalls : MonoBehaviour
     private void Generate()
     {
         deltaTime += Time.deltaTime;
-        Debug.Log(deltaTime + ", " + generateSpeed + "," + (deltaTime < generateSpeed));
+        //Debug.Log(deltaTime + ", " + generateSpeed + "," + (deltaTime < generateSpeed));
         if (deltaTime < generateSpeed)
             return;
+
+        // ボールのインスタンスを作成
         Instantiate(ballPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+
         generatedBallNum++;
         deltaTime = 0;
     }
