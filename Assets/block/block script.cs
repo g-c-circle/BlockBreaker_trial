@@ -12,22 +12,31 @@ public class BlockScript : MonoBehaviour
 
     private List<GameObject> blocks = new List<GameObject>(); // ブロックオブジェクトを格納するリスト
 
+    public float constantSpeed = 5.0f; // 一定の速度
+    private Rigidbody ballRigidbody;
+
     // Start is called before the first frame update
     void Start()
     {
         currentSize = initialSize; // 現在の大きさに初期値を設定
         GenerateBlocksCreateStage(0); // ブロック生成
+
+        ballRigidbody = GetComponent<Rigidbody>();
+        // ボールに物理的な反発を設定
+        ballRigidbody.collisionDetectionMode = CollisionDetectionMode.Continuous;
+        ballRigidbody.isKinematic = false;
+        ballRigidbody.constraints = RigidbodyConstraints.FreezeRotation;
     }
 
     //ブロック生成の関数(ステージ0)
     void SimpleGenerateBlocks()
     {
-        int x, y;//ブロックの座標変数
+        int x, z;//ブロックの座標変数
         for (x = -10; x < 15; x += 5)
         {
-            for (y = 20; y > 0; y -= 5)
+            for (z = 20; z > 0; z -= 5)
             {
-                GameObject block = Instantiate(BlockObject, new Vector3(x, y, 0), Quaternion.Euler(blockRotation));
+                GameObject block = Instantiate(BlockObject, new Vector3(x, 0, z), Quaternion.Euler(blockRotation));
                 block.transform.localScale = currentSize;
 
                 // ブロックの色を設定
@@ -50,7 +59,11 @@ public class BlockScript : MonoBehaviour
     {
         if (collision.gameObject.tag == "debug(sphere)")//もしボールに触れたら
         {
+            ReflectBall(collision.gameObject.GetComponent<Rigidbody>());//ボールを跳ね返す
             Destroy(gameObject);//(ボールに触れた)ブロック削除
+
+            
+
 
             collision.gameObject.transform.localScale = Vector3.one * 2f;//ボールの大きさを変更
 
@@ -66,9 +79,28 @@ public class BlockScript : MonoBehaviour
                 ballRenderer.material = material;
             }
 
-            GameObject newBall = Instantiate(collision.gameObject, collision.gameObject.transform.position, Quaternion.identity); ;//ボールを複製
+            Rigidbody ballRigidbody = collision.gameObject.GetComponent<Rigidbody>();
+            if (ballRigidbody != null)
+            {
+                // 速度を二倍にするコード
+                ballRigidbody.velocity *= 2f;
+            }
+
+            collision.gameObject.transform.localScale = Vector3.one * 2f;//ボールの大きさを変更
+
+            GameObject newBall = Instantiate(collision.gameObject, new Vector3(transform.position.x, transform.position.y, transform.position.z + currentSize.z), Quaternion.identity);//ボールを複製
 
             ChangeOtherBlocksColor();//ブロックの色を変更
+        }
+    }
+
+    void ReflectBall(Rigidbody ballRigidbody)
+    {
+        if (ballRigidbody != null)
+        {
+            // 反射角度を計算
+            Vector3 reflection = Vector3.Reflect(ballRigidbody.velocity, Vector3.up);
+            ballRigidbody.velocity = reflection.normalized * constantSpeed;
         }
     }
 
@@ -83,9 +115,9 @@ public class BlockScript : MonoBehaviour
     }
 
     //ブロックを一個生成
-    void GenerateBlocksCreate(int x, int y)
+    void GenerateBlocksCreate(int x, int z)
     {
-        GameObject block = Instantiate(BlockObject, new Vector3(x, y, 0), Quaternion.Euler(blockRotation));
+        GameObject block = Instantiate(BlockObject, new Vector3(x, 0, z), Quaternion.Euler(blockRotation));
         block.transform.localScale = currentSize;
 
         // ブロックの色を設定
@@ -307,5 +339,7 @@ public class BlockScript : MonoBehaviour
         {
             GenerateBlocksStageRestart(5);//ここで指定したステージをリトライ(リスタート)する
         }
+
+
     }
 }
