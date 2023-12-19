@@ -5,6 +5,8 @@ using UnityEngine;
 public class stdBall : MonoBehaviour
 {
     public bool isAutoInit = true;
+    public int count = 0;
+
     private const int MIN = 8, MAX = 16;
     private const string BALL_TAG = "Ball", WALL_TAG = "Wall";
     private Rigidbody rb;
@@ -107,21 +109,22 @@ public class stdBall : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Wall")
+        if (collision.gameObject.tag == WALL_TAG)
         {
             Debug.Log("‚Ô‚Â‚©‚Á‚½");
+            count++;
         }
     }
     private void OnCollisionStay(Collision collision)
     {
-        if (collision.gameObject.tag == "Wall")
+        if (collision.gameObject.tag == WALL_TAG)
         {
             Debug.Log("‚Ô‚Â‚©‚Á‚Ä‚¢‚é");
         }
     }
     private void OnCollisionExit(Collision collision)
     {
-        if (collision.gameObject.tag == "Wall")
+        if (collision.gameObject.tag == WALL_TAG)
         {
             Debug.Log("—£‚ê‚½");
         }
