@@ -62,10 +62,6 @@ public class BlockScript : MonoBehaviour
             ReflectBall(collision.gameObject.GetComponent<Rigidbody>());//ボールを跳ね返す
             Destroy(gameObject);//(ボールに触れた)ブロック削除
 
-            
-
-
-            collision.gameObject.transform.localScale = Vector3.one * 2f;//ボールの大きさを変更
 
             // ボールのRendererコンポーネントを取得
             Renderer ballRenderer = collision.gameObject.GetComponent<Renderer>();
@@ -79,16 +75,21 @@ public class BlockScript : MonoBehaviour
                 ballRenderer.material = material;
             }
 
-            Rigidbody ballRigidbody = collision.gameObject.GetComponent<Rigidbody>();
-            if (ballRigidbody != null)
-            {
-                // 速度を二倍にするコード
-                ballRigidbody.velocity *= 2f;
-            }
-
             collision.gameObject.transform.localScale = Vector3.one * 2f;//ボールの大きさを変更
 
             GameObject newBall = Instantiate(collision.gameObject, new Vector3(transform.position.x, transform.position.y, transform.position.z + currentSize.z), Quaternion.identity);//ボールを複製
+
+            newBall.tag = "debug(sphere)";
+
+            GameObject[] allBalls = GameObject.FindGameObjectsWithTag("debug(sphere)");
+            foreach (GameObject ball in allBalls)
+            {
+                Rigidbody ballRigidbody = ball.GetComponent<Rigidbody>();
+                if (ballRigidbody != null)
+                {
+                    ballRigidbody.velocity *= 5f; // 速度を五倍にする
+                }
+            }
 
             ChangeOtherBlocksColor();//ブロックの色を変更
         }
@@ -220,7 +221,7 @@ public class BlockScript : MonoBehaviour
         {
             blockColor = new Color(Random.value, Random.value, Random.value);//色変数を変更(ランダム)
             currentSize += new Vector3(0.1f, 0.1f, 0.1f);//大きさ変数を変更(少し大きく)
-            blockRotation = new Vector3(Random.Range(0f, 360f), Random.Range(0f, 360f), Random.Range(0f, 360f));//角度変数を変更(ランダム)
+            blockRotation = new Vector3(0f, Random.Range(0f, 360f), 0f);//角度変数を変更(ランダム)
             
 
             //ブロックの大きさを変更
