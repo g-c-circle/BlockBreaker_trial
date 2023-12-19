@@ -5,6 +5,7 @@ using UnityEngine;
 public class reflectionBall : MonoBehaviour
 {
     public bool isAutoInit = true;
+
     private const int MIN = 8, MAX = 16;
     private const string BALL_TAG = "Ball", WALL_TAG = "Wall";
     private Rigidbody rb;
@@ -110,7 +111,7 @@ public class reflectionBall : MonoBehaviour
 
     private void OnTriggerEnter(UnityEngine.Collider other)
     {
-        if (other.gameObject.tag == "Wall")
+        if (other.gameObject.tag == WALL_TAG)
         {
             Debug.Log("‚Ô‚Â‚©‚Á‚½");
             //Rigidbody wall_rb = GetComponent<Rigidbody>();
@@ -123,14 +124,14 @@ public class reflectionBall : MonoBehaviour
     }
     private void OnCollisionStay(Collision collision)
     {
-        if (collision.gameObject.tag == "Wall")
+        if (collision.gameObject.tag == WALL_TAG)
         {
             Debug.Log("‚Ô‚Â‚©‚Á‚Ä‚¢‚é");
         }
     }
     private void OnCollisionExit(Collision collision)
     {
-        if (collision.gameObject.tag == "Wall")
+        if (collision.gameObject.tag == WALL_TAG)
         {
             Debug.Log("—£‚ê‚½");
         }
