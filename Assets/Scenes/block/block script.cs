@@ -59,7 +59,7 @@ public class BlockScript : MonoBehaviour
     // ブロックがボールに触れたら作動する関数
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "debug(sphere)")//もしボールに触れたら
+        if (collision.gameObject.tag == "Ball")//もしボールに触れたら
         {
             ReflectBall(collision.gameObject.GetComponent<Rigidbody>());//ボールを跳ね返す
             Destroy(gameObject);//(ボールに触れた)ブロック削除
@@ -86,9 +86,9 @@ public class BlockScript : MonoBehaviour
 
                 GameObject newBall = Instantiate(collision.gameObject, new Vector3(transform.position.x, transform.position.y, transform.position.z + currentSize.z), Quaternion.identity);//ボールを複製
 
-                newBall.tag = "debug(sphere)";
+                newBall.tag = "Ball";
 
-                GameObject[] allBalls = GameObject.FindGameObjectsWithTag("debug(sphere)");
+                GameObject[] allBalls = GameObject.FindGameObjectsWithTag("Ball");
                 foreach (GameObject ball in allBalls)
                 {
                     Rigidbody ballRigidbody = ball.GetComponent<Rigidbody>();
