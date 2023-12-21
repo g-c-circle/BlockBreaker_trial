@@ -113,8 +113,9 @@ public class reflectionBall : MonoBehaviour
     {
         if (other.gameObject.tag == WALL_TAG)
         {
-            Debug.Log("‚Ô‚Â‚©‚Á‚½");
-            //Rigidbody wall_rb = GetComponent<Rigidbody>();
+            //Debug.Log("‚Ô‚Â‚©‚Á‚½");
+            Rigidbody wall_rb = GetComponent<Rigidbody>();
+            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, -rb.velocity.z);
             //rb.velocity = Vector3.Reflect(rb.velocity, wall_rb.transform.forward);
             ////multiplyVelocity(new Vector3(1, 1, -1));
             //Debug.Log(wall_rb.transform.up);        // —ÎŽ²
@@ -126,14 +127,14 @@ public class reflectionBall : MonoBehaviour
     {
         if (collision.gameObject.tag == WALL_TAG)
         {
-            Debug.Log("‚Ô‚Â‚©‚Á‚Ä‚¢‚é");
+            //Debug.Log("‚Ô‚Â‚©‚Á‚Ä‚¢‚é");
         }
     }
     private void OnCollisionExit(Collision collision)
     {
         if (collision.gameObject.tag == WALL_TAG)
         {
-            Debug.Log("—£‚ê‚½");
+            //Debug.Log("—£‚ê‚½");
         }
     }
 }

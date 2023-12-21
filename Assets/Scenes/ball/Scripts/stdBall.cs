@@ -7,7 +7,7 @@ public class stdBall : MonoBehaviour
     public bool isAutoInit = true;
     public int count = 0;
 
-    private const int MIN = 8, MAX = 16;
+    private const int MIN = 2, MAX = 4;
     private const string BALL_TAG = "Ball", WALL_TAG = "Wall";
     private Rigidbody rb;
 
@@ -106,27 +106,46 @@ public class stdBall : MonoBehaviour
             rb.velocity = new Vector3(rb.velocity.z, rb.velocity.y, -rb.velocity.x);
     }
 
+    public void OnRefrection(string obj) // 仮で決めた引数、ブロックかバーか壁か判定する
+    {
+        // 当たったとき何か起こる処理を書きたいなら書く
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == WALL_TAG)
         {
-            Debug.Log("ぶつかった");
-            count++;
+            //Debug.Log("ぶつかった");
+
+            // BALL_TAGを持つもの全てを配列に入れる
+            GameObject[] balls = GameObject.FindGameObjectsWithTag(BALL_TAG);
+
+            Debug.Log(balls.Length);
+
+            for (int i = 0; i < balls.Length; i++)
+            {
+            }
+
+            // 配列の一つ一つがballに入る
+            foreach (GameObject ball in balls)
+            {
+                stdBall stdBall = ball.gameObject.GetComponent<stdBall>();
+                stdBall.count++;
+            }
         }
     }
     private void OnCollisionStay(Collision collision)
     {
         if (collision.gameObject.tag == WALL_TAG)
         {
-            Debug.Log("ぶつかっている");
+            //Debug.Log("ぶつかっている");
         }
     }
     private void OnCollisionExit(Collision collision)
     {
         if (collision.gameObject.tag == WALL_TAG)
         {
-            Debug.Log("離れた");
+            //Debug.Log("離れた");
         }
     }
 }

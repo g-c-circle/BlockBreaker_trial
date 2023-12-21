@@ -23,9 +23,24 @@ public class testWall : MonoBehaviour
     {
         if (collision.gameObject.tag == BALL_TAG)
         {
-            Debug.Log("‚Ô‚Â‚©‚Á‚½");
+            //Debug.Log("‚Ô‚Â‚©‚Á‚½");
             stdBall stdBall = collision.gameObject.GetComponent<stdBall>();
-            Debug.Log(stdBall.count);
+            //Debug.Log(stdBall.count);
         }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Rigidbody rb = other.GetComponent<Rigidbody>();
+
+        //Vector3 velocityNext = Vector3.Reflect(velocity, collision.contacts[0].normal);
+        //velocity = velocityNext;
+
+        Vector3 hitPos = other.ClosestPointOnBounds(this.transform.position);
+
+        Vector3 reflectDirection = Vector3.Reflect(rb.velocity, hitPos);
+        rb.velocity = reflectDirection;
+
+
     }
 }
