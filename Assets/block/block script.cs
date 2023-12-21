@@ -15,6 +15,8 @@ public class BlockScript : MonoBehaviour
     public float constantSpeed = 5.0f; // 一定の速度
     private Rigidbody ballRigidbody;
 
+    int mode = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -67,31 +69,37 @@ public class BlockScript : MonoBehaviour
             Renderer ballRenderer = collision.gameObject.GetComponent<Renderer>();
             // 新しいランダム色を生成
             blockColor = new Color(Random.value, Random.value, Random.value);
-            // ボールのマテリアルの色を変更
-            if (ballRenderer != null)
+
+            //モード１だったら
+            if (mode == 1)
             {
-                Material material = new Material(ballRenderer.material);
-                material.color = blockColor;
-                ballRenderer.material = material;
-            }
 
-            collision.gameObject.transform.localScale = Vector3.one * 2f;//ボールの大きさを変更
-
-            GameObject newBall = Instantiate(collision.gameObject, new Vector3(transform.position.x, transform.position.y, transform.position.z + currentSize.z), Quaternion.identity);//ボールを複製
-
-            newBall.tag = "debug(sphere)";
-
-            GameObject[] allBalls = GameObject.FindGameObjectsWithTag("debug(sphere)");
-            foreach (GameObject ball in allBalls)
-            {
-                Rigidbody ballRigidbody = ball.GetComponent<Rigidbody>();
-                if (ballRigidbody != null)
+                // ボールのマテリアルの色を変更
+                if (ballRenderer != null)
                 {
-                    ballRigidbody.velocity *= 5f; // 速度を五倍にする
+                    Material material = new Material(ballRenderer.material);
+                    material.color = blockColor;
+                    ballRenderer.material = material;
                 }
-            }
 
-            ChangeOtherBlocksColor();//ブロックの色を変更
+                collision.gameObject.transform.localScale = Vector3.one * 2f;//ボールの大きさを変更
+
+                GameObject newBall = Instantiate(collision.gameObject, new Vector3(transform.position.x, transform.position.y, transform.position.z + currentSize.z), Quaternion.identity);//ボールを複製
+
+                newBall.tag = "debug(sphere)";
+
+                GameObject[] allBalls = GameObject.FindGameObjectsWithTag("debug(sphere)");
+                foreach (GameObject ball in allBalls)
+                {
+                    Rigidbody ballRigidbody = ball.GetComponent<Rigidbody>();
+                    if (ballRigidbody != null)
+                    {
+                        ballRigidbody.velocity *= 5f; // 速度を五倍にする
+                    }
+                }
+
+                ChangeOtherBlocksColor();//ブロックの色を変更
+            }
         }
     }
 
@@ -258,6 +266,21 @@ public class BlockScript : MonoBehaviour
             }
 
         }
+
+
+        //モード切り替え
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            if (mode == 0)
+            {
+                mode = 1;
+            }
+            else
+            {
+                mode = 0;
+            }
+        }
+
 
         if (Input.GetKeyDown(KeyCode.D))//ブロック削除(ゲーム終了)
         {
