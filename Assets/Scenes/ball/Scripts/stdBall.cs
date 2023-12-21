@@ -106,6 +106,10 @@ public class stdBall : MonoBehaviour
             rb.velocity = new Vector3(rb.velocity.z, rb.velocity.y, -rb.velocity.x);
     }
 
+    public void OnRefrection(string obj) // 仮で決めた引数、ブロックかバーか壁か判定する
+    {
+        // 当たったとき何か起こる処理を書きたいなら書く
+    }
 
     private void OnCollisionEnter(Collision collision)
     {

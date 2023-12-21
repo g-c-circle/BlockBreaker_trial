@@ -28,4 +28,19 @@ public class testWall : MonoBehaviour
             //Debug.Log(stdBall.count);
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Rigidbody rb = other.GetComponent<Rigidbody>();
+
+        //Vector3 velocityNext = Vector3.Reflect(velocity, collision.contacts[0].normal);
+        //velocity = velocityNext;
+
+        Vector3 hitPos = other.ClosestPointOnBounds(this.transform.position);
+
+        Vector3 reflectDirection = Vector3.Reflect(rb.velocity, hitPos);
+        rb.velocity = reflectDirection;
+
+
+    }
 }
