@@ -7,7 +7,7 @@ public class stdBall : MonoBehaviour
     public bool isAutoInit = true;
     public int count = 0;
 
-    private const int MIN = 8, MAX = 16;
+    private const int MIN = 2, MAX = 4;
     private const string BALL_TAG = "Ball", WALL_TAG = "Wall";
     private Rigidbody rb;
 
@@ -111,22 +111,37 @@ public class stdBall : MonoBehaviour
     {
         if (collision.gameObject.tag == WALL_TAG)
         {
-            Debug.Log("‚Ô‚Â‚©‚Á‚½");
-            count++;
+            //Debug.Log("‚Ô‚Â‚©‚Á‚½");
+
+            // BALL_TAG‚ğ‚Â‚à‚Ì‘S‚Ä‚ğ”z—ñ‚É“ü‚ê‚é
+            GameObject[] balls = GameObject.FindGameObjectsWithTag(BALL_TAG);
+
+            Debug.Log(balls.Length);
+
+            for (int i = 0; i < balls.Length; i++)
+            {
+            }
+
+            // ”z—ñ‚Ìˆê‚Âˆê‚Â‚ªball‚É“ü‚é
+            foreach (GameObject ball in balls)
+            {
+                stdBall stdBall = ball.gameObject.GetComponent<stdBall>();
+                stdBall.count++;
+            }
         }
     }
     private void OnCollisionStay(Collision collision)
     {
         if (collision.gameObject.tag == WALL_TAG)
         {
-            Debug.Log("‚Ô‚Â‚©‚Á‚Ä‚¢‚é");
+            //Debug.Log("‚Ô‚Â‚©‚Á‚Ä‚¢‚é");
         }
     }
     private void OnCollisionExit(Collision collision)
     {
         if (collision.gameObject.tag == WALL_TAG)
         {
-            Debug.Log("—£‚ê‚½");
+            //Debug.Log("—£‚ê‚½");
         }
     }
 }

@@ -23,9 +23,9 @@ public class testWall : MonoBehaviour
     {
         if (collision.gameObject.tag == BALL_TAG)
         {
-            Debug.Log("‚Ô‚Â‚©‚Á‚½");
+            //Debug.Log("‚Ô‚Â‚©‚Á‚½");
             stdBall stdBall = collision.gameObject.GetComponent<stdBall>();
-            Debug.Log(stdBall.count);
+            //Debug.Log(stdBall.count);
         }
     }
 }
