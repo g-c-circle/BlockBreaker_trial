@@ -7,7 +7,7 @@ public class stdBall : MonoBehaviour
     public bool isAutoInit = true;
     public int count = 0;
 
-    private const int MIN = 2, MAX = 4;
+    private const int MIN = 8, MAX = 16;
     private const string BALL_TAG = "Ball", WALL_TAG = "Wall";
     private Rigidbody rb;
 

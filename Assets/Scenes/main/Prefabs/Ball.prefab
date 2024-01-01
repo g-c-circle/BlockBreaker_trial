@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2585032770639546866}
   - component: {fileID: 6753640117999826317}
   - component: {fileID: 8231184740308132869}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Ball
   m_TagString: Ball
   m_Icon: {fileID: 0}
@@ -143,6 +143,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 7182231126691508785}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c245a1b2ce9b29a4ba7920e3c354ef15, type: 3}
+  m_Script: {fileID: 11500000, guid: d9c83d32c6ff6754088001206d29a23d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isAutoInit: 1
+  count: 0
