@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class wall : MonoBehaviour
+public class Wall : MonoBehaviour
 {
     public float reflectSpeed = 1.0f;
     public float maxSpeedUps = 3;
