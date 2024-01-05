@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BlockScript : MonoBehaviour
+public class GenerateBlocks : MonoBehaviour
 {
     public GameObject BlockObject;
+
     private Vector3 initialSize = new Vector3(3f, 1f, 1f); // 初期の大きさ
     private Vector3 currentSize; // 現在の大きさ
+
     private Color blockColor = Color.white; // ブロックの色
     public Vector3 blockRotation = new Vector3(0f, 0f, 0f); // ブロックの角度
 
@@ -21,13 +23,14 @@ public class BlockScript : MonoBehaviour
     void Start()
     {
         currentSize = initialSize; // 現在の大きさに初期値を設定
-        GenerateBlocksCreateStage(0); // ブロック生成
+        //GenerateBlocksCreateStage(0); // ブロック生成
+        GenerateBlocksCreateStage(6); // ブロック生成
 
         ballRigidbody = GetComponent<Rigidbody>();
         // ボールに物理的な反発を設定
-        ballRigidbody.collisionDetectionMode = CollisionDetectionMode.Continuous;
-        ballRigidbody.isKinematic = false;
-        ballRigidbody.constraints = RigidbodyConstraints.FreezeRotation;
+        //ballRigidbody.collisionDetectionMode = CollisionDetectionMode.Continuous;
+        //ballRigidbody.isKinematic = false;
+        //ballRigidbody.constraints = RigidbodyConstraints.FreezeRotation;
     }
 
     //ブロック生成の関数(ステージ0)
@@ -61,7 +64,7 @@ public class BlockScript : MonoBehaviour
     {
         if (collision.gameObject.tag == "Ball")//もしボールに触れたら
         {
-            ReflectBall(collision.gameObject.GetComponent<Rigidbody>());//ボールを跳ね返す
+            //ReflectBall(collision.gameObject.GetComponent<Rigidbody>());//ボールを跳ね返す
             Destroy(gameObject);//(ボールに触れた)ブロック削除
 
 
@@ -103,15 +106,15 @@ public class BlockScript : MonoBehaviour
         }
     }
 
-    void ReflectBall(Rigidbody ballRigidbody)
-    {
-        if (ballRigidbody != null)
-        {
-            // 反射角度を計算
-            Vector3 reflection = Vector3.Reflect(ballRigidbody.velocity, Vector3.up);
-            ballRigidbody.velocity = reflection.normalized * constantSpeed;
-        }
-    }
+    //void ReflectBall(Rigidbody ballRigidbody)
+    //{
+    //    if (ballRigidbody != null)
+    //    {
+    //        // 反射角度を計算
+    //        Vector3 reflection = Vector3.Reflect(ballRigidbody.velocity, Vector3.up);
+    //        ballRigidbody.velocity = reflection.normalized * constantSpeed;
+    //    }
+    //}
 
     // ブロック削除の関数
     void BlocksDestroy()
@@ -124,7 +127,7 @@ public class BlockScript : MonoBehaviour
     }
 
     //ブロックを一個生成
-    void GenerateBlocksCreate(int x, int z)
+    void GenerateBlocksCreate(float x, float z)
     {
         GameObject block = Instantiate(BlockObject, new Vector3(x, 0, z), Quaternion.Euler(blockRotation));
         block.transform.localScale = currentSize;
@@ -145,12 +148,12 @@ public class BlockScript : MonoBehaviour
     //ステージ生成の関数
     void GenerateBlocksCreateStage(int stage)
     {
-        if(stage == 0)
+        if (stage == 0)
         {
             SimpleGenerateBlocks();//シンプルステージを生成
         }
 
-        if(stage == 1)
+        if (stage == 1)
         {
             GenerateBlocksCreate(5, 20);//この文を(座標を変えて)個数分コピペする
             GenerateBlocksCreate(0, 15);
@@ -195,6 +198,23 @@ public class BlockScript : MonoBehaviour
             GenerateBlocksCreate(10, 15);
             GenerateBlocksCreate(15, 20);
         }
+        if (stage == 6)
+        {
+            const float LEFT = -10f;
+            const float RIGHT = 10f;
+            const float TOP = 15f;
+            const float BOTTOM = 0f;
+            const float SPACE = 0.5f;
+            currentSize = new Vector3(3f, 1f, 1f);
+            for (float x = LEFT + SPACE + currentSize.x; x < RIGHT - SPACE - currentSize.x; x += (SPACE + currentSize.x))
+            {
+                for (float z = BOTTOM + SPACE + currentSize.z; z < TOP - SPACE - currentSize.z; z += (SPACE + currentSize.z))
+                {
+                    GenerateBlocksCreate(x, z);
+                }
+            }
+
+        }
     }
 
     //リトライ(リスタート)関数
@@ -230,7 +250,7 @@ public class BlockScript : MonoBehaviour
             blockColor = new Color(Random.value, Random.value, Random.value);//色変数を変更(ランダム)
             currentSize += new Vector3(0.1f, 0.1f, 0.1f);//大きさ変数を変更(少し大きく)
             blockRotation = new Vector3(0f, Random.Range(0f, 360f), 0f);//角度変数を変更(ランダム)
-            
+
 
             //ブロックの大きさを変更
             foreach (var block in blocks)

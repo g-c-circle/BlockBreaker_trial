@@ -23,7 +23,7 @@ public class bar : MonoBehaviour
 
         if (!stay) stay = true;
 
-        transform.position = new Vector3(bx, 0f, -2f);
+        transform.position = new Vector3(bx, 0f, -7.5f);
     }
 
     virtual public void OnTriggerStay(Collider other)
