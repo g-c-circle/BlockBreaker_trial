@@ -16,7 +16,7 @@ public class bar : MonoBehaviour
 
     public Rigidbody ball;
 
-    public float addspeed = 1.01f;
+    public float addspeed = 1.00f;
 
     void back_before_stay()
     {
@@ -38,7 +38,7 @@ public class bar : MonoBehaviour
 
         ball = collider.gameObject.GetComponent<Rigidbody>();
 
-        addspeed += 0.001f;
+        //addspeed += 0.001f;
 
         ball.velocity = new Vector3(addspeed * ball.velocity.x, 0, (ball.velocity.z * -1) * addspeed);
 

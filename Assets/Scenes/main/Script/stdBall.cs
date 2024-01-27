@@ -5,7 +5,7 @@ using UnityEngine;
 public class stdBall : MonoBehaviour
 {
     public bool isAutoInit = true;
-    public int count = 0;
+    public int countSpeedUp = 0;
 
     private const int MIN = 8, MAX = 16;
     private const string BALL_TAG = "Ball", WALL_TAG = "Wall";
@@ -18,7 +18,6 @@ public class stdBall : MonoBehaviour
         rb.velocity += Vector3.forward * Random.Range(min, max + 1);
 
         // ランダムに+-を逆転させる
-        // AddForceはあくまで物理演算するためのものなので、velocityを直接書き換えていいかも。
         if (System.Convert.ToBoolean(Random.Range(0, 2)))
             rb.velocity = new Vector3(-1 * rb.velocity.x, rb.velocity.y, rb.velocity.z);
         if (System.Convert.ToBoolean(Random.Range(0, 2)))
@@ -35,6 +34,7 @@ public class stdBall : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        countSpeedUp = 0;
 
         if (isAutoInit)
         {
@@ -117,21 +117,21 @@ public class stdBall : MonoBehaviour
         {
             //Debug.Log("ぶつかった");
 
-            // BALL_TAGを持つもの全てを配列に入れる
-            GameObject[] balls = GameObject.FindGameObjectsWithTag(BALL_TAG);
+            //// BALL_TAGを持つもの全てを配列に入れる
+            //GameObject[] balls = GameObject.FindGameObjectsWithTag(BALL_TAG);
 
-            Debug.Log(balls.Length);
+            //Debug.Log(balls.Length);
 
-            for (int i = 0; i < balls.Length; i++)
-            {
-            }
+            //for (int i = 0; i < balls.Length; i++)
+            //{
+            //}
 
-            // 配列の一つ一つがballに入る
-            foreach (GameObject ball in balls)
-            {
-                stdBall stdBall = ball.gameObject.GetComponent<stdBall>();
-                stdBall.count++;
-            }
+            //// 配列の一つ一つがballに入る
+            //foreach (GameObject ball in balls)
+            //{
+            //    stdBall stdBall = ball.gameObject.GetComponent<stdBall>();
+            //    stdBall.count++;
+            //}
         }
     }
     private void OnCollisionStay(Collision collision)
