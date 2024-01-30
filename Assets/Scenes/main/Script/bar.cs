@@ -40,7 +40,7 @@ public class bar : MonoBehaviour
 
         //addspeed += 0.001f;
 
-        ball.velocity = new Vector3(addspeed * ball.velocity.x, 0, (ball.velocity.z * -1) * addspeed);
+        //ball.velocity = new Vector3(addspeed * ball.velocity.x, 0, (ball.velocity.z * -1) * addspeed);
 
     }
 
