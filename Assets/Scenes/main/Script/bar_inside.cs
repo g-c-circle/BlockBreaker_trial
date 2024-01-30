@@ -8,7 +8,7 @@ public class bar_inside : bar
     {
         if (!stay) stay = true;
         ball = collider.gameObject.GetComponent<Rigidbody>();//all colliding objects regard as ball(s).
-        addspeed += 0.001f;
+        //addspeed += 0.001f;
         ball.velocity = new Vector3(addspeed * -ball.velocity.x, 0, ball.velocity.z * addspeed);
     }
     override public void OnTriggerStay(Collider other)

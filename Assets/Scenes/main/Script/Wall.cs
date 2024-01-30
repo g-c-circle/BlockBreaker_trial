@@ -1,12 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Wall : MonoBehaviour
 {
-    public float reflectSpeed = 1.0f;
+    public float reflectSpeed = 0f;
     public float maxSpeedUps = 3;
-    public float speedUpCount = 0;
+    //public float speedUpCount = 0;
     //public bool isColliding = false;サンプル３
     // Start is called before the first frame update
     void Start()
@@ -27,6 +28,18 @@ public class Wall : MonoBehaviour
             Rigidbody ballRb = collision.gameObject.GetComponent<Rigidbody>();
             if (ballRb != null)
             {
+                int countSpeedUp = collision.gameObject.GetComponent<stdBall>().countSpeedUp;
+                // 加速
+                if (countSpeedUp < maxSpeedUps)
+                {
+                    ballRb.velocity *= reflectSpeed;
+                    Vector3 reflection = Vector3.Reflect(ballRb.velocity, collision.contacts[0].normal).normalized;
+                    ballRb.AddForce(reflection * reflectSpeed, ForceMode.Impulse);
+
+                    collision.gameObject.GetComponent<stdBall>().countSpeedUp++;
+                    Debug.Log(collision.gameObject.GetComponent<stdBall>().countSpeedUp);
+                }
+
                 /*
                 Vector3 currentVelocity = ballRb.velocity;
                 Vector3 reflection = Vector3.Reflect(currentVelocity, collision.contacts[0].normal).normalized * reflectSpeed;
@@ -37,14 +50,6 @@ public class Wall : MonoBehaviour
                 // ballRb.velocity = reflection;
 
 
-                //これかサンプル1
-                if (speedUpCount < maxSpeedUps)
-                {
-                    ballRb.velocity *= reflectSpeed;
-                    Vector3 reflection = Vector3.Reflect(ballRb.velocity, collision.contacts[0].normal).normalized;
-                    ballRb.AddForce(reflection * reflectSpeed, ForceMode.Impulse);
-                    speedUpCount++;
-                }
 
 
                 /*これサンプル2
