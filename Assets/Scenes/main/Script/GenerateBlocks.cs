@@ -302,7 +302,7 @@ public class GenerateBlocks : MonoBehaviour
         }
 
 
-        if (Input.GetKeyDown(KeyCode.D))//ブロック削除(ゲーム終了)
+        if (Input.GetKeyDown(KeyCode.M))//ブロック削除(ゲーム終了)
         {
             BlocksDestroy();
         }
@@ -327,7 +327,7 @@ public class GenerateBlocks : MonoBehaviour
         }
 
         //リトライ(リスタート)1
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Z))
         {
             GenerateBlocksStageRestart(1);//ここで指定したステージをリトライ(リスタート)する
         }
@@ -340,7 +340,7 @@ public class GenerateBlocks : MonoBehaviour
         }
 
         //リトライ(リスタート)2
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKeyDown(KeyCode.X))
         {
             GenerateBlocksStageRestart(2);//ここで指定したステージをリトライ(リスタート)する
         }
@@ -353,7 +353,7 @@ public class GenerateBlocks : MonoBehaviour
         }
 
         //リトライ(リスタート)3
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.C))
         {
             GenerateBlocksStageRestart(3);//ここで指定したステージをリトライ(リスタート)する
         }
@@ -366,7 +366,7 @@ public class GenerateBlocks : MonoBehaviour
         }
 
         //リトライ(リスタート)4
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.V))
         {
             GenerateBlocksStageRestart(4);//ここで指定したステージをリトライ(リスタート)する
         }
@@ -379,7 +379,7 @@ public class GenerateBlocks : MonoBehaviour
         }
 
         //リトライ(リスタート)5
-        if (Input.GetKeyDown(KeyCode.T))
+        if (Input.GetKeyDown(KeyCode.B))
         {
             GenerateBlocksStageRestart(5);//ここで指定したステージをリトライ(リスタート)する
         }
