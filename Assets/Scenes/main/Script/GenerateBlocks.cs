@@ -19,6 +19,9 @@ public class GenerateBlocks : MonoBehaviour
 
     int mode = 0;
 
+    private int hitCount = 0; // ブロックにヒットした回数
+    public int maxHitCount = 1; // ブロックが壊れるまでの最大ヒット回数
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,9 +40,9 @@ public class GenerateBlocks : MonoBehaviour
     void SimpleGenerateBlocks()
     {
         int x, z;//ブロックの座標変数
-        for (x = -10; x < 15; x += 5)
+        for (x = -6; x < 5; x += 5)
         {
-            for (z = 20; z > 0; z -= 5)
+            for (z = 12; z > 2; z -= 3)
             {
                 GameObject block = Instantiate(BlockObject, new Vector3(x, 0, z), Quaternion.Euler(blockRotation));
                 block.transform.localScale = currentSize;
@@ -53,6 +56,8 @@ public class GenerateBlocks : MonoBehaviour
                     renderer.material = material;
                 }
 
+                block.GetComponent<GenerateBlocks>().maxHitCount = 1;
+
                 // 生成したブロックをリストに追加
                 blocks.Add(block);
             }
@@ -62,46 +67,91 @@ public class GenerateBlocks : MonoBehaviour
     // ブロックがボールに触れたら作動する関数
     private void OnCollisionEnter(Collision collision)
     {
+
         if (collision.gameObject.tag == "Ball")//もしボールに触れたら
         {
-            //ReflectBall(collision.gameObject.GetComponent<Rigidbody>());//ボールを跳ね返す
-            Destroy(gameObject);//(ボールに触れた)ブロック削除
-
-
-            // ボールのRendererコンポーネントを取得
-            Renderer ballRenderer = collision.gameObject.GetComponent<Renderer>();
-            // 新しいランダム色を生成
-            blockColor = new Color(Random.value, Random.value, Random.value);
-
-            //モード１だったら
-            if (mode == 1)
+            if (collision.gameObject.tag == "Ball")
             {
+                hitCount++; // ヒット回数を増加
 
-                // ボールのマテリアルの色を変更
-                if (ballRenderer != null)
+                if (hitCount >= maxHitCount)//hitCount と maxHitCount が 同じになったら
                 {
-                    Material material = new Material(ballRenderer.material);
-                    material.color = blockColor;
-                    ballRenderer.material = material;
-                }
 
-                collision.gameObject.transform.localScale = Vector3.one * 2f;//ボールの大きさを変更
+                    //ReflectBall(collision.gameObject.GetComponent<Rigidbody>());//ボールを跳ね返す
+                    Destroy(gameObject); // ブロックを壊す
 
-                GameObject newBall = Instantiate(collision.gameObject, new Vector3(transform.position.x, transform.position.y, transform.position.z + currentSize.z), Quaternion.identity);//ボールを複製
+                    // リストからも削除
+                    blocks.Remove(gameObject);
 
-                newBall.tag = "Ball";
+                    // ボールのRendererコンポーネントを取得
+                    Renderer ballRenderer = collision.gameObject.GetComponent<Renderer>();
+                    // 新しいランダム色を生成
+                    blockColor = new Color(Random.value, Random.value, Random.value);
 
-                GameObject[] allBalls = GameObject.FindGameObjectsWithTag("Ball");
-                foreach (GameObject ball in allBalls)
-                {
-                    Rigidbody ballRigidbody = ball.GetComponent<Rigidbody>();
-                    if (ballRigidbody != null)
+                    //モード１だったら
+                    if (mode == 1)
                     {
-                        ballRigidbody.velocity *= 5f; // 速度を五倍にする
+
+                        // ボールのマテリアルの色を変更
+                        if (ballRenderer != null)
+                        {
+                            Material material = new Material(ballRenderer.material);
+                            material.color = blockColor;
+                            ballRenderer.material = material;
+                        }
+
+                        collision.gameObject.transform.localScale = Vector3.one * 2f;//ボールの大きさを変更
+
+                        GameObject newBall = Instantiate(collision.gameObject, new Vector3(transform.position.x, transform.position.y, transform.position.z + currentSize.z), Quaternion.identity);//ボールを複製
+
+                        newBall.tag = "Ball";
+
+                        GameObject[] allBalls = GameObject.FindGameObjectsWithTag("Ball");
+                        foreach (GameObject ball in allBalls)
+                        {
+                            Rigidbody ballRigidbody = ball.GetComponent<Rigidbody>();
+                            if (ballRigidbody != null)
+                            {
+                                ballRigidbody.velocity *= 5f; // 速度を五倍にする
+                            }
+                        }
+
+                        ChangeOtherBlocksColor();//ブロックの色を変更
                     }
                 }
+                else//でなければ
+                {
 
-                ChangeOtherBlocksColor();//ブロックの色を変更
+                    Renderer blockRenderer = GetComponent<Renderer>();
+                    if (maxHitCount - hitCount == 1)
+                    {
+                    //黒色に変更
+                    if (blockRenderer != null)
+                    {
+                        Material material = new Material(blockRenderer.material);
+                        material.color = Color.black;
+                        blockRenderer.material = material;
+                    }
+                    if(maxHitCount - hitCount == 2)
+                        {
+                            if (blockRenderer != null)
+                            {
+                                Material material = new Material(blockRenderer.material);
+                                material.color = new Color(0.827f, 0.827f, 0.827f); // lightgrayに近い色
+                                blockRenderer.material = material;
+                            }
+                        }
+                    }
+                    else//3以上なら
+                    {
+                        if (blockRenderer != null)
+                        {
+                            Material material = new Material(blockRenderer.material);
+                            material.color = Color.gray;
+                            blockRenderer.material = material;
+                        }
+                    }
+                }
             }
         }
     }
@@ -127,7 +177,7 @@ public class GenerateBlocks : MonoBehaviour
     }
 
     //ブロックを一個生成
-    void GenerateBlocksCreate(float x, float z)
+    void GenerateBlocksCreate(float x, float z, int maxHitCount)
     {
         GameObject block = Instantiate(BlockObject, new Vector3(x, 0, z), Quaternion.Euler(blockRotation));
         block.transform.localScale = currentSize;
@@ -140,6 +190,8 @@ public class GenerateBlocks : MonoBehaviour
             material.color = blockColor;
             renderer.material = material;
         }
+
+        block.GetComponent<GenerateBlocks>().maxHitCount = maxHitCount;
 
         // 生成したブロックをリストに追加
         blocks.Add(block);
@@ -155,51 +207,52 @@ public class GenerateBlocks : MonoBehaviour
 
         if (stage == 1)
         {
-            GenerateBlocksCreate(5, 20);//この文を(座標を変えて)個数分コピペする
-            GenerateBlocksCreate(0, 15);
-            GenerateBlocksCreate(10, 15);
-            GenerateBlocksCreate(5, 10);
+            GenerateBlocksCreate(-6, 12, 1);//この文を(座標を変えて)個数分コピペする
+            GenerateBlocksCreate(-3, 9, 1);
+            GenerateBlocksCreate(1, 6, 1);
+            GenerateBlocksCreate(4, 3, 1);
         }
 
         if (stage == 2)
         {
-            GenerateBlocksCreate(-10, 20);//この文を(座標を変えて)個数分コピペする
-            GenerateBlocksCreate(15, 20);
-            GenerateBlocksCreate(-5, 15);
-            GenerateBlocksCreate(10, 15);
-            GenerateBlocksCreate(0, 10);
-            GenerateBlocksCreate(5, 10);
+
         }
 
         if (stage == 3)
         {
-            GenerateBlocksCreate(-10, 10);//この文を(座標を変えて)個数分コピペする
-            GenerateBlocksCreate(15, 10);
-            GenerateBlocksCreate(-5, 15);
-            GenerateBlocksCreate(10, 15);
-            GenerateBlocksCreate(0, 20);
-            GenerateBlocksCreate(5, 20);
+            GenerateBlocksCreate(-6, 3, 3);//この文を(座標を変えて)個数分コピペする
+            GenerateBlocksCreate(1, 6, 3);
+            GenerateBlocksCreate(4, 3, 3);
         }
 
         if (stage == 4)
         {
-            GenerateBlocksCreate(-10, 20);//この文を(座標を変えて)個数分コピペする
-            GenerateBlocksCreate(-5, 15);
-            GenerateBlocksCreate(0, 10);
-            GenerateBlocksCreate(10, 5);
-            GenerateBlocksCreate(15, 0);
+            GenerateBlocksCreate(-6, 3, 3);//この文を(座標を変えて)個数分コピペする
+            GenerateBlocksCreate(-4, 9, 3);
+            GenerateBlocksCreate(-2, 6, 3);
+            GenerateBlocksCreate(0, 6, 3);
+            GenerateBlocksCreate(2, 9, 3);
+            GenerateBlocksCreate(4, 3, 3);
         }
 
         if (stage == 5)
         {
-            GenerateBlocksCreate(-10, 0);//この文を(座標を変えて)個数分コピペする
-            GenerateBlocksCreate(-5, 5);
-            GenerateBlocksCreate(0, 10);
-            GenerateBlocksCreate(10, 15);
-            GenerateBlocksCreate(15, 20);
+            GenerateBlocksCreate(-6, 3, 3);//この文を(座標を変えて)個数分コピペする
+            GenerateBlocksCreate(-4, 3, 3);
+            GenerateBlocksCreate(1, 3, 3);
+            GenerateBlocksCreate(2, 3, 3);
+            GenerateBlocksCreate(4, 3, 3);
+            GenerateBlocksCreate(-6, 6, 3);
+            GenerateBlocksCreate(4, 6, 3);
+            GenerateBlocksCreate(-6, 9, 3);
+            GenerateBlocksCreate(-4, 9, 3);
+            GenerateBlocksCreate(1, 9, 3);
+            GenerateBlocksCreate(2, 9, 3);
+            GenerateBlocksCreate(4, 9, 3);
         }
         if (stage == 6)
         {
+
             const float LEFT = -10f;
             const float RIGHT = 10f;
             const float TOP = 15f;
@@ -210,7 +263,7 @@ public class GenerateBlocks : MonoBehaviour
             {
                 for (float z = BOTTOM + SPACE + currentSize.z; z < TOP - SPACE - currentSize.z; z += (SPACE + currentSize.z))
                 {
-                    GenerateBlocksCreate(x, z);
+                    GenerateBlocksCreate(x, z, 1);
                 }
             }
 
@@ -225,11 +278,13 @@ public class GenerateBlocks : MonoBehaviour
     }
 
 
-    void ChangeOtherBlocksColor()//ブロックの色を変更する関数
+    void ChangeOtherBlocksColor()
     {
+        GameObject[] allBalls = GameObject.FindGameObjectsWithTag("Ball");
+
         foreach (var block in blocks)
         {
-            //同じ条件に合ったら色を変更（ここではランダム色にしています）
+            // 同じ条件に合ったら色を変更
             if (block != null && block != gameObject)
             {
                 Renderer blockRenderer = block.GetComponent<Renderer>();
@@ -240,6 +295,7 @@ public class GenerateBlocks : MonoBehaviour
             }
         }
     }
+
 
     // Update is called once per frame
     void Update()
@@ -302,7 +358,7 @@ public class GenerateBlocks : MonoBehaviour
         }
 
 
-        if (Input.GetKeyDown(KeyCode.M))//ブロック削除(ゲーム終了)
+        if (Input.GetKeyDown(KeyCode.N))//ブロック削除(ゲーム終了)
         {
             BlocksDestroy();
         }
