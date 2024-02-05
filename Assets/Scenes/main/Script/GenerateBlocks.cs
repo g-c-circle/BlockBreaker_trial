@@ -18,6 +18,10 @@ public class GenerateBlocks : MonoBehaviour
     private Rigidbody ballRigidbody;
 
     int mode = 0;
+    int StageMode = 0;
+
+    private int totalBlocks = 0; // 全体のブロック数
+    private int destroyedBlocks = 0; // 破壊されたブロック数
 
     private int hitCount = 0; // ブロックにヒットした回数
     public int maxHitCount = 1; // ブロックが壊れるまでの最大ヒット回数
@@ -60,6 +64,8 @@ public class GenerateBlocks : MonoBehaviour
 
                 // 生成したブロックをリストに追加
                 blocks.Add(block);
+
+                totalBlocks++;
             }
         }
     }
@@ -79,10 +85,8 @@ public class GenerateBlocks : MonoBehaviour
 
                     //ReflectBall(collision.gameObject.GetComponent<Rigidbody>());//ボールを跳ね返す
                     Destroy(gameObject); // ブロックを壊す
-
-                    // リストからも削除
+                    destroyedBlocks++;
                     blocks.Remove(gameObject);
-
                     // ボールのRendererコンポーネントを取得
                     Renderer ballRenderer = collision.gameObject.GetComponent<Renderer>();
                     // 新しいランダム色を生成
@@ -125,14 +129,14 @@ public class GenerateBlocks : MonoBehaviour
                     Renderer blockRenderer = GetComponent<Renderer>();
                     if (maxHitCount - hitCount == 1)
                     {
-                    //黒色に変更
-                    if (blockRenderer != null)
-                    {
-                        Material material = new Material(blockRenderer.material);
-                        material.color = Color.black;
-                        blockRenderer.material = material;
-                    }
-                    if(maxHitCount - hitCount == 2)
+                        //黒色に変更
+                        if (blockRenderer != null)
+                        {
+                            Material material = new Material(blockRenderer.material);
+                            material.color = Color.black;
+                            blockRenderer.material = material;
+                        }
+                        if (maxHitCount - hitCount == 2)
                         {
                             if (blockRenderer != null)
                             {
@@ -174,6 +178,9 @@ public class GenerateBlocks : MonoBehaviour
             Destroy(block);//ブロックを削除
         }
         blocks.Clear();
+        totalBlocks = 0;
+        destroyedBlocks = 0;
+        Debug.Log("Blocks list cleared. Current block count: " + blocks.Count);
     }
 
     //ブロックを一個生成
@@ -195,64 +202,104 @@ public class GenerateBlocks : MonoBehaviour
 
         // 生成したブロックをリストに追加
         blocks.Add(block);
+
+        Debug.Log("Block added to the list. Current block count: " + blocks.Count);
     }
 
     //ステージ生成の関数
     void GenerateBlocksCreateStage(int stage)
     {
-        if (stage == 0)
+        if (stage == 0)//シンプル
         {
             SimpleGenerateBlocks();//シンプルステージを生成
         }
 
         if (stage == 1)
         {
-            GenerateBlocksCreate(-6, 12, 1);//この文を(座標を変えて)個数分コピペする
-            GenerateBlocksCreate(-3, 9, 1);
-            GenerateBlocksCreate(1, 6, 1);
-            GenerateBlocksCreate(4, 3, 1);
+            const float LEFT = -10f;
+            const float RIGHT = 10f;
+            const float TOP = 15f;
+            const float BOTTOM = 0f;
+            const float SPACE = 0.5f;
+            currentSize = new Vector3(3f, 1f, 1f);
+            for (float x = LEFT + SPACE + currentSize.x; x < RIGHT - SPACE - currentSize.x; x += (SPACE + currentSize.x))
+            {
+                for (float z = BOTTOM + SPACE + currentSize.z; z < TOP - SPACE - currentSize.z; z += (SPACE + currentSize.z))
+                {
+                    GenerateBlocksCreate(x, z, 1);
+                }
+            }
         }
 
         if (stage == 2)
         {
-
+            const float LEFT = -10f;
+            const float RIGHT = 10f;
+            const float TOP = 15f;
+            const float BOTTOM = 0f;
+            const float SPACE = 0.5f;
+            currentSize = new Vector3(3f, 1f, 1f);
+            for (float x = LEFT + SPACE + currentSize.x; x < RIGHT - SPACE - currentSize.x; x += (SPACE + currentSize.x))
+            {
+                for (float z = BOTTOM + SPACE + currentSize.z; z < TOP - SPACE - currentSize.z; z += (SPACE + currentSize.z))
+                {
+                    GenerateBlocksCreate(x, z, 2);
+                }
+            }
         }
 
         if (stage == 3)
         {
-            GenerateBlocksCreate(-6, 3, 3);//この文を(座標を変えて)個数分コピペする
-            GenerateBlocksCreate(1, 6, 3);
-            GenerateBlocksCreate(4, 3, 3);
+            const float LEFT = -10f;
+            const float RIGHT = 10f;
+            const float TOP = 15f;
+            const float BOTTOM = 0f;
+            const float SPACE = 0.5f;
+            currentSize = new Vector3(3f, 1f, 1f);
+            for (float x = LEFT + SPACE + currentSize.x; x < RIGHT - SPACE - currentSize.x; x += (SPACE + currentSize.x))
+            {
+                for (float z = BOTTOM + SPACE + currentSize.z; z < TOP - SPACE - currentSize.z; z += (SPACE + currentSize.z))
+                {
+                    GenerateBlocksCreate(x, z, 3);
+                }
+            }
         }
 
         if (stage == 4)
         {
-            GenerateBlocksCreate(-6, 3, 3);//この文を(座標を変えて)個数分コピペする
-            GenerateBlocksCreate(-4, 9, 3);
-            GenerateBlocksCreate(-2, 6, 3);
-            GenerateBlocksCreate(0, 6, 3);
-            GenerateBlocksCreate(2, 9, 3);
-            GenerateBlocksCreate(4, 3, 3);
+            const float LEFT = -10f;
+            const float RIGHT = 10f;
+            const float TOP = 15f;
+            const float BOTTOM = 0f;
+            const float SPACE = 0.5f;
+            currentSize = new Vector3(3f, 1f, 1f);
+            for (float x = LEFT + SPACE + currentSize.x; x < RIGHT - SPACE - currentSize.x; x += (SPACE + currentSize.x))
+            {
+                for (float z = BOTTOM + SPACE + currentSize.z; z < TOP - SPACE - currentSize.z; z += (SPACE + currentSize.z))
+                {
+                    GenerateBlocksCreate(x, z, 4);
+                }
+            }
         }
 
         if (stage == 5)
         {
-            GenerateBlocksCreate(-6, 3, 3);//この文を(座標を変えて)個数分コピペする
-            GenerateBlocksCreate(-4, 3, 3);
-            GenerateBlocksCreate(1, 3, 3);
-            GenerateBlocksCreate(2, 3, 3);
-            GenerateBlocksCreate(4, 3, 3);
-            GenerateBlocksCreate(-6, 6, 3);
-            GenerateBlocksCreate(4, 6, 3);
-            GenerateBlocksCreate(-6, 9, 3);
-            GenerateBlocksCreate(-4, 9, 3);
-            GenerateBlocksCreate(1, 9, 3);
-            GenerateBlocksCreate(2, 9, 3);
-            GenerateBlocksCreate(4, 9, 3);
+            const float LEFT = -10f;
+            const float RIGHT = 10f;
+            const float TOP = 15f;
+            const float BOTTOM = 0f;
+            const float SPACE = 0.5f;
+            currentSize = new Vector3(3f, 1f, 1f);
+            for (float x = LEFT + SPACE + currentSize.x; x < RIGHT - SPACE - currentSize.x; x += (SPACE + currentSize.x))
+            {
+                for (float z = BOTTOM + SPACE + currentSize.z; z < TOP - SPACE - currentSize.z; z += (SPACE + currentSize.z))
+                {
+                    GenerateBlocksCreate(x, z, 5);
+                }
+            }
         }
-        if (stage == 6)
+        if (stage == 6)//初期
         {
-
             const float LEFT = -10f;
             const float RIGHT = 10f;
             const float TOP = 15f;
@@ -278,13 +325,11 @@ public class GenerateBlocks : MonoBehaviour
     }
 
 
-    void ChangeOtherBlocksColor()
+    void ChangeOtherBlocksColor()//ブロックの色を変更する関数
     {
-        GameObject[] allBalls = GameObject.FindGameObjectsWithTag("Ball");
-
         foreach (var block in blocks)
         {
-            // 同じ条件に合ったら色を変更
+            //同じ条件に合ったら色を変更（ここではランダム色にしています）
             if (block != null && block != gameObject)
             {
                 Renderer blockRenderer = block.GetComponent<Renderer>();
@@ -295,7 +340,6 @@ public class GenerateBlocks : MonoBehaviour
             }
         }
     }
-
 
     // Update is called once per frame
     void Update()
@@ -343,7 +387,6 @@ public class GenerateBlocks : MonoBehaviour
 
         }
 
-
         //モード切り替え
         if (Input.GetKeyDown(KeyCode.M))
         {
@@ -357,89 +400,21 @@ public class GenerateBlocks : MonoBehaviour
             }
         }
 
-
         if (Input.GetKeyDown(KeyCode.N))//ブロック削除(ゲーム終了)
         {
             BlocksDestroy();
         }
 
-        //ステージ生成0
-        if (Input.GetKeyDown(KeyCode.Alpha0))
-        {
-            GenerateBlocksCreateStage(0);//ここで指定したステージを読み込む
-        }
+        //if (destroyedBlocks >= totalBlocks) Debug.Log("All blocks destroyed!");
 
-        //リトライ(リスタート)0
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            GenerateBlocksStageRestart(0);//ここで指定したステージをリトライ(リスタート)する
-        }
-
-
-        //ステージ生成1
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            GenerateBlocksCreateStage(1);//ここで指定したステージを読み込む
-        }
-
-        //リトライ(リスタート)1
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            GenerateBlocksStageRestart(1);//ここで指定したステージをリトライ(リスタート)する
-        }
-
-
-        //ステージ生成2
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            GenerateBlocksCreateStage(2);//ここで指定したステージを読み込む
-        }
-
-        //リトライ(リスタート)2
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            GenerateBlocksStageRestart(2);//ここで指定したステージをリトライ(リスタート)する
-        }
-
-
-        //ステージ生成3
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            GenerateBlocksCreateStage(3);//ここで指定したステージを読み込む
-        }
-
-        //リトライ(リスタート)3
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            GenerateBlocksStageRestart(3);//ここで指定したステージをリトライ(リスタート)する
-        }
-
-
-        //ステージ生成4
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            GenerateBlocksCreateStage(4);//ここで指定したステージを読み込む
-        }
-
-        //リトライ(リスタート)4
-        if (Input.GetKeyDown(KeyCode.V))
-        {
-            GenerateBlocksStageRestart(4);//ここで指定したステージをリトライ(リスタート)する
-        }
-
-
-        //ステージ生成5
-        if (Input.GetKeyDown(KeyCode.Alpha5))
-        {
-            GenerateBlocksCreateStage(5);//ここで指定したステージを読み込む
-        }
-
-        //リトライ(リスタート)5
+        //リトライ(リスタート)
         if (Input.GetKeyDown(KeyCode.B))
         {
-            GenerateBlocksStageRestart(5);//ここで指定したステージをリトライ(リスタート)する
+            StageMode++;
+            if (StageMode == 6) StageMode = 0;
+            Debug.Log("Stage: " + StageMode);
+            GenerateBlocksStageRestart(StageMode);//ここで指定したステージをリトライ(リスタート)する
         }
-
 
     }
 }
