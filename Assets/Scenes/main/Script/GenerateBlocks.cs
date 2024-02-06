@@ -20,8 +20,8 @@ public class GenerateBlocks : MonoBehaviour
     int mode = 0;
     int StageMode = 0;
 
-    private int totalBlocks = 0; // 全体のブロック数
-    private int destroyedBlocks = 0; // 破壊されたブロック数
+    //private int totalBlocks = 0; // 全体のブロック数
+    //private int destroyedBlockCount = 0; // 破壊されたブロック数
 
     private int hitCount = 0; // ブロックにヒットした回数
     public int maxHitCount = 1; // ブロックが壊れるまでの最大ヒット回数
@@ -48,6 +48,7 @@ public class GenerateBlocks : MonoBehaviour
         {
             for (z = 12; z > 2; z -= 3)
             {
+                // ブロック生成
                 GameObject block = Instantiate(BlockObject, new Vector3(x, 0, z), Quaternion.Euler(blockRotation));
                 block.transform.localScale = currentSize;
 
@@ -65,7 +66,7 @@ public class GenerateBlocks : MonoBehaviour
                 // 生成したブロックをリストに追加
                 blocks.Add(block);
 
-                totalBlocks++;
+                //totalBlocks++;
             }
         }
     }
@@ -85,7 +86,8 @@ public class GenerateBlocks : MonoBehaviour
 
                     //ReflectBall(collision.gameObject.GetComponent<Rigidbody>());//ボールを跳ね返す
                     Destroy(gameObject); // ブロックを壊す
-                    destroyedBlocks++;
+                    //destroyedBlockCount++; // 破壊されたブロック数を増やす
+                    //Debug.Log("destroyedBlockCount: " + destroyedBlockCount);
                     blocks.Remove(gameObject);
                     // ボールのRendererコンポーネントを取得
                     Renderer ballRenderer = collision.gameObject.GetComponent<Renderer>();
@@ -136,23 +138,63 @@ public class GenerateBlocks : MonoBehaviour
                             material.color = Color.black;
                             blockRenderer.material = material;
                         }
+                    }
+                    else//2なら
+                    {
                         if (maxHitCount - hitCount == 2)
                         {
                             if (blockRenderer != null)
                             {
                                 Material material = new Material(blockRenderer.material);
-                                material.color = new Color(0.827f, 0.827f, 0.827f); // lightgrayに近い色
+                                material.color = Color.gray;
                                 blockRenderer.material = material;
                             }
                         }
-                    }
-                    else//3以上なら
-                    {
-                        if (blockRenderer != null)
+                        else//3なら
                         {
-                            Material material = new Material(blockRenderer.material);
-                            material.color = Color.gray;
-                            blockRenderer.material = material;
+                            if (maxHitCount - hitCount == 3)
+                            {
+                                if (blockRenderer != null)
+                                {
+                                    Material material = new Material(blockRenderer.material);
+                                    material.color = new Color(0.827f, 0.827f, 0.827f); // lightgrayに近い色
+                                    blockRenderer.material = material;
+                                }
+                            }
+                            else//4なら
+                            {
+                                if (maxHitCount - hitCount == 4)
+                                {
+                                    if (blockRenderer != null)
+                                    {
+                                        Material material = new Material(blockRenderer.material);
+                                        material.color = new Color(0.8f, 0.8f, 0.8f); // lightgrayに近い色
+                                        blockRenderer.material = material;
+                                    }
+                                }
+                                else//5なら
+                                {
+                                    if (maxHitCount - hitCount == 5)
+                                    {
+                                        if (blockRenderer != null)
+                                        {
+                                            Material material = new Material(blockRenderer.material);
+                                            material.color = new Color(0.75f, 0.75f, 0.75f); // lightgrayに近い色
+                                            blockRenderer.material = material;
+                                        }
+                                    }
+                                    else//それ以上なら
+                                    {
+                                        if (blockRenderer != null)
+                                        {
+                                            float grayValue = (float)(0.7 - ((maxHitCount - hitCount) / 100));
+                                            Material material = new Material(blockRenderer.material);
+                                            material.color = new Color(grayValue, grayValue, grayValue);
+                                            blockRenderer.material = material;
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -178,9 +220,9 @@ public class GenerateBlocks : MonoBehaviour
             Destroy(block);//ブロックを削除
         }
         blocks.Clear();
-        totalBlocks = 0;
-        destroyedBlocks = 0;
-        Debug.Log("Blocks list cleared. Current block count: " + blocks.Count);
+        //totalBlocks = 0;
+        //destroyedBlockCount = 0; // 破壊されたブロック数をリセット
+        //Debug.Log("Blocks list cleared. Current block count: " + blocks.Count);
     }
 
     //ブロックを一個生成
@@ -204,6 +246,9 @@ public class GenerateBlocks : MonoBehaviour
         blocks.Add(block);
 
         Debug.Log("Block added to the list. Current block count: " + blocks.Count);
+
+        //totalBlocks++;
+        //Debug.Log(totalBlocks);
     }
 
     //ステージ生成の関数
@@ -345,7 +390,7 @@ public class GenerateBlocks : MonoBehaviour
     void Update()
     {
         // スペースキーが押されたらブロックの大きさ・角度・色を変更する
-        if (Input.GetKeyDown(KeyCode.Space))//もしスペースキーが押されたら
+        if (Input.GetKeyDown(KeyCode.V))//もしスペースキーが押されたら
         {
             blockColor = new Color(Random.value, Random.value, Random.value);//色変数を変更(ランダム)
             currentSize += new Vector3(0.1f, 0.1f, 0.1f);//大きさ変数を変更(少し大きく)
@@ -405,7 +450,7 @@ public class GenerateBlocks : MonoBehaviour
             BlocksDestroy();
         }
 
-        //if (destroyedBlocks >= totalBlocks) Debug.Log("All blocks destroyed!");
+        //if (destroyedBlockCount >= totalBlocks) Debug.Log("All blocks destroyed!" + totalBlocks + destroyedBlockCount);
 
         //リトライ(リスタート)
         if (Input.GetKeyDown(KeyCode.B))
