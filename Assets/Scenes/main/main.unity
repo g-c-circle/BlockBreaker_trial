@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 211427085}
   - component: {fileID: 211427086}
   m_Layer: 0
-  m_Name: PrefabManager
+  m_Name: StageManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
