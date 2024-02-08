@@ -54,7 +54,7 @@ public class bar : MonoBehaviour
     {
         if (!stay)
         {
-            bx = transform.position.x;//recorting bar x position that bar does't colliding to wall.
+            bx = transform.position.x;//recording bar x position that bar does't colliding to wall.
         }
         vInput = Input.GetAxis("Horizontal");
         transform.Translate(Vector3.right * vInput * movespeed * Time.deltaTime);
