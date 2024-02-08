@@ -19,7 +19,6 @@ public class title : MonoBehaviour
 
     public void StartButton()
     {
-        Debug.Log("st");
         SceneManager.LoadScene("main");
     }
 
