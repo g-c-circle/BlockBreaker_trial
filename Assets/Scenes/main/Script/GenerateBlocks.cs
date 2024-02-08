@@ -26,6 +26,11 @@ public class GenerateBlocks : MonoBehaviour
     private int hitCount = 0; // ブロックにヒットした回数
     public int maxHitCount = 1; // ブロックが壊れるまでの最大ヒット回数
 
+    //public int changeCount = 5; // 色が変化する回数
+    //public Color targetColor = Color.black; // 変化後の色
+    //private int currentCount = 0; // 現在の変化回数
+    //private Color currentColor = Color.white; // 現在の色（初期値は白）
+
     // Start is called before the first frame update
     void Start()
     {
@@ -157,7 +162,7 @@ public class GenerateBlocks : MonoBehaviour
                                 if (blockRenderer != null)
                                 {
                                     Material material = new Material(blockRenderer.material);
-                                    material.color = new Color(0.827f, 0.827f, 0.827f); // lightgrayに近い色
+                                    material.color = new Color(0.9f, 0.9f, 0.9f);
                                     blockRenderer.material = material;
                                 }
                             }
@@ -168,7 +173,7 @@ public class GenerateBlocks : MonoBehaviour
                                     if (blockRenderer != null)
                                     {
                                         Material material = new Material(blockRenderer.material);
-                                        material.color = new Color(0.8f, 0.8f, 0.8f); // lightgrayに近い色
+                                        material.color = new Color(0.85f, 0.85f, 0.85f);
                                         blockRenderer.material = material;
                                     }
                                 }
@@ -179,7 +184,7 @@ public class GenerateBlocks : MonoBehaviour
                                         if (blockRenderer != null)
                                         {
                                             Material material = new Material(blockRenderer.material);
-                                            material.color = new Color(0.75f, 0.75f, 0.75f); // lightgrayに近い色
+                                            material.color = new Color(0.8f, 0.8f, 0.8f);
                                             blockRenderer.material = material;
                                         }
                                     }
@@ -187,7 +192,7 @@ public class GenerateBlocks : MonoBehaviour
                                     {
                                         if (blockRenderer != null)
                                         {
-                                            float grayValue = (float)(0.7 - ((maxHitCount - hitCount) / 100));
+                                            float grayValue = (float)(0.75 - ((maxHitCount - hitCount) / 100));
                                             Material material = new Material(blockRenderer.material);
                                             material.color = new Color(grayValue, grayValue, grayValue);
                                             blockRenderer.material = material;
@@ -226,7 +231,7 @@ public class GenerateBlocks : MonoBehaviour
     }
 
     //ブロックを一個生成
-    void GenerateBlocksCreate(float x, float z, int maxHitCount)
+    void GenerateBlocksCreate(float x, float z, int maxHitCount)// ブロックが壊れるまでの最大ヒット回数を[maxHitCount]に
     {
         GameObject block = Instantiate(BlockObject, new Vector3(x, 0, z), Quaternion.Euler(blockRotation));
         block.transform.localScale = currentSize;
@@ -355,7 +360,7 @@ public class GenerateBlocks : MonoBehaviour
             {
                 for (float z = BOTTOM + SPACE + currentSize.z; z < TOP - SPACE - currentSize.z; z += (SPACE + currentSize.z))
                 {
-                    GenerateBlocksCreate(x, z, 1);
+                    GenerateBlocksCreate(x, z, 1);// ブロックが壊れるまでの最大ヒット回数を追加
                 }
             }
 
