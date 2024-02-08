@@ -33,6 +33,7 @@ public class bar : MonoBehaviour
         LimitLeft = StageManager.STAGE_LIMIT_LEFT + HalfBarLength;
         LimitRight = StageManager.STAGE_LIMIT_RIGHT - HalfBarLength;
     }
+
     //{    void back_before_stay()
     //    {
 
@@ -76,7 +77,7 @@ public class bar : MonoBehaviour
 
         // ステージ内に戻す
         Vector3 pos = transform.position;
-        Debug.Log(pos.x);
+        //Debug.Log(pos.x);
         if (pos.x < LimitLeft)
             pos.x = LimitLeft;
 
@@ -89,7 +90,6 @@ public class bar : MonoBehaviour
     void Start()
     {
         GetLimit();
-
     }
     // Update is called once per frame
     void Update()
