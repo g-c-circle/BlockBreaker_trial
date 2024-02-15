@@ -37,7 +37,7 @@ public class GenerateBalls : MonoBehaviour
             return;
 
         // ボールのインスタンスを作成
-        Instantiate(ballPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+        Instantiate(ballPrefab, new Vector3(10.5f, 0, 15.5f), Quaternion.identity);
 
         generatedBallNum++;
         deltaTime = 0;

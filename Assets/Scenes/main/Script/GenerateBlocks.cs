@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Properties;
 using UnityEngine;
 
 public class GenerateBlocks : MonoBehaviour
@@ -24,7 +25,7 @@ public class GenerateBlocks : MonoBehaviour
     {
         currentSize = initialSize; // 現在の大きさに初期値を設定
         //GenerateBlocksCreateStage(0); // ブロック生成
-        GenerateBlocksCreateStage(6); // ブロック生成
+        GenerateBlocksCreateStage(7); // ブロック生成
 
         ballRigidbody = GetComponent<Rigidbody>();
         // ボールに物理的な反発を設定
@@ -221,7 +222,39 @@ public class GenerateBlocks : MonoBehaviour
                     GenerateBlocksCreate(x, z);
                 }
             }
+        }
+        if (stage == 7)
+        {
+            // 接地する個数
+            const int x_num = 4;
+            const int z_num = 8;
 
+            // 余白サイズ
+            const float Space = 0.5f;
+
+            StageManager sm = GameObject.Find("StageManager").GetComponent<StageManager>();
+
+            // 左端のブロック座標を取得
+            float? temp_x = sm.GetLeftBlockPos(x_num, currentSize.x, Space);
+            if (temp_x == null)
+                return;
+
+            // 下端のブロック座標を取得
+            float? temp_z = sm.GetBottomBlockPos(z_num, currentSize.z, Space, StageManager.STAGE_LIMIT_TOP, 15.5f);
+            if (temp_z == null)
+                return;
+
+            float x = (float)temp_x;
+            for (int i = 0; i < x_num; i++)
+            {
+                float z = (float)temp_z;
+                for (int j = 0; j < z_num; j++)
+                {
+                    GenerateBlocksCreate(x, z);
+                    z += currentSize.z + Space;
+                }
+                x += currentSize.x + Space;
+            }
         }
     }
 
