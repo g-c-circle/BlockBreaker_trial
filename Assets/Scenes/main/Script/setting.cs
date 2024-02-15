@@ -5,6 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class setting : MonoBehaviour
 {
+    [SerializeField] GameObject Settingpanel;
+    [SerializeField] GameObject Titlepanel;
+    [SerializeField] private AudioClip b1;
+    [SerializeField] AudioSource seAudioSource;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +24,8 @@ public class setting : MonoBehaviour
 
     public void SettingButton()
     {
-        SceneManager.LoadScene("setting");
+        Settingpanel.SetActive(true);
+        Titlepanel.SetActive(false);
+        seAudioSource.PlayOneShot(b1);
     }
 }
