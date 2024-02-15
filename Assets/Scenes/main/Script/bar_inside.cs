@@ -10,17 +10,19 @@ public class bar_inside : bar
     private Transform bardetaill;
     override public void OnTriggerEnter(Collider collider)
     {
-          private float barposition = bardetaill.position.x;
+        float barwidth = gameObject.GetComponent<Renderer>().bounds.size.x;        
+        float barposition = bardetaill.position.x;
         if (!stay) stay = true;
 
         ball = collider.gameObject.GetComponent<Rigidbody>();//all colliding objects regard as ball(s).
-        collideposi = (float) barposition.position.x - (float) ball.position.x;
+        collideposi = (float) barposition- (float) ball.position.x;
+        float diffper = collideposi / (barwidth / 2);
 
-        private double ballvectorx = Math.Pow((double) ball.velocity.x,2d);
-        private double ballvectory = Math.Pow((double) ball.velolcity.y,2d);
+        double ballvectorx = Math.Pow((double) ball.velocity.x,2d);
+        double ballvectorz = Math.Pow((double) ball.velocity.z,2d);
 
-        ballspeed = (float) Math.Sqrt(ballvectorx + ballvectory); //addspeed += 0.001f;
-        ball.velocity = new Vector3(addspeed* -ball.velocity.x, 0, ball.velocity.z* addspeed);
+        ballspeed = (float) Math.Sqrt(ballvectorx + ballvectorz); //addspeed += 0.001f;
+        ball.velocity = new Vector3((1-diffper)*ballspeed, 0, Math.Abs(diffper) * ballspeed);
 
     }
 
