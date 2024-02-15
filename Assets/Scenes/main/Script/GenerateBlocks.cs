@@ -68,6 +68,14 @@ public class GenerateBlocks : MonoBehaviour
             Destroy(gameObject);//(ボールに触れた)ブロック削除
 
 
+            // ----- スコアを増やす -----
+
+            StageManager sm = GameObject.Find("StageManager").GetComponent<StageManager>();
+            sm.Score += 1;
+
+            // ----- スコアを増やす -----
+
+
             // ボールのRendererコンポーネントを取得
             Renderer ballRenderer = collision.gameObject.GetComponent<Renderer>();
             // 新しいランダム色を生成

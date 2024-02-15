@@ -21,15 +21,16 @@ public class bar : MonoBehaviour
     private const string WALL_LEFT = "WallLeft";
     private const string WALL_RIGHT = "WallRight";
 
-    private float LimitLeft;
-    private float LimitRight;
+    private float LimitLeft = -9.5f;
+    private float LimitRight = 9.5f;
 
     void GetLimit()
     {
         // transform.positionで得られるのはバーの中心の座標だが、
         // 実際にはBarの先端の座標がLIMITを超えてはならない。
-        // ので、LimitをBarの中心座標に変換しておく。
+        // なのでLimitは、Barの中心座標が取ってよい範囲とする。
         float HalfBarLength = transform.localScale.x / 2;
+        //StageManager sm = GameObject.Find("StageManager").GetComponent<StageManager>();
         LimitLeft = StageManager.STAGE_LIMIT_LEFT + HalfBarLength;
         LimitRight = StageManager.STAGE_LIMIT_RIGHT - HalfBarLength;
     }
