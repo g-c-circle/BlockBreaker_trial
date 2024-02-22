@@ -8,10 +8,10 @@ public class StageManager : MonoBehaviour
 {
     private const string BLOCK_TAG = "Block";
 
-    public const float STAGE_LIMIT_TOP = 31f;
-    public const float STAGE_LIMIT_BOTTOM = 0f;
-    public const float STAGE_LIMIT_LEFT = 0f;
-    public const float STAGE_LIMIT_RIGHT = 21f;
+    public const float STAGE_LIMIT_TOP = 30.5f;
+    public const float STAGE_LIMIT_BOTTOM = 0.5f;
+    public const float STAGE_LIMIT_LEFT = 0.5f;
+    public const float STAGE_LIMIT_RIGHT = 20.5f;
     public float Score = 0;
 
     // float? : null許容型のfloat
@@ -20,12 +20,13 @@ public class StageManager : MonoBehaviour
 
     // float value;
     // float? temp_value = GetLeftBlockPos(0,0,0);
-    // if(temp_value != null){
-    //     value = (float)temp_value;
+    // if(temp_value == null){
+    //     return;
     // }
+    // value = (float)temp_value;
 
     // のようにキャストして使う
-    // 直接使うとnullだった時に実行時エラーとなるので、nullかどうかの判定をすること。
+    // nullを弾かずに直接使うとnullだった時に実行時エラーとなるので、nullかどうかの判定をすること。
     public float? GetLeftBlockPos(int Num, float Size, float Space, float Left = STAGE_LIMIT_LEFT, float Right = STAGE_LIMIT_RIGHT)
     {
         // 左右と間の余白を含めた全体の横の長さ
@@ -35,7 +36,7 @@ public class StageManager : MonoBehaviour
         // 入りきらないとき
         if (MaxLength < Length)
         {
-            Debug.Log("ブロックの接地範囲が狭すぎます : StageManager.cs");
+            Debug.Log("ブロックの設置範囲が狭すぎます : StageManager.cs");
             return null;
         }
 
@@ -44,8 +45,13 @@ public class StageManager : MonoBehaviour
         Debug.Log("mid:" + Mid);
         Debug.Log("length/2:" + Length / 2);
         Debug.Log("left:" + (Mid - Length / 2 + Size / 2));
+
+        float LeftEdge = Mid - Length / 2;
+        float LeftBlockPos = LeftEdge + Space + Size / 2;
+
         // 0を中心とした左端のブロックの中心座標を返す
-        return Mid - Length / 2 + Size / 2;
+        //return Mid - Length / 2 + Size / 2;
+        return LeftBlockPos;
     }
 
     // 引数の値だけ変わってる

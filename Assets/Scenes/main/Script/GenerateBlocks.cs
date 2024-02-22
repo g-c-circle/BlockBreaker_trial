@@ -226,8 +226,8 @@ public class GenerateBlocks : MonoBehaviour
         if (stage == 7)
         {
             // 接地する個数
-            const int x_num = 4;
-            const int z_num = 8;
+            const int X_NUM = 4;
+            const int Z_NUM = 8;
 
             // 余白サイズ
             const float Space = 0.5f;
@@ -235,21 +235,22 @@ public class GenerateBlocks : MonoBehaviour
             StageManager sm = GameObject.Find("StageManager").GetComponent<StageManager>();
 
             // 左端のブロック座標を取得
-            float? temp_x = sm.GetLeftBlockPos(x_num, currentSize.x, Space);
+            float? temp_x = sm.GetLeftBlockPos(X_NUM, currentSize.x, Space);
             if (temp_x == null)
                 return;
 
             // 下端のブロック座標を取得
-            float? temp_z = sm.GetBottomBlockPos(z_num, currentSize.z, Space, StageManager.STAGE_LIMIT_TOP, 15.5f);
+            float? temp_z = sm.GetBottomBlockPos(Z_NUM, currentSize.z, Space, StageManager.STAGE_LIMIT_TOP, 15.5f);
             if (temp_z == null)
                 return;
 
             float x = (float)temp_x;
-            for (int i = 0; i < x_num; i++)
+            for (int i = 0; i < X_NUM; i++)
             {
                 float z = (float)temp_z;
-                for (int j = 0; j < z_num; j++)
+                for (int j = 0; j < Z_NUM; j++)
                 {
+                    Debug.Log("x:" + x + ",z:" + z);
                     GenerateBlocksCreate(x, z);
                     z += currentSize.z + Space;
                 }
