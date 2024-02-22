@@ -7,17 +7,15 @@ public class bar_inside : bar
 {
     private float ballspeed;
     private float collideposi;
-    private Transform bardetaill;
     void OnCollisionEnter(Collision collision)
     {
-        back_before_stay();
         Debug.Log("refrect");
         float barwidth = gameObject.GetComponent<Renderer>().bounds.size.x;
-        float barposition = bardetaill.position.x;
+        float barposition = transform.position.x;
         if (!stay) stay = true;
 
         ball = collision.gameObject.GetComponent<Rigidbody>();//all colliding objects regard as ball(s).
-        collideposi = (float)barposition - (float)ball.position.x;
+        collideposi = (float)ball.position.x- (float)barposition;
         float diffper = collideposi / (barwidth / 2);
 
         double ballvectorx = Math.Pow((double)ball.velocity.x, 2d);

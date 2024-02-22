@@ -514,8 +514,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7329841228952455454, guid: 9c214fca0ecfc8a47be6595091b2f250, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7329841228952455454, guid: 9c214fca0ecfc8a47be6595091b2f250, type: 3}
       propertyPath: m_IsTrigger
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8301754707255798555, guid: 9c214fca0ecfc8a47be6595091b2f250, type: 3}
       propertyPath: m_Name
@@ -541,10 +545,10 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8301754707255798555, guid: 9c214fca0ecfc8a47be6595091b2f250, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 656567912}
+      addedObject: {fileID: 656567911}
     - targetCorrespondingSourceObject: {fileID: 8301754707255798555, guid: 9c214fca0ecfc8a47be6595091b2f250, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 656567911}
+      addedObject: {fileID: 656567916}
   m_SourcePrefab: {fileID: 100100000, guid: 9c214fca0ecfc8a47be6595091b2f250, type: 3}
 --- !u!1 &656567909 stripped
 GameObject:
@@ -583,7 +587,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 124
   m_CollisionDetection: 2
---- !u!114 &656567912
+--- !u!114 &656567916
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -592,15 +596,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 656567909}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b870a44e1823f34bbc31f3d23f8a798, type: 3}
+  m_Script: {fileID: 11500000, guid: e1823ff3181ac544289a58add2ed603d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movespeed: 8
-  vInput: 1
+  vInput: 0
   bx: 0
   stay: 0
-  ball: {fileID: 6753640117999826317, guid: 5f482f65c220af44c8a8d96ac02140d4, type: 3}
-  addspeed: 1.01
+  ball: {fileID: 0}
+  addspeed: 1
 --- !u!1 &876993672
 GameObject:
   m_ObjectHideFlags: 0
@@ -859,7 +862,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1823ff3181ac544289a58add2ed603d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movespeed: 50
   vInput: 0
   bx: 0
   stay: 0
@@ -1366,10 +1368,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1505928268}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b870a44e1823f34bbc31f3d23f8a798, type: 3}
+  m_Script: {fileID: 11500000, guid: e1823ff3181ac544289a58add2ed603d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movespeed: 1
   vInput: 0
   bx: 0
   stay: 0
@@ -1657,7 +1658,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1823ff3181ac544289a58add2ed603d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movespeed: 50
   vInput: 0
   bx: 0
   stay: 0
@@ -1794,7 +1794,7 @@ Transform:
   m_GameObject: {fileID: 1662196375}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 15}
+  m_LocalPosition: {x: 0.07, y: 0, z: 15}
   m_LocalScale: {x: 1, y: 1, z: 9}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1883,7 +1883,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 778f270c6253ada4abf0b30193c64a28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reflectSpeed: 1.5
+  reflectSpeed: 1
   maxSpeedUps: 3
 --- !u!1 &1944278679
 GameObject:
