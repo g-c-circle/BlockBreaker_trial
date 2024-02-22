@@ -6,7 +6,7 @@ using UnityEngine;
 public class bar : MonoBehaviour
 {
     // Start is called before the first frame update
-    public float movespeed = 1f;
+    private float movespeed = 10f;
 
     public float vInput;
 
@@ -18,7 +18,7 @@ public class bar : MonoBehaviour
 
     public float addspeed = 1.00f;
 
-    void back_before_stay()
+    public void back_before_stay()
     {
 
         if (!stay) stay = true;
@@ -35,7 +35,7 @@ public class bar : MonoBehaviour
     virtual public void OnTriggerEnter(Collider collider)
     {
         back_before_stay();
-
+        Debug.Log("ent");
         ball = collider.gameObject.GetComponent<Rigidbody>();
 
         //addspeed += 0.001f;
