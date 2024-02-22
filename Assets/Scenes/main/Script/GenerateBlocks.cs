@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Properties;
 using UnityEngine;
 
 public class GenerateBlocks : MonoBehaviour
@@ -24,7 +25,7 @@ public class GenerateBlocks : MonoBehaviour
     {
         currentSize = initialSize; // 現在の大きさに初期値を設定
         //GenerateBlocksCreateStage(0); // ブロック生成
-        GenerateBlocksCreateStage(6); // ブロック生成
+        GenerateBlocksCreateStage(7); // ブロック生成
 
         ballRigidbody = GetComponent<Rigidbody>();
         // ボールに物理的な反発を設定
@@ -67,6 +68,13 @@ public class GenerateBlocks : MonoBehaviour
             //ReflectBall(collision.gameObject.GetComponent<Rigidbody>());//ボールを跳ね返す
             Destroy(gameObject);//(ボールに触れた)ブロック削除
 
+
+            // ----- スコアを増やす -----
+
+            StageManager sm = GameObject.Find("StageManager").GetComponent<StageManager>();
+            sm.Score += 1;
+
+            // ----- スコアを増やす -----
 
             // ボールのRendererコンポーネントを取得
             Renderer ballRenderer = collision.gameObject.GetComponent<Renderer>();
@@ -213,7 +221,40 @@ public class GenerateBlocks : MonoBehaviour
                     GenerateBlocksCreate(x, z);
                 }
             }
+        }
+        if (stage == 7)
+        {
+            // 接地する個数
+            const int X_NUM = 4;
+            const int Z_NUM = 8;
 
+            // 余白サイズ
+            const float Space = 0.5f;
+
+            StageManager sm = GameObject.Find("StageManager").GetComponent<StageManager>();
+
+            // 左端のブロック座標を取得
+            float? temp_x = sm.GetLeftBlockPos(X_NUM, currentSize.x, Space);
+            if (temp_x == null)
+                return;
+
+            // 下端のブロック座標を取得
+            float? temp_z = sm.GetBottomBlockPos(Z_NUM, currentSize.z, Space, StageManager.STAGE_LIMIT_TOP, 15.5f);
+            if (temp_z == null)
+                return;
+
+            float x = (float)temp_x;
+            for (int i = 0; i < X_NUM; i++)
+            {
+                float z = (float)temp_z;
+                for (int j = 0; j < Z_NUM; j++)
+                {
+                    Debug.Log("x:" + x + ",z:" + z);
+                    GenerateBlocksCreate(x, z);
+                    z += currentSize.z + Space;
+                }
+                x += currentSize.x + Space;
+            }
         }
     }
 

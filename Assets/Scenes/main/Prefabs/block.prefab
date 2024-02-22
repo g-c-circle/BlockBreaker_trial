@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6904426510268737163}
   m_Layer: 0
   m_Name: block
-  m_TagString: Untagged
+  m_TagString: Block
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -113,7 +113,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8607168396560344464}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0ad0045cc66c08e4185586d01b71dc45, type: 3}
   m_Name: 

@@ -18,46 +18,79 @@ public class bar : MonoBehaviour
 
     public float addspeed = 1.00f;
 
-    void back_before_stay()
+    private const string WALL_LEFT = "WallLeft";
+    private const string WALL_RIGHT = "WallRight";
+
+    private float LimitLeft = -9.5f;
+    private float LimitRight = 9.5f;
+
+    void GetLimit()
     {
-
-        if (!stay) stay = true;
-
-        transform.position = new Vector3(bx, 0f, -7.5f);
+        // transform.positionで得られるのはバーの中心の座標だが、
+        // 実際にはBarの先端の座標がLIMITを超えてはならない。
+        // なのでLimitは、Barの中心座標が取ってよい範囲とする。
+        float HalfBarLength = transform.localScale.x / 2;
+        //StageManager sm = GameObject.Find("StageManager").GetComponent<StageManager>();
+        LimitLeft = StageManager.STAGE_LIMIT_LEFT + HalfBarLength;
+        LimitRight = StageManager.STAGE_LIMIT_RIGHT - HalfBarLength;
     }
 
-    virtual public void OnTriggerStay(Collider other)
-    {
+    //{    void back_before_stay()
+    //    {
 
-        back_before_stay();
+    //        if (!stay) stay = true;
 
-    }
-    virtual public void OnTriggerEnter(Collider collider)
-    {
-        back_before_stay();
+    //        transform.position = new Vector3(bx, 0f, -7.5f);
+    //    }
 
-        ball = collider.gameObject.GetComponent<Rigidbody>();
+    //virtual public void OnTriggerStay(Collider other)
+    //{
 
-        //addspeed += 0.001f;
+    //    back_before_stay();
 
-        //ball.velocity = new Vector3(addspeed * ball.velocity.x, 0, (ball.velocity.z * -1) * addspeed);
+    //}
+    //virtual public void OnTriggerEnter(Collider collider)
+    //{
+    //    back_before_stay();
 
-    }
+    //    ball = collider.gameObject.GetComponent<Rigidbody>();
 
-    virtual public void OnTriggerExit(Collider other)
-    {
+    //    //addspeed += 0.001f;
 
-        stay = false;
-    }
+    //    //ball.velocity = new Vector3(addspeed * ball.velocity.x, 0, (ball.velocity.z * -1) * addspeed);
+
+    //}
+
+    //virtual public void OnTriggerExit(Collider other)
+    //{
+
+    //    stay = false;
+    //}
 
     virtual public void move()
     {
-        if (!stay)
-        {
-            bx = transform.position.x;//recorting bar x position that bar does't colliding to wall.
-        }
+        //if (!stay)
+        //{
+        //    bx = transform.position.x;//recorting bar x position that bar does't colliding to wall.
+        //}
         vInput = Input.GetAxis("Horizontal");
         transform.Translate(Vector3.right * vInput * movespeed * Time.deltaTime);
+
+        // ステージ内に戻す
+        Vector3 pos = transform.position;
+        //Debug.Log(pos.x);
+        if (pos.x < LimitLeft)
+            pos.x = LimitLeft;
+
+        if (LimitRight < pos.x)
+            pos.x = LimitRight;
+
+        transform.position = pos;
+    }
+
+    void Start()
+    {
+        GetLimit();
     }
     // Update is called once per frame
     void Update()
