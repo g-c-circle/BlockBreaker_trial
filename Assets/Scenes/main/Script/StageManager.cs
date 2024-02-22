@@ -69,6 +69,7 @@ public class StageManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // ƒNƒŠƒA”»’è
         GameObject[] Blocks = GameObject.FindGameObjectsWithTag(BLOCK_TAG);
         if (Blocks.Length == 0)
             GameObject.Find("Canvas").transform.Find("TextScore").GetComponent<Text>().text = "‚­‚è‚ ";

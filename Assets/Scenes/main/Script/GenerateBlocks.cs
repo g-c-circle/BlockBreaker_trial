@@ -76,7 +76,6 @@ public class GenerateBlocks : MonoBehaviour
 
             // ----- スコアを増やす -----
 
-
             // ボールのRendererコンポーネントを取得
             Renderer ballRenderer = collision.gameObject.GetComponent<Renderer>();
             // 新しいランダム色を生成
