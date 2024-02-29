@@ -17,7 +17,7 @@ public class GenerateBlocks : MonoBehaviour
     private Rigidbody ballRigidbody;
 
     int StageMode = 0;
-    
+
 
     //private int hitCount = 0; // ブロックにヒットした回数
     public int maxHitCount = 1; // ブロックが壊れるまでの最大ヒット回数
@@ -31,12 +31,12 @@ public class GenerateBlocks : MonoBehaviour
     public int start = 1;
 
 
-    
+
 
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // ブロック削除の関数
@@ -186,10 +186,44 @@ public class GenerateBlocks : MonoBehaviour
             {
                 for (float z = BOTTOM + SPACE + currentSize.z; z < TOP - SPACE - currentSize.z; z += (SPACE + currentSize.z))
                 {
-                    GenerateBlocksCreate(x, z, 1, 0f, Color.white);// ブロックが壊れるまでの最大ヒット回数を追加
+                    GenerateBlocksCreate(x, z, 3, 0f, Color.white);// ブロックが壊れるまでの最大ヒット回数を追加
                 }
             }
 
+        }
+        if (stage == 7)
+        {
+            // 接地する個数
+            const int X_NUM = 4;
+            const int Z_NUM = 8;
+
+            // 余白サイズ
+            const float Space = 0.5f;
+
+            StageManager sm = GameObject.Find("StageManager").GetComponent<StageManager>();
+
+            // 左端のブロック座標を取得
+            float? temp_x = sm.GetLeftBlockPos(X_NUM, currentSize.x, Space);
+            if (temp_x == null)
+                return;
+
+            // 下端のブロック座標を取得
+            float? temp_z = sm.GetBottomBlockPos(Z_NUM, currentSize.z, Space, StageManager.STAGE_LIMIT_TOP, 15.5f);
+            if (temp_z == null)
+                return;
+
+            float x = (float)temp_x;
+            for (int i = 0; i < X_NUM; i++)
+            {
+                float z = (float)temp_z;
+                for (int j = 0; j < Z_NUM; j++)
+                {
+                    Debug.Log("x:" + x + ",z:" + z);
+                    GenerateBlocksCreate(x, z, 2, 0f, Color.white);
+                    z += currentSize.z + Space;
+                }
+                x += currentSize.x + Space;
+            }
         }
     }
 
@@ -222,12 +256,12 @@ public class GenerateBlocks : MonoBehaviour
         if (start == 1)
         {
             currentSize = initialSize; // 現在の大きさに初期値を設定
-            GenerateBlocksCreateStage(6); // ブロック生成
+            GenerateBlocksCreateStage(7); // ブロック生成
             ballRigidbody = GetComponent<Rigidbody>();
             start = 0;
         }
 
-        
+
 
     }
 }

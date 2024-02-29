@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class BlockBehavior : MonoBehaviour
 {
-    
-    public int hitCount = 0;
-    
 
-    
+    public int hitCount = 0;
+
+
+
     public void OnCollisionEnter(Collision collision)
     {
 
@@ -16,7 +16,7 @@ public class BlockBehavior : MonoBehaviour
         {
             if (collision.gameObject.tag == "Ball")
             {
-                GenerateBlocks blockScript = GameObject.Find("PrefabManager").GetComponent<GenerateBlocks>();
+                GenerateBlocks blockScript = GameObject.Find("StageManager").GetComponent<GenerateBlocks>();
                 DestroyedBlockCount sum = GameObject.Find("BlockSumManager").GetComponent<DestroyedBlockCount>();
                 hitCount++; // ƒqƒbƒg‰ñ”‚ğ‘‰Á
                 sum.SumHitCount++;
