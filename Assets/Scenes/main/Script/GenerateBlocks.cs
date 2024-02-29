@@ -74,7 +74,7 @@ public class GenerateBlocks : MonoBehaviour
         // 生成したブロックをリストに追加
         blocks.Add(block);
 
-        Debug.Log("Block added to the list. Current block count: " + blocks.Count);
+        //Debug.Log("Block added to the list. Current block count: " + blocks.Count);
         DestroyedBlockCount sum = GameObject.Find("BlockSumManager").GetComponent<DestroyedBlockCount>();
         sum.totalBlocks = blocks.Count;
 
@@ -218,7 +218,7 @@ public class GenerateBlocks : MonoBehaviour
                 float z = (float)temp_z;
                 for (int j = 0; j < Z_NUM; j++)
                 {
-                    Debug.Log("x:" + x + ",z:" + z);
+                    //Debug.Log("x:" + x + ",z:" + z);
                     GenerateBlocksCreate(x, z, 2, 0f, Color.white);
                     z += currentSize.z + Space;
                 }
@@ -249,7 +249,7 @@ public class GenerateBlocks : MonoBehaviour
         {
             StageMode++;
             if (StageMode == 6) StageMode = 0;
-            Debug.Log("Stage: " + StageMode);
+            //Debug.Log("Stage: " + StageMode);
             GenerateBlocksStageRestart(StageMode);//ここで指定したステージをリトライ(リスタート)する
         }
 

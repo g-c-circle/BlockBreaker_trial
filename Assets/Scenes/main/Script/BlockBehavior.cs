@@ -23,6 +23,12 @@ public class BlockBehavior : MonoBehaviour
 
                 if (hitCount >= blockScript.maxHitCount)//hitCount と maxHitCount が 同じになったら
                 {
+                    // ----- スコア追加 -----
+
+                    StageManager sm = GameObject.Find("StageManager").GetComponent<StageManager>();
+                    sm.Score += hitCount * 10;
+
+                    // ----- スコア追加 -----
 
                     //ReflectBall(collision.gameObject.GetComponent<Rigidbody>());//ボールを跳ね返す
                     Destroy(gameObject); // ブロックを壊す

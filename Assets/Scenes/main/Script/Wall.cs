@@ -37,10 +37,10 @@ public class Wall : MonoBehaviour
                     ballRb.AddForce(reflection * reflectSpeed, ForceMode.Impulse);
 
                     collision.gameObject.GetComponent<stdBall>().countSpeedUp++;
-                    Debug.Log(collision.gameObject.GetComponent<stdBall>().countSpeedUp);
+                    //Debug.Log(collision.gameObject.GetComponent<stdBall>().countSpeedUp);
                 }
-                if (countSpeedUp == 49)
-                    Debug.Log(ballRb.velocity);
+                //if (countSpeedUp == 49)
+                //Debug.Log(ballRb.velocity);
 
                 /*
                 Vector3 currentVelocity = ballRb.velocity;

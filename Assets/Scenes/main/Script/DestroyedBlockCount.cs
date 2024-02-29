@@ -15,7 +15,7 @@ public class DestroyedBlockCount : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -25,9 +25,9 @@ public class DestroyedBlockCount : MonoBehaviour
 
         if (timer >= interval)
         {
-            Debug.Log("DestroyBlock" + destroyedBlockCount);
-            Debug.Log("HitCount" + SumHitCount);
-            Debug.Log("TotalBlock" + totalBlocks);
+            //Debug.Log("DestroyBlock" + destroyedBlockCount);
+            //Debug.Log("HitCount" + SumHitCount);
+            //Debug.Log("TotalBlock" + totalBlocks);
 
             timer = 0f; // タイマーリセット
         }
