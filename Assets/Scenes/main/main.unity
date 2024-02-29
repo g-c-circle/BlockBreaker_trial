@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 211427084}
   - component: {fileID: 211427085}
   - component: {fileID: 211427086}
+  - component: {fileID: 211427087}
   m_Layer: 0
   m_Name: PrefabManager
   m_TagString: Untagged
@@ -186,6 +187,19 @@ MonoBehaviour:
   BlockObject: {fileID: 8607168396560344464, guid: acd15fe7bd6c6194a912a8bd215c292b, type: 3}
   blockRotation: {x: 0, y: 0, z: 0}
   constantSpeed: 5
+--- !u!114 &211427087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 211427082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a92dca45eda41ab4294712fd36cca9ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  subbar: {fileID: 9181022602918218429, guid: 6d451568019cd06428b07ecc64436471, type: 3}
 --- !u!1 &254269493
 GameObject:
   m_ObjectHideFlags: 0
@@ -1883,7 +1897,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 778f270c6253ada4abf0b30193c64a28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reflectSpeed: 1
+  reflectSpeed: 1.1
   maxSpeedUps: 3
 --- !u!1 &1944278679
 GameObject:
