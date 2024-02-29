@@ -20,7 +20,7 @@ public class GenerateBlocks : MonoBehaviour
 
 
     //private int hitCount = 0; // ブロックにヒットした回数
-    public int maxHitCount = 1; // ブロックが壊れるまでの最大ヒット回数
+    //public int maxHitCount = 1; // ブロックが壊れるまでの最大ヒット回数
 
     //public int changeCount = 5; // 色が変化する回数
     //public Color targetColor = Color.black; // 変化後の色
@@ -57,6 +57,7 @@ public class GenerateBlocks : MonoBehaviour
     {
         blockRotation = new Vector3(0f, Rotation, 0f);
         GameObject block = Instantiate(BlockObject, new Vector3(x, 0, z), Quaternion.Euler(blockRotation));
+
         block.transform.localScale = currentSize;
 
         // ブロックの色を設定
@@ -68,8 +69,9 @@ public class GenerateBlocks : MonoBehaviour
             renderer.material = material;
         }
 
-        maxHitCount = MaxHitCount;
-        block.GetComponent<GenerateBlocks>().maxHitCount = MaxHitCount;
+        BlockBehavior blockScript = block.GetComponent<BlockBehavior>();
+        blockScript.maxHitCount = MaxHitCount;
+        //block.GetComponent<GenerateBlocks>().maxHitCount = MaxHitCount;
 
         // 生成したブロックをリストに追加
         blocks.Add(block);
@@ -87,7 +89,8 @@ public class GenerateBlocks : MonoBehaviour
     {
         if (stage == 0)
         {
-
+            GenerateBlocksCreate(10, 10, 2, 0f, Color.white);
+            GenerateBlocksCreate(10, 20, 5, 0f, Color.white);
         }
 
         if (stage == 1)
@@ -256,7 +259,7 @@ public class GenerateBlocks : MonoBehaviour
         if (start == 1)
         {
             currentSize = initialSize; // 現在の大きさに初期値を設定
-            GenerateBlocksCreateStage(7); // ブロック生成
+            GenerateBlocksCreateStage(0); // ブロック生成
             ballRigidbody = GetComponent<Rigidbody>();
             start = 0;
         }
