@@ -1,212 +1,96 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Properties;
 using UnityEngine;
 
 public class GenerateBlocks : MonoBehaviour
 {
     public GameObject BlockObject;
 
-    private Vector3 initialSize = new Vector3(3f, 1f, 1f); // ‰Šú‚Ì‘å‚«‚³
-    private Vector3 currentSize; // Œ»İ‚Ì‘å‚«‚³
+    private Vector3 initialSize = new Vector3(3f, 1f, 1f); // åˆæœŸã®å¤§ãã•
+    private Vector3 currentSize; // ç¾åœ¨ã®å¤§ãã•
 
-    private Color blockColor = Color.white; // ƒuƒƒbƒN‚ÌF
-    public Vector3 blockRotation = new Vector3(0f, 0f, 0f); // ƒuƒƒbƒN‚ÌŠp“x
+    public Vector3 blockRotation = new Vector3(0f, 0f, 0f); // ãƒ–ãƒ­ãƒƒã‚¯ã®è§’åº¦
 
-    private List<GameObject> blocks = new List<GameObject>(); // ƒuƒƒbƒNƒIƒuƒWƒFƒNƒg‚ğŠi”[‚·‚éƒŠƒXƒg
+    public List<GameObject> blocks = new List<GameObject>(); // ãƒ–ãƒ­ãƒƒã‚¯ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æ ¼ç´ã™ã‚‹ãƒªã‚¹ãƒˆ
 
-    public float constantSpeed = 5.0f; // ˆê’è‚Ì‘¬“x
+    public float constantSpeed = 5.0f; // ä¸€å®šã®é€Ÿåº¦
     private Rigidbody ballRigidbody;
 
-    int mode = 0;
+    int StageMode = 0;
+    
+
+    //private int hitCount = 0; // ãƒ–ãƒ­ãƒƒã‚¯ã«ãƒ’ãƒƒãƒˆã—ãŸå›æ•°
+    public int maxHitCount = 1; // ãƒ–ãƒ­ãƒƒã‚¯ãŒå£Šã‚Œã‚‹ã¾ã§ã®æœ€å¤§ãƒ’ãƒƒãƒˆå›æ•°
+
+    //public int changeCount = 5; // è‰²ãŒå¤‰åŒ–ã™ã‚‹å›æ•°
+    //public Color targetColor = Color.black; // å¤‰åŒ–å¾Œã®è‰²
+    //private int currentCount = 0; // ç¾åœ¨ã®å¤‰åŒ–å›æ•°
+    //private Color currentColor = Color.white; // ç¾åœ¨ã®è‰²ï¼ˆåˆæœŸå€¤ã¯ç™½ï¼‰
+
+
+    public int start = 1;
+
+
+    
 
     // Start is called before the first frame update
     void Start()
     {
-        currentSize = initialSize; // Œ»İ‚Ì‘å‚«‚³‚É‰Šú’l‚ğİ’è
-        //GenerateBlocksCreateStage(0); // ƒuƒƒbƒN¶¬
-        GenerateBlocksCreateStage(7); // ƒuƒƒbƒN¶¬
-
-        ballRigidbody = GetComponent<Rigidbody>();
-        // ƒ{[ƒ‹‚É•¨—“I‚È”½”­‚ğİ’è
-        //ballRigidbody.collisionDetectionMode = CollisionDetectionMode.Continuous;
-        //ballRigidbody.isKinematic = false;
-        //ballRigidbody.constraints = RigidbodyConstraints.FreezeRotation;
+        
     }
 
-    //ƒuƒƒbƒN¶¬‚ÌŠÖ”(ƒXƒe[ƒW0)
-    void SimpleGenerateBlocks()
-    {
-        int x, z;//ƒuƒƒbƒN‚ÌÀ•W•Ï”
-        for (x = -10; x < 15; x += 5)
-        {
-            for (z = 20; z > 0; z -= 5)
-            {
-                GameObject block = Instantiate(BlockObject, new Vector3(x, 0, z), Quaternion.Euler(blockRotation));
-                block.transform.localScale = currentSize;
-
-                // ƒuƒƒbƒN‚ÌF‚ğİ’è
-                Renderer renderer = block.GetComponent<Renderer>();
-                if (renderer != null)
-                {
-                    Material material = new Material(renderer.material);
-                    material.color = blockColor;
-                    renderer.material = material;
-                }
-
-                // ¶¬‚µ‚½ƒuƒƒbƒN‚ğƒŠƒXƒg‚É’Ç‰Á
-                blocks.Add(block);
-            }
-        }
-    }
-
-    // ƒuƒƒbƒN‚ªƒ{[ƒ‹‚ÉG‚ê‚½‚çì“®‚·‚éŠÖ”
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.tag == "Ball")//‚à‚µƒ{[ƒ‹‚ÉG‚ê‚½‚ç
-        {
-            //ReflectBall(collision.gameObject.GetComponent<Rigidbody>());//ƒ{[ƒ‹‚ğ’µ‚Ë•Ô‚·
-            Destroy(gameObject);//(ƒ{[ƒ‹‚ÉG‚ê‚½)ƒuƒƒbƒNíœ
-
-
-            // ----- ƒXƒRƒA‚ğ‘‚â‚· -----
-
-            StageManager sm = GameObject.Find("StageManager").GetComponent<StageManager>();
-            sm.Score += 1;
-
-            // ----- ƒXƒRƒA‚ğ‘‚â‚· -----
-
-            // ƒ{[ƒ‹‚ÌRendererƒRƒ“ƒ|[ƒlƒ“ƒg‚ğæ“¾
-            Renderer ballRenderer = collision.gameObject.GetComponent<Renderer>();
-            // V‚µ‚¢ƒ‰ƒ“ƒ_ƒ€F‚ğ¶¬
-            blockColor = new Color(Random.value, Random.value, Random.value);
-
-            //ƒ‚[ƒh‚P‚¾‚Á‚½‚ç
-            if (mode == 1)
-            {
-
-                // ƒ{[ƒ‹‚Ìƒ}ƒeƒŠƒAƒ‹‚ÌF‚ğ•ÏX
-                if (ballRenderer != null)
-                {
-                    Material material = new Material(ballRenderer.material);
-                    material.color = blockColor;
-                    ballRenderer.material = material;
-                }
-
-                collision.gameObject.transform.localScale = Vector3.one * 2f;//ƒ{[ƒ‹‚Ì‘å‚«‚³‚ğ•ÏX
-
-                GameObject newBall = Instantiate(collision.gameObject, new Vector3(transform.position.x, transform.position.y, transform.position.z + currentSize.z), Quaternion.identity);//ƒ{[ƒ‹‚ğ•¡»
-
-                newBall.tag = "Ball";
-
-                GameObject[] allBalls = GameObject.FindGameObjectsWithTag("Ball");
-                foreach (GameObject ball in allBalls)
-                {
-                    Rigidbody ballRigidbody = ball.GetComponent<Rigidbody>();
-                    if (ballRigidbody != null)
-                    {
-                        ballRigidbody.velocity *= 5f; // ‘¬“x‚ğŒÜ”{‚É‚·‚é
-                    }
-                }
-
-                ChangeOtherBlocksColor();//ƒuƒƒbƒN‚ÌF‚ğ•ÏX
-            }
-        }
-    }
-
-    //void ReflectBall(Rigidbody ballRigidbody)
-    //{
-    //    if (ballRigidbody != null)
-    //    {
-    //        // ”½ËŠp“x‚ğŒvZ
-    //        Vector3 reflection = Vector3.Reflect(ballRigidbody.velocity, Vector3.up);
-    //        ballRigidbody.velocity = reflection.normalized * constantSpeed;
-    //    }
-    //}
-
-    // ƒuƒƒbƒNíœ‚ÌŠÖ”
+    // ãƒ–ãƒ­ãƒƒã‚¯å‰Šé™¤ã®é–¢æ•°
     void BlocksDestroy()
     {
         foreach (var block in blocks)
         {
-            Destroy(block);//ƒuƒƒbƒN‚ğíœ
+            Destroy(block);//ãƒ–ãƒ­ãƒƒã‚¯ã‚’å‰Šé™¤
         }
         blocks.Clear();
+        //totalBlocks = 0;
+        //destroyedBlockCount = 0; // ç ´å£Šã•ã‚ŒãŸãƒ–ãƒ­ãƒƒã‚¯æ•°ã‚’ãƒªã‚»ãƒƒãƒˆ
+        //Debug.Log("Blocks list cleared. Current block count: " + blocks.Count);
     }
 
-    //ƒuƒƒbƒN‚ğˆêŒÂ¶¬
-    void GenerateBlocksCreate(float x, float z)
+    //ãƒ–ãƒ­ãƒƒã‚¯ã‚’ä¸€å€‹ç”Ÿæˆ
+    void GenerateBlocksCreate(float x, float z, int MaxHitCount, float Rotation, Color color)// ãƒ–ãƒ­ãƒƒã‚¯ãŒå£Šã‚Œã‚‹ã¾ã§ã®æœ€å¤§ãƒ’ãƒƒãƒˆå›æ•°ã‚’[maxHitCount]ã«
     {
+        blockRotation = new Vector3(0f, Rotation, 0f);
         GameObject block = Instantiate(BlockObject, new Vector3(x, 0, z), Quaternion.Euler(blockRotation));
         block.transform.localScale = currentSize;
 
-        // ƒuƒƒbƒN‚ÌF‚ğİ’è
+        // ãƒ–ãƒ­ãƒƒã‚¯ã®è‰²ã‚’è¨­å®š
         Renderer renderer = block.GetComponent<Renderer>();
         if (renderer != null)
         {
             Material material = new Material(renderer.material);
-            material.color = blockColor;
+            material.color = color;
             renderer.material = material;
         }
 
-        // ¶¬‚µ‚½ƒuƒƒbƒN‚ğƒŠƒXƒg‚É’Ç‰Á
+        maxHitCount = MaxHitCount;
+        block.GetComponent<GenerateBlocks>().maxHitCount = MaxHitCount;
+
+        // ç”Ÿæˆã—ãŸãƒ–ãƒ­ãƒƒã‚¯ã‚’ãƒªã‚¹ãƒˆã«è¿½åŠ 
         blocks.Add(block);
+
+        Debug.Log("Block added to the list. Current block count: " + blocks.Count);
+        DestroyedBlockCount sum = GameObject.Find("BlockSumManager").GetComponent<DestroyedBlockCount>();
+        sum.totalBlocks = blocks.Count;
+
+        //totalBlocks++;
+        //Debug.Log(totalBlocks);
     }
 
-    //ƒXƒe[ƒW¶¬‚ÌŠÖ”
+    //ã‚¹ãƒ†ãƒ¼ã‚¸ç”Ÿæˆã®é–¢æ•°
     void GenerateBlocksCreateStage(int stage)
     {
         if (stage == 0)
         {
-            SimpleGenerateBlocks();//ƒVƒ“ƒvƒ‹ƒXƒe[ƒW‚ğ¶¬
+
         }
 
         if (stage == 1)
-        {
-            GenerateBlocksCreate(5, 20);//‚±‚Ì•¶‚ğ(À•W‚ğ•Ï‚¦‚Ä)ŒÂ”•ªƒRƒsƒy‚·‚é
-            GenerateBlocksCreate(0, 15);
-            GenerateBlocksCreate(10, 15);
-            GenerateBlocksCreate(5, 10);
-        }
-
-        if (stage == 2)
-        {
-            GenerateBlocksCreate(-10, 20);//‚±‚Ì•¶‚ğ(À•W‚ğ•Ï‚¦‚Ä)ŒÂ”•ªƒRƒsƒy‚·‚é
-            GenerateBlocksCreate(15, 20);
-            GenerateBlocksCreate(-5, 15);
-            GenerateBlocksCreate(10, 15);
-            GenerateBlocksCreate(0, 10);
-            GenerateBlocksCreate(5, 10);
-        }
-
-        if (stage == 3)
-        {
-            GenerateBlocksCreate(-10, 10);//‚±‚Ì•¶‚ğ(À•W‚ğ•Ï‚¦‚Ä)ŒÂ”•ªƒRƒsƒy‚·‚é
-            GenerateBlocksCreate(15, 10);
-            GenerateBlocksCreate(-5, 15);
-            GenerateBlocksCreate(10, 15);
-            GenerateBlocksCreate(0, 20);
-            GenerateBlocksCreate(5, 20);
-        }
-
-        if (stage == 4)
-        {
-            GenerateBlocksCreate(-10, 20);//‚±‚Ì•¶‚ğ(À•W‚ğ•Ï‚¦‚Ä)ŒÂ”•ªƒRƒsƒy‚·‚é
-            GenerateBlocksCreate(-5, 15);
-            GenerateBlocksCreate(0, 10);
-            GenerateBlocksCreate(10, 5);
-            GenerateBlocksCreate(15, 0);
-        }
-
-        if (stage == 5)
-        {
-            GenerateBlocksCreate(-10, 0);//‚±‚Ì•¶‚ğ(À•W‚ğ•Ï‚¦‚Ä)ŒÂ”•ªƒRƒsƒy‚·‚é
-            GenerateBlocksCreate(-5, 5);
-            GenerateBlocksCreate(0, 10);
-            GenerateBlocksCreate(10, 15);
-            GenerateBlocksCreate(15, 20);
-        }
-        if (stage == 6)
         {
             const float LEFT = -10f;
             const float RIGHT = 10f;
@@ -218,213 +102,132 @@ public class GenerateBlocks : MonoBehaviour
             {
                 for (float z = BOTTOM + SPACE + currentSize.z; z < TOP - SPACE - currentSize.z; z += (SPACE + currentSize.z))
                 {
-                    GenerateBlocksCreate(x, z);
+                    GenerateBlocksCreate(x, z, 1, 0f, Color.white);
                 }
             }
         }
-        if (stage == 7)
+
+        if (stage == 2)
         {
-            // Ú’n‚·‚éŒÂ”
-            const int X_NUM = 4;
-            const int Z_NUM = 8;
-
-            // —]”’ƒTƒCƒY
-            const float Space = 0.5f;
-
-            StageManager sm = GameObject.Find("StageManager").GetComponent<StageManager>();
-
-            // ¶’[‚ÌƒuƒƒbƒNÀ•W‚ğæ“¾
-            float? temp_x = sm.GetLeftBlockPos(X_NUM, currentSize.x, Space);
-            if (temp_x == null)
-                return;
-
-            // ‰º’[‚ÌƒuƒƒbƒNÀ•W‚ğæ“¾
-            float? temp_z = sm.GetBottomBlockPos(Z_NUM, currentSize.z, Space, StageManager.STAGE_LIMIT_TOP, 15.5f);
-            if (temp_z == null)
-                return;
-
-            float x = (float)temp_x;
-            for (int i = 0; i < X_NUM; i++)
+            const float LEFT = -10f;
+            const float RIGHT = 10f;
+            const float TOP = 15f;
+            const float BOTTOM = 0f;
+            const float SPACE = 0.5f;
+            currentSize = new Vector3(3f, 1f, 1f);
+            for (float x = LEFT + SPACE + currentSize.x; x < RIGHT - SPACE - currentSize.x; x += (SPACE + currentSize.x))
             {
-                float z = (float)temp_z;
-                for (int j = 0; j < Z_NUM; j++)
+                for (float z = BOTTOM + SPACE + currentSize.z; z < TOP - SPACE - currentSize.z; z += (SPACE + currentSize.z))
                 {
-                    Debug.Log("x:" + x + ",z:" + z);
-                    GenerateBlocksCreate(x, z);
-                    z += currentSize.z + Space;
+                    GenerateBlocksCreate(x, z, 2, 0f, Color.white);
                 }
-                x += currentSize.x + Space;
             }
+        }
+
+        if (stage == 3)
+        {
+            const float LEFT = -10f;
+            const float RIGHT = 10f;
+            const float TOP = 15f;
+            const float BOTTOM = 0f;
+            const float SPACE = 0.5f;
+            currentSize = new Vector3(3f, 1f, 1f);
+            for (float x = LEFT + SPACE + currentSize.x; x < RIGHT - SPACE - currentSize.x; x += (SPACE + currentSize.x))
+            {
+                for (float z = BOTTOM + SPACE + currentSize.z; z < TOP - SPACE - currentSize.z; z += (SPACE + currentSize.z))
+                {
+                    GenerateBlocksCreate(x, z, 3, 0f, Color.white);
+                }
+            }
+        }
+
+        if (stage == 4)
+        {
+            const float LEFT = -10f;
+            const float RIGHT = 10f;
+            const float TOP = 15f;
+            const float BOTTOM = 0f;
+            const float SPACE = 0.5f;
+            currentSize = new Vector3(3f, 1f, 1f);
+            for (float x = LEFT + SPACE + currentSize.x; x < RIGHT - SPACE - currentSize.x; x += (SPACE + currentSize.x))
+            {
+                for (float z = BOTTOM + SPACE + currentSize.z; z < TOP - SPACE - currentSize.z; z += (SPACE + currentSize.z))
+                {
+                    GenerateBlocksCreate(x, z, 4, 0f, Color.white);
+                }
+            }
+        }
+
+        if (stage == 5)
+        {
+            const float LEFT = -10f;
+            const float RIGHT = 10f;
+            const float TOP = 15f;
+            const float BOTTOM = 0f;
+            const float SPACE = 0.5f;
+            currentSize = new Vector3(3f, 1f, 1f);
+            for (float x = LEFT + SPACE + currentSize.x; x < RIGHT - SPACE - currentSize.x; x += (SPACE + currentSize.x))
+            {
+                for (float z = BOTTOM + SPACE + currentSize.z; z < TOP - SPACE - currentSize.z; z += (SPACE + currentSize.z))
+                {
+                    GenerateBlocksCreate(x, z, 5, 0f, Color.white);
+                }
+            }
+        }
+        if (stage == 6)//åˆæœŸ
+        {
+            const float LEFT = -10f;
+            const float RIGHT = 10f;
+            const float TOP = 15f;
+            const float BOTTOM = 0f;
+            const float SPACE = 0.5f;
+            currentSize = new Vector3(3f, 1f, 1f);
+            for (float x = LEFT + SPACE + currentSize.x; x < RIGHT - SPACE - currentSize.x; x += (SPACE + currentSize.x))
+            {
+                for (float z = BOTTOM + SPACE + currentSize.z; z < TOP - SPACE - currentSize.z; z += (SPACE + currentSize.z))
+                {
+                    GenerateBlocksCreate(x, z, 1, 0f, Color.white);// ãƒ–ãƒ­ãƒƒã‚¯ãŒå£Šã‚Œã‚‹ã¾ã§ã®æœ€å¤§ãƒ’ãƒƒãƒˆå›æ•°ã‚’è¿½åŠ 
+                }
+            }
+
         }
     }
 
-    //ƒŠƒgƒ‰ƒC(ƒŠƒXƒ^[ƒg)ŠÖ”
+    //ãƒªãƒˆãƒ©ã‚¤(ãƒªã‚¹ã‚¿ãƒ¼ãƒˆ)é–¢æ•°
     void GenerateBlocksStageRestart(int stage)
     {
-        BlocksDestroy();//ƒuƒƒbƒNíœ
-        GenerateBlocksCreateStage(stage);//ƒXƒe[ƒW¶¬
-    }
-
-
-    void ChangeOtherBlocksColor()//ƒuƒƒbƒN‚ÌF‚ğ•ÏX‚·‚éŠÖ”
-    {
-        foreach (var block in blocks)
-        {
-            //“¯‚¶ğŒ‚É‡‚Á‚½‚çF‚ğ•ÏXi‚±‚±‚Å‚Íƒ‰ƒ“ƒ_ƒ€F‚É‚µ‚Ä‚¢‚Ü‚·j
-            if (block != null && block != gameObject)
-            {
-                Renderer blockRenderer = block.GetComponent<Renderer>();
-                if (blockRenderer != null)
-                {
-                    blockRenderer.material.color = new Color(Random.value, Random.value, Random.value);
-                }
-            }
-        }
+        BlocksDestroy();//ãƒ–ãƒ­ãƒƒã‚¯å‰Šé™¤
+        GenerateBlocksCreateStage(stage);//ã‚¹ãƒ†ãƒ¼ã‚¸ç”Ÿæˆ
     }
 
     // Update is called once per frame
     void Update()
     {
-        // ƒXƒy[ƒXƒL[‚ª‰Ÿ‚³‚ê‚½‚çƒuƒƒbƒN‚Ì‘å‚«‚³EŠp“xEF‚ğ•ÏX‚·‚é
-        if (Input.GetKeyDown(KeyCode.Space))//‚à‚µƒXƒy[ƒXƒL[‚ª‰Ÿ‚³‚ê‚½‚ç
-        {
-            blockColor = new Color(Random.value, Random.value, Random.value);//F•Ï”‚ğ•ÏX(ƒ‰ƒ“ƒ_ƒ€)
-            currentSize += new Vector3(0.1f, 0.1f, 0.1f);//‘å‚«‚³•Ï”‚ğ•ÏX(­‚µ‘å‚«‚­)
-            blockRotation = new Vector3(0f, Random.Range(0f, 360f), 0f);//Šp“x•Ï”‚ğ•ÏX(ƒ‰ƒ“ƒ_ƒ€)
-
-
-            //ƒuƒƒbƒN‚Ì‘å‚«‚³‚ğ•ÏX
-            foreach (var block in blocks)
-            {
-                if (block != null)
-                {
-                    block.transform.localScale = currentSize;
-                }
-            }
-
-            //ƒuƒƒbƒN‚ÌŠp“x‚ğ•ÏX
-            foreach (var block in blocks)
-            {
-                if (block != null)
-                {
-                    block.transform.rotation = Quaternion.Euler(blockRotation);
-                }
-            }
-
-            //ƒuƒƒbƒN‚ÌF‚ğ•ÏX
-            foreach (var block in blocks)
-            {
-                if (block != null)
-                {
-                    Renderer blockRenderer = block.GetComponent<Renderer>();
-                    if (blockRenderer != null)
-                    {
-                        Material material = new Material(blockRenderer.material);
-                        material.color = blockColor;
-                        blockRenderer.material = material;
-                    }
-                }
-            }
-
-        }
-
-
-        //ƒ‚[ƒhØ‚è‘Ö‚¦
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            if (mode == 0)
-            {
-                mode = 1;
-            }
-            else
-            {
-                mode = 0;
-            }
-        }
-
-
-        if (Input.GetKeyDown(KeyCode.D))//ƒuƒƒbƒNíœ(ƒQ[ƒ€I—¹)
+        if (Input.GetKeyDown(KeyCode.N))//ãƒ–ãƒ­ãƒƒã‚¯å‰Šé™¤(ã‚²ãƒ¼ãƒ çµ‚äº†)
         {
             BlocksDestroy();
         }
 
-        //ƒXƒe[ƒW¶¬0
-        if (Input.GetKeyDown(KeyCode.Alpha0))
+        //if (destroyedBlockCount >= totalBlocks) Debug.Log("All blocks destroyed!" + totalBlocks + destroyedBlockCount);
+
+        //ãƒªãƒˆãƒ©ã‚¤(ãƒªã‚¹ã‚¿ãƒ¼ãƒˆ)
+        if (Input.GetKeyDown(KeyCode.B))
         {
-            GenerateBlocksCreateStage(0);//‚±‚±‚Åw’è‚µ‚½ƒXƒe[ƒW‚ğ“Ç‚İ‚Ş
+            StageMode++;
+            if (StageMode == 6) StageMode = 0;
+            Debug.Log("Stage: " + StageMode);
+            GenerateBlocksStageRestart(StageMode);//ã“ã“ã§æŒ‡å®šã—ãŸã‚¹ãƒ†ãƒ¼ã‚¸ã‚’ãƒªãƒˆãƒ©ã‚¤(ãƒªã‚¹ã‚¿ãƒ¼ãƒˆ)ã™ã‚‹
         }
 
-        //ƒŠƒgƒ‰ƒC(ƒŠƒXƒ^[ƒg)0
-        if (Input.GetKeyDown(KeyCode.P))
+        if (start == 1)
         {
-            GenerateBlocksStageRestart(0);//‚±‚±‚Åw’è‚µ‚½ƒXƒe[ƒW‚ğƒŠƒgƒ‰ƒC(ƒŠƒXƒ^[ƒg)‚·‚é
+            currentSize = initialSize; // ç¾åœ¨ã®å¤§ãã•ã«åˆæœŸå€¤ã‚’è¨­å®š
+            GenerateBlocksCreateStage(6); // ãƒ–ãƒ­ãƒƒã‚¯ç”Ÿæˆ
+            ballRigidbody = GetComponent<Rigidbody>();
+            start = 0;
         }
 
-
-        //ƒXƒe[ƒW¶¬1
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            GenerateBlocksCreateStage(1);//‚±‚±‚Åw’è‚µ‚½ƒXƒe[ƒW‚ğ“Ç‚İ‚Ş
-        }
-
-        //ƒŠƒgƒ‰ƒC(ƒŠƒXƒ^[ƒg)1
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            GenerateBlocksStageRestart(1);//‚±‚±‚Åw’è‚µ‚½ƒXƒe[ƒW‚ğƒŠƒgƒ‰ƒC(ƒŠƒXƒ^[ƒg)‚·‚é
-        }
-
-
-        //ƒXƒe[ƒW¶¬2
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            GenerateBlocksCreateStage(2);//‚±‚±‚Åw’è‚µ‚½ƒXƒe[ƒW‚ğ“Ç‚İ‚Ş
-        }
-
-        //ƒŠƒgƒ‰ƒC(ƒŠƒXƒ^[ƒg)2
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            GenerateBlocksStageRestart(2);//‚±‚±‚Åw’è‚µ‚½ƒXƒe[ƒW‚ğƒŠƒgƒ‰ƒC(ƒŠƒXƒ^[ƒg)‚·‚é
-        }
-
-
-        //ƒXƒe[ƒW¶¬3
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            GenerateBlocksCreateStage(3);//‚±‚±‚Åw’è‚µ‚½ƒXƒe[ƒW‚ğ“Ç‚İ‚Ş
-        }
-
-        //ƒŠƒgƒ‰ƒC(ƒŠƒXƒ^[ƒg)3
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            GenerateBlocksStageRestart(3);//‚±‚±‚Åw’è‚µ‚½ƒXƒe[ƒW‚ğƒŠƒgƒ‰ƒC(ƒŠƒXƒ^[ƒg)‚·‚é
-        }
-
-
-        //ƒXƒe[ƒW¶¬4
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            GenerateBlocksCreateStage(4);//‚±‚±‚Åw’è‚µ‚½ƒXƒe[ƒW‚ğ“Ç‚İ‚Ş
-        }
-
-        //ƒŠƒgƒ‰ƒC(ƒŠƒXƒ^[ƒg)4
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            GenerateBlocksStageRestart(4);//‚±‚±‚Åw’è‚µ‚½ƒXƒe[ƒW‚ğƒŠƒgƒ‰ƒC(ƒŠƒXƒ^[ƒg)‚·‚é
-        }
-
-
-        //ƒXƒe[ƒW¶¬5
-        if (Input.GetKeyDown(KeyCode.Alpha5))
-        {
-            GenerateBlocksCreateStage(5);//‚±‚±‚Åw’è‚µ‚½ƒXƒe[ƒW‚ğ“Ç‚İ‚Ş
-        }
-
-        //ƒŠƒgƒ‰ƒC(ƒŠƒXƒ^[ƒg)5
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            GenerateBlocksStageRestart(5);//‚±‚±‚Åw’è‚µ‚½ƒXƒe[ƒW‚ğƒŠƒgƒ‰ƒC(ƒŠƒXƒ^[ƒg)‚·‚é
-        }
-
+        
 
     }
 }

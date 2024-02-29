@@ -7,6 +7,7 @@ TagManager:
   - debug(sphere)
   - Ball
   - Wall
+  - block
   - Block
   layers:
   - Default
