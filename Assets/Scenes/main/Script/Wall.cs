@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class Wall : MonoBehaviour
 {
-    public float reflectSpeed = 0f;
-    public float maxSpeedUps = 3;
+    public float reflectSpeed;
+    public float maxSpeedUps;
     //public float speedUpCount = 0;
     //public bool isColliding = false;ƒTƒ“ƒvƒ‹‚R
     // Start is called before the first frame update
@@ -39,6 +39,8 @@ public class Wall : MonoBehaviour
                     collision.gameObject.GetComponent<stdBall>().countSpeedUp++;
                     Debug.Log(collision.gameObject.GetComponent<stdBall>().countSpeedUp);
                 }
+                if (countSpeedUp == 49)
+                    Debug.Log(ballRb.velocity);
 
                 /*
                 Vector3 currentVelocity = ballRb.velocity;

@@ -6,26 +6,26 @@ public class GenerateBlocks : MonoBehaviour
 {
     public GameObject BlockObject;
 
-    private Vector3 initialSize = new Vector3(3f, 1f, 1f); // ‰Šú‚Ì‘å‚«‚³
-    private Vector3 currentSize; // Œ»İ‚Ì‘å‚«‚³
+    private Vector3 initialSize = new Vector3(3f, 1f, 1f); // åˆæœŸã®å¤§ãã•
+    private Vector3 currentSize; // ç¾åœ¨ã®å¤§ãã•
 
-    public Vector3 blockRotation = new Vector3(0f, 0f, 0f); // ƒuƒƒbƒN‚ÌŠp“x
+    public Vector3 blockRotation = new Vector3(0f, 0f, 0f); // ãƒ–ãƒ­ãƒƒã‚¯ã®è§’åº¦
 
-    public List<GameObject> blocks = new List<GameObject>(); // ƒuƒƒbƒNƒIƒuƒWƒFƒNƒg‚ğŠi”[‚·‚éƒŠƒXƒg
+    public List<GameObject> blocks = new List<GameObject>(); // ãƒ–ãƒ­ãƒƒã‚¯ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æ ¼ç´ã™ã‚‹ãƒªã‚¹ãƒˆ
 
-    public float constantSpeed = 5.0f; // ˆê’è‚Ì‘¬“x
+    public float constantSpeed = 5.0f; // ä¸€å®šã®é€Ÿåº¦
     private Rigidbody ballRigidbody;
 
     int StageMode = 0;
     
 
-    //private int hitCount = 0; // ƒuƒƒbƒN‚Éƒqƒbƒg‚µ‚½‰ñ”
-    public int maxHitCount = 1; // ƒuƒƒbƒN‚ª‰ó‚ê‚é‚Ü‚Å‚ÌÅ‘åƒqƒbƒg‰ñ”
+    //private int hitCount = 0; // ãƒ–ãƒ­ãƒƒã‚¯ã«ãƒ’ãƒƒãƒˆã—ãŸå›æ•°
+    public int maxHitCount = 1; // ãƒ–ãƒ­ãƒƒã‚¯ãŒå£Šã‚Œã‚‹ã¾ã§ã®æœ€å¤§ãƒ’ãƒƒãƒˆå›æ•°
 
-    //public int changeCount = 5; // F‚ª•Ï‰»‚·‚é‰ñ”
-    //public Color targetColor = Color.black; // •Ï‰»Œã‚ÌF
-    //private int currentCount = 0; // Œ»İ‚Ì•Ï‰»‰ñ”
-    //private Color currentColor = Color.white; // Œ»İ‚ÌFi‰Šú’l‚Í”’j
+    //public int changeCount = 5; // è‰²ãŒå¤‰åŒ–ã™ã‚‹å›æ•°
+    //public Color targetColor = Color.black; // å¤‰åŒ–å¾Œã®è‰²
+    //private int currentCount = 0; // ç¾åœ¨ã®å¤‰åŒ–å›æ•°
+    //private Color currentColor = Color.white; // ç¾åœ¨ã®è‰²ï¼ˆåˆæœŸå€¤ã¯ç™½ï¼‰
 
 
     public int start = 1;
@@ -39,27 +39,27 @@ public class GenerateBlocks : MonoBehaviour
         
     }
 
-    // ƒuƒƒbƒNíœ‚ÌŠÖ”
+    // ãƒ–ãƒ­ãƒƒã‚¯å‰Šé™¤ã®é–¢æ•°
     void BlocksDestroy()
     {
         foreach (var block in blocks)
         {
-            Destroy(block);//ƒuƒƒbƒN‚ğíœ
+            Destroy(block);//ãƒ–ãƒ­ãƒƒã‚¯ã‚’å‰Šé™¤
         }
         blocks.Clear();
         //totalBlocks = 0;
-        //destroyedBlockCount = 0; // ”j‰ó‚³‚ê‚½ƒuƒƒbƒN”‚ğƒŠƒZƒbƒg
+        //destroyedBlockCount = 0; // ç ´å£Šã•ã‚ŒãŸãƒ–ãƒ­ãƒƒã‚¯æ•°ã‚’ãƒªã‚»ãƒƒãƒˆ
         //Debug.Log("Blocks list cleared. Current block count: " + blocks.Count);
     }
 
-    //ƒuƒƒbƒN‚ğˆêŒÂ¶¬
-    void GenerateBlocksCreate(float x, float z, int MaxHitCount, float Rotation, Color color)// ƒuƒƒbƒN‚ª‰ó‚ê‚é‚Ü‚Å‚ÌÅ‘åƒqƒbƒg‰ñ”‚ğ[maxHitCount]‚É
+    //ãƒ–ãƒ­ãƒƒã‚¯ã‚’ä¸€å€‹ç”Ÿæˆ
+    void GenerateBlocksCreate(float x, float z, int MaxHitCount, float Rotation, Color color)// ãƒ–ãƒ­ãƒƒã‚¯ãŒå£Šã‚Œã‚‹ã¾ã§ã®æœ€å¤§ãƒ’ãƒƒãƒˆå›æ•°ã‚’[maxHitCount]ã«
     {
         blockRotation = new Vector3(0f, Rotation, 0f);
         GameObject block = Instantiate(BlockObject, new Vector3(x, 0, z), Quaternion.Euler(blockRotation));
         block.transform.localScale = currentSize;
 
-        // ƒuƒƒbƒN‚ÌF‚ğİ’è
+        // ãƒ–ãƒ­ãƒƒã‚¯ã®è‰²ã‚’è¨­å®š
         Renderer renderer = block.GetComponent<Renderer>();
         if (renderer != null)
         {
@@ -71,7 +71,7 @@ public class GenerateBlocks : MonoBehaviour
         maxHitCount = MaxHitCount;
         block.GetComponent<GenerateBlocks>().maxHitCount = MaxHitCount;
 
-        // ¶¬‚µ‚½ƒuƒƒbƒN‚ğƒŠƒXƒg‚É’Ç‰Á
+        // ç”Ÿæˆã—ãŸãƒ–ãƒ­ãƒƒã‚¯ã‚’ãƒªã‚¹ãƒˆã«è¿½åŠ 
         blocks.Add(block);
 
         Debug.Log("Block added to the list. Current block count: " + blocks.Count);
@@ -82,7 +82,7 @@ public class GenerateBlocks : MonoBehaviour
         //Debug.Log(totalBlocks);
     }
 
-    //ƒXƒe[ƒW¶¬‚ÌŠÖ”
+    //ã‚¹ãƒ†ãƒ¼ã‚¸ç”Ÿæˆã®é–¢æ•°
     void GenerateBlocksCreateStage(int stage)
     {
         if (stage == 0)
@@ -174,7 +174,7 @@ public class GenerateBlocks : MonoBehaviour
                 }
             }
         }
-        if (stage == 6)//‰Šú
+        if (stage == 6)//åˆæœŸ
         {
             const float LEFT = -10f;
             const float RIGHT = 10f;
@@ -186,43 +186,43 @@ public class GenerateBlocks : MonoBehaviour
             {
                 for (float z = BOTTOM + SPACE + currentSize.z; z < TOP - SPACE - currentSize.z; z += (SPACE + currentSize.z))
                 {
-                    GenerateBlocksCreate(x, z, 1, 0f, Color.white);// ƒuƒƒbƒN‚ª‰ó‚ê‚é‚Ü‚Å‚ÌÅ‘åƒqƒbƒg‰ñ”‚ğ’Ç‰Á
+                    GenerateBlocksCreate(x, z, 1, 0f, Color.white);// ãƒ–ãƒ­ãƒƒã‚¯ãŒå£Šã‚Œã‚‹ã¾ã§ã®æœ€å¤§ãƒ’ãƒƒãƒˆå›æ•°ã‚’è¿½åŠ 
                 }
             }
 
         }
     }
 
-    //ƒŠƒgƒ‰ƒC(ƒŠƒXƒ^[ƒg)ŠÖ”
+    //ãƒªãƒˆãƒ©ã‚¤(ãƒªã‚¹ã‚¿ãƒ¼ãƒˆ)é–¢æ•°
     void GenerateBlocksStageRestart(int stage)
     {
-        BlocksDestroy();//ƒuƒƒbƒNíœ
-        GenerateBlocksCreateStage(stage);//ƒXƒe[ƒW¶¬
+        BlocksDestroy();//ãƒ–ãƒ­ãƒƒã‚¯å‰Šé™¤
+        GenerateBlocksCreateStage(stage);//ã‚¹ãƒ†ãƒ¼ã‚¸ç”Ÿæˆ
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.N))//ƒuƒƒbƒNíœ(ƒQ[ƒ€I—¹)
+        if (Input.GetKeyDown(KeyCode.N))//ãƒ–ãƒ­ãƒƒã‚¯å‰Šé™¤(ã‚²ãƒ¼ãƒ çµ‚äº†)
         {
             BlocksDestroy();
         }
 
         //if (destroyedBlockCount >= totalBlocks) Debug.Log("All blocks destroyed!" + totalBlocks + destroyedBlockCount);
 
-        //ƒŠƒgƒ‰ƒC(ƒŠƒXƒ^[ƒg)
+        //ãƒªãƒˆãƒ©ã‚¤(ãƒªã‚¹ã‚¿ãƒ¼ãƒˆ)
         if (Input.GetKeyDown(KeyCode.B))
         {
             StageMode++;
             if (StageMode == 6) StageMode = 0;
             Debug.Log("Stage: " + StageMode);
-            GenerateBlocksStageRestart(StageMode);//‚±‚±‚Åw’è‚µ‚½ƒXƒe[ƒW‚ğƒŠƒgƒ‰ƒC(ƒŠƒXƒ^[ƒg)‚·‚é
+            GenerateBlocksStageRestart(StageMode);//ã“ã“ã§æŒ‡å®šã—ãŸã‚¹ãƒ†ãƒ¼ã‚¸ã‚’ãƒªãƒˆãƒ©ã‚¤(ãƒªã‚¹ã‚¿ãƒ¼ãƒˆ)ã™ã‚‹
         }
 
         if (start == 1)
         {
-            currentSize = initialSize; // Œ»İ‚Ì‘å‚«‚³‚É‰Šú’l‚ğİ’è
-            GenerateBlocksCreateStage(6); // ƒuƒƒbƒN¶¬
+            currentSize = initialSize; // ç¾åœ¨ã®å¤§ãã•ã«åˆæœŸå€¤ã‚’è¨­å®š
+            GenerateBlocksCreateStage(6); // ãƒ–ãƒ­ãƒƒã‚¯ç”Ÿæˆ
             ballRigidbody = GetComponent<Rigidbody>();
             start = 0;
         }
