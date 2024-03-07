@@ -89,95 +89,35 @@ public class GenerateBlocks : MonoBehaviour
     {
         if (stage == 0)
         {
-            GenerateBlocksCreate(10, 10, 2, 0f, Color.white);
+            GenerateBlocksCreate(10, 10, 1, 0f, Color.green);
             GenerateBlocksCreate(10, 20, 5, 0f, Color.white);
         }
 
         if (stage == 1)
         {
-            const float LEFT = -10f;
-            const float RIGHT = 10f;
-            const float TOP = 15f;
-            const float BOTTOM = 0f;
-            const float SPACE = 0.5f;
-            currentSize = new Vector3(3f, 1f, 1f);
-            for (float x = LEFT + SPACE + currentSize.x; x < RIGHT - SPACE - currentSize.x; x += (SPACE + currentSize.x))
-            {
-                for (float z = BOTTOM + SPACE + currentSize.z; z < TOP - SPACE - currentSize.z; z += (SPACE + currentSize.z))
-                {
-                    GenerateBlocksCreate(x, z, 1, 0f, Color.white);
-                }
-            }
+            
         }
 
         if (stage == 2)
         {
-            const float LEFT = -10f;
-            const float RIGHT = 10f;
-            const float TOP = 15f;
-            const float BOTTOM = 0f;
-            const float SPACE = 0.5f;
-            currentSize = new Vector3(3f, 1f, 1f);
-            for (float x = LEFT + SPACE + currentSize.x; x < RIGHT - SPACE - currentSize.x; x += (SPACE + currentSize.x))
-            {
-                for (float z = BOTTOM + SPACE + currentSize.z; z < TOP - SPACE - currentSize.z; z += (SPACE + currentSize.z))
-                {
-                    GenerateBlocksCreate(x, z, 2, 0f, Color.white);
-                }
-            }
+            
         }
 
         if (stage == 3)
         {
-            const float LEFT = -10f;
-            const float RIGHT = 10f;
-            const float TOP = 15f;
-            const float BOTTOM = 0f;
-            const float SPACE = 0.5f;
-            currentSize = new Vector3(3f, 1f, 1f);
-            for (float x = LEFT + SPACE + currentSize.x; x < RIGHT - SPACE - currentSize.x; x += (SPACE + currentSize.x))
-            {
-                for (float z = BOTTOM + SPACE + currentSize.z; z < TOP - SPACE - currentSize.z; z += (SPACE + currentSize.z))
-                {
-                    GenerateBlocksCreate(x, z, 3, 0f, Color.white);
-                }
-            }
+            
         }
 
         if (stage == 4)
         {
-            const float LEFT = -10f;
-            const float RIGHT = 10f;
-            const float TOP = 15f;
-            const float BOTTOM = 0f;
-            const float SPACE = 0.5f;
-            currentSize = new Vector3(3f, 1f, 1f);
-            for (float x = LEFT + SPACE + currentSize.x; x < RIGHT - SPACE - currentSize.x; x += (SPACE + currentSize.x))
-            {
-                for (float z = BOTTOM + SPACE + currentSize.z; z < TOP - SPACE - currentSize.z; z += (SPACE + currentSize.z))
-                {
-                    GenerateBlocksCreate(x, z, 4, 0f, Color.white);
-                }
-            }
+            
         }
 
         if (stage == 5)
         {
-            const float LEFT = -10f;
-            const float RIGHT = 10f;
-            const float TOP = 15f;
-            const float BOTTOM = 0f;
-            const float SPACE = 0.5f;
-            currentSize = new Vector3(3f, 1f, 1f);
-            for (float x = LEFT + SPACE + currentSize.x; x < RIGHT - SPACE - currentSize.x; x += (SPACE + currentSize.x))
-            {
-                for (float z = BOTTOM + SPACE + currentSize.z; z < TOP - SPACE - currentSize.z; z += (SPACE + currentSize.z))
-                {
-                    GenerateBlocksCreate(x, z, 5, 0f, Color.white);
-                }
-            }
+            
         }
-        if (stage == 6)//初期
+        if (stage == 6)
         {
             const float LEFT = -10f;
             const float RIGHT = 10f;
@@ -194,7 +134,7 @@ public class GenerateBlocks : MonoBehaviour
             }
 
         }
-        if (stage == 7)
+        if (stage == 7)//初期
         {
             // 接地する個数
             const int X_NUM = 4;
@@ -263,8 +203,6 @@ public class GenerateBlocks : MonoBehaviour
             ballRigidbody = GetComponent<Rigidbody>();
             start = 0;
         }
-
-
 
     }
 }

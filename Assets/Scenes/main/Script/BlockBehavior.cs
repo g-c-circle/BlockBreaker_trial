@@ -7,7 +7,7 @@ public class BlockBehavior : MonoBehaviour
 
     public int hitCount = 0;
     public int maxHitCount = 1; // ブロックが壊れるまでの最大ヒット回数
-
+    public int sumStrenge = 1;
 
     public void OnCollisionEnter(Collision collision)
     {
@@ -17,10 +17,13 @@ public class BlockBehavior : MonoBehaviour
             if (collision.gameObject.tag == "Ball")
             {
                 DestroyedBlockCount sum = GameObject.Find("BlockSumManager").GetComponent<DestroyedBlockCount>();
+                stdBall ballScript = collision.gameObject.GetComponent<stdBall>();
+                double ballLevelValue = ballScript.BallLevel;
                 hitCount++; // ヒット回数を増加
                 sum.SumHitCount++;
+                sumStrenge = sumStrenge + (int)ballLevelValue;
 
-                if (hitCount >= maxHitCount)//hitCount と maxHitCount が 同じになったら
+                if (sumStrenge >= maxHitCount)//hitCount と maxHitCount が 同じになったら
                 {
 
                     //ReflectBall(collision.gameObject.GetComponent<Rigidbody>());//ボールを跳ね返す
@@ -35,7 +38,7 @@ public class BlockBehavior : MonoBehaviour
                 {
 
                     Renderer blockRenderer = GetComponent<Renderer>();
-                    if (maxHitCount - hitCount == 1)
+                    if (maxHitCount - sumStrenge == 1)
                     {
                         //黒色に変更
                         if (blockRenderer != null)
@@ -47,7 +50,7 @@ public class BlockBehavior : MonoBehaviour
                     }
                     else//2なら
                     {
-                        if (maxHitCount - hitCount == 2)
+                        if (maxHitCount - sumStrenge == 2)
                         {
                             if (blockRenderer != null)
                             {
@@ -58,7 +61,7 @@ public class BlockBehavior : MonoBehaviour
                         }
                         else//3なら
                         {
-                            if (maxHitCount - hitCount == 3)
+                            if (maxHitCount - sumStrenge == 3)
                             {
                                 if (blockRenderer != null)
                                 {
@@ -69,7 +72,7 @@ public class BlockBehavior : MonoBehaviour
                             }
                             else//4なら
                             {
-                                if (maxHitCount - hitCount == 4)
+                                if (maxHitCount - sumStrenge == 4)
                                 {
                                     if (blockRenderer != null)
                                     {
@@ -80,7 +83,7 @@ public class BlockBehavior : MonoBehaviour
                                 }
                                 else//5なら
                                 {
-                                    if (maxHitCount - hitCount == 5)
+                                    if (maxHitCount - sumStrenge == 5)
                                     {
                                         if (blockRenderer != null)
                                         {
@@ -93,7 +96,7 @@ public class BlockBehavior : MonoBehaviour
                                     {
                                         if (blockRenderer != null)
                                         {
-                                            float grayValue = (float)(0.75 - ((maxHitCount - hitCount) / 100));
+                                            float grayValue = (float)(0.75 - ((maxHitCount - sumStrenge) / 100));
                                             Material material = new Material(blockRenderer.material);
                                             material.color = new Color(grayValue, grayValue, grayValue);
                                             blockRenderer.material = material;
