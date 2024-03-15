@@ -12,7 +12,7 @@ public class GenerateBalls : MonoBehaviour
     private float deltaTime = 0;
 
 
-    private float BallLevel = 1;
+    private float BallLevel = 1;//この値をいじることでブロックの攻撃力を変更可能
 
 
     // Start is called before the first frame update
