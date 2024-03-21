@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,38 +23,8 @@ public class StageManager : MonoBehaviour
 
     public bool IsPlaying = true;
 
-    // ---------- Save Score ----------
-
-    // [System.Serializable]：シリアライズ(Jsonデータに変換？)
-    [System.Serializable]
-    public class Result
-    {
-        public string UserName = "";
-        public float Score = 0;
-        public float ClearTime = 0;
-    }
-    [System.Serializable]
-    public class Ranking
-    {
-        public List<Result> Results = new List<Result>();
-    }
-
-    private string _dataPath;
-    private void Awake()
-    {
-        // ファイルのパスを計算
-        _dataPath = Path.Combine(Application.persistentDataPath, "data.json");
-    }
-
     void Start()
     {
-        // 初回起動時などjsonが存在しなければ、空のデータで作っておく
-        if (!File.Exists(_dataPath))
-        {
-            File.WriteAllText(_dataPath, JsonUtility.ToJson(new Ranking()));
-        }
-        Debug.Log(File.ReadAllText(_dataPath));
-
         Score = 0;
         InGameTime = 0;
         IsPlaying = true;
@@ -79,19 +50,9 @@ public class StageManager : MonoBehaviour
                 Score += BonusScore;
             }
 
+            // ----- スコア反映 -----
             GameObject.Find("Canvas").transform.Find("TextScore").GetComponent<Text>().text = "くりあ：" + Score.ToString() + "点";
-
-            // ----- スコアの書き込み -----
-            Result result = new Result();
-            result.UserName = "Test User";
-            result.Score = Score;
-            result.ClearTime = InGameTime;
-
-            Ranking ranking = JsonUtility.FromJson<Ranking>(File.ReadAllText(_dataPath));
-            ranking.Results.Add(result);
-
-            Debug.Log(JsonUtility.ToJson(ranking));
-            File.WriteAllText(_dataPath, JsonUtility.ToJson(ranking));
+            gameObject.GetComponent<RankingManager>().SaveScore("TestUser", Score, InGameTime);
         }
         else
         {
@@ -114,6 +75,8 @@ public class StageManager : MonoBehaviour
 
     // のようにキャストして使う
     // nullを弾かずに直接使うとnullだった時に実行時エラーとなるので、nullかどうかの判定をすること。
+
+    // 等間隔にブロックを設置したい場合
     public float? GetLeftBlockPos(int Num, float Size, float Space, float Left = STAGE_LIMIT_LEFT, float Right = STAGE_LIMIT_RIGHT)
     {
         // 左右と間の余白を含めた全体の横の長さ
