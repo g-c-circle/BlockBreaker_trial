@@ -121,9 +121,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BlockObject: {fileID: 8607168396560344464}
   blockRotation: {x: 0, y: 0, z: 0}
+  blocks: []
   constantSpeed: 5
-  maxHitCount: 1
-  hitCount: 0
   start: 1
 --- !u!114 &7253807877370233030
 MonoBehaviour:
@@ -139,3 +138,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitCount: 0
   maxHitCount: 1
+  sumStrenge: 1
+  materials:
+  - {fileID: 2100000, guid: 7fac3667451349e4fadcf6efdfd19ee0, type: 2}
+  - {fileID: 2100000, guid: a83045c15b814864a9db5bea98e4f0f3, type: 2}
+  - {fileID: 2100000, guid: 71ae2ba167087d74b96eae6b74b5ba60, type: 2}
+  - {fileID: 2100000, guid: 7a954ac19821e27429b40f15d9de5d5d, type: 2}
+  - {fileID: 2100000, guid: ba0e9903ed73f66478a7682dc39a5745, type: 2}
+  - {fileID: 2100000, guid: f79758346c787ce4ea9777b6310f7501, type: 2}
+  - {fileID: 2100000, guid: 03fc6f89d86992e4793a8dbcc3f6531c, type: 2}

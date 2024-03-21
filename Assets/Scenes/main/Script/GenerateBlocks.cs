@@ -20,7 +20,7 @@ public class GenerateBlocks : MonoBehaviour
 
 
     //private int hitCount = 0; // ブロックにヒットした回数
-    public int maxHitCount = 1; // ブロックが壊れるまでの最大ヒット回数
+    //public int maxHitCount = 1; // ブロックが壊れるまでの最大ヒット回数
 
     //public int changeCount = 5; // 色が変化する回数
     //public Color targetColor = Color.black; // 変化後の色
@@ -52,11 +52,12 @@ public class GenerateBlocks : MonoBehaviour
         //Debug.Log("Blocks list cleared. Current block count: " + blocks.Count);
     }
 
-    //ブロックを一個生成
+    //ブロックを一個生成　　[X座標　Z座標　ブロックが壊れるまでの最大ヒット回数(基本は１～８）　向き(角度)　初期の色]
     void GenerateBlocksCreate(float x, float z, int MaxHitCount, float Rotation, Color color)// ブロックが壊れるまでの最大ヒット回数を[maxHitCount]に
     {
         blockRotation = new Vector3(0f, Rotation, 0f);
         GameObject block = Instantiate(BlockObject, new Vector3(x, 0, z), Quaternion.Euler(blockRotation));
+
         block.transform.localScale = currentSize;
 
         // ブロックの色を設定
@@ -68,8 +69,9 @@ public class GenerateBlocks : MonoBehaviour
             renderer.material = material;
         }
 
-        maxHitCount = MaxHitCount;
-        block.GetComponent<GenerateBlocks>().maxHitCount = MaxHitCount;
+        BlockBehavior blockScript = block.GetComponent<BlockBehavior>();
+        blockScript.maxHitCount = MaxHitCount;
+        //block.GetComponent<GenerateBlocks>().maxHitCount = MaxHitCount;
 
         // 生成したブロックをリストに追加
         blocks.Add(block);
@@ -87,111 +89,39 @@ public class GenerateBlocks : MonoBehaviour
     {
         if (stage == 0)
         {
-
+            GenerateBlocksCreate(10, 10, 1, 0f, Color.green);//一例　座標が(10,10)　1回で壊れる　初期の向き(角度）　最初は緑色
+            GenerateBlocksCreate(10, 20, 5, 0f, Color.white);//一例　座標が(10,20)　5回で壊れる　初期の向き(角度）　最初は白色
         }
 
         if (stage == 1)
         {
-            const float LEFT = -10f;
-            const float RIGHT = 10f;
-            const float TOP = 15f;
-            const float BOTTOM = 0f;
-            const float SPACE = 0.5f;
-            currentSize = new Vector3(3f, 1f, 1f);
-            for (float x = LEFT + SPACE + currentSize.x; x < RIGHT - SPACE - currentSize.x; x += (SPACE + currentSize.x))
-            {
-                for (float z = BOTTOM + SPACE + currentSize.z; z < TOP - SPACE - currentSize.z; z += (SPACE + currentSize.z))
-                {
-                    GenerateBlocksCreate(x, z, 1, 0f, Color.white);
-                }
-            }
+            
         }
 
         if (stage == 2)
         {
-            const float LEFT = -10f;
-            const float RIGHT = 10f;
-            const float TOP = 15f;
-            const float BOTTOM = 0f;
-            const float SPACE = 0.5f;
-            currentSize = new Vector3(3f, 1f, 1f);
-            for (float x = LEFT + SPACE + currentSize.x; x < RIGHT - SPACE - currentSize.x; x += (SPACE + currentSize.x))
-            {
-                for (float z = BOTTOM + SPACE + currentSize.z; z < TOP - SPACE - currentSize.z; z += (SPACE + currentSize.z))
-                {
-                    GenerateBlocksCreate(x, z, 2, 0f, Color.white);
-                }
-            }
+            
         }
 
         if (stage == 3)
         {
-            const float LEFT = -10f;
-            const float RIGHT = 10f;
-            const float TOP = 15f;
-            const float BOTTOM = 0f;
-            const float SPACE = 0.5f;
-            currentSize = new Vector3(3f, 1f, 1f);
-            for (float x = LEFT + SPACE + currentSize.x; x < RIGHT - SPACE - currentSize.x; x += (SPACE + currentSize.x))
-            {
-                for (float z = BOTTOM + SPACE + currentSize.z; z < TOP - SPACE - currentSize.z; z += (SPACE + currentSize.z))
-                {
-                    GenerateBlocksCreate(x, z, 3, 0f, Color.white);
-                }
-            }
+            
         }
 
         if (stage == 4)
         {
-            const float LEFT = -10f;
-            const float RIGHT = 10f;
-            const float TOP = 15f;
-            const float BOTTOM = 0f;
-            const float SPACE = 0.5f;
-            currentSize = new Vector3(3f, 1f, 1f);
-            for (float x = LEFT + SPACE + currentSize.x; x < RIGHT - SPACE - currentSize.x; x += (SPACE + currentSize.x))
-            {
-                for (float z = BOTTOM + SPACE + currentSize.z; z < TOP - SPACE - currentSize.z; z += (SPACE + currentSize.z))
-                {
-                    GenerateBlocksCreate(x, z, 4, 0f, Color.white);
-                }
-            }
+            
         }
 
         if (stage == 5)
         {
-            const float LEFT = -10f;
-            const float RIGHT = 10f;
-            const float TOP = 15f;
-            const float BOTTOM = 0f;
-            const float SPACE = 0.5f;
-            currentSize = new Vector3(3f, 1f, 1f);
-            for (float x = LEFT + SPACE + currentSize.x; x < RIGHT - SPACE - currentSize.x; x += (SPACE + currentSize.x))
-            {
-                for (float z = BOTTOM + SPACE + currentSize.z; z < TOP - SPACE - currentSize.z; z += (SPACE + currentSize.z))
-                {
-                    GenerateBlocksCreate(x, z, 5, 0f, Color.white);
-                }
-            }
+            
         }
-        if (stage == 6)//初期
+        if (stage == 6)
         {
-            const float LEFT = -10f;
-            const float RIGHT = 10f;
-            const float TOP = 15f;
-            const float BOTTOM = 0f;
-            const float SPACE = 0.5f;
-            currentSize = new Vector3(3f, 1f, 1f);
-            for (float x = LEFT + SPACE + currentSize.x; x < RIGHT - SPACE - currentSize.x; x += (SPACE + currentSize.x))
-            {
-                for (float z = BOTTOM + SPACE + currentSize.z; z < TOP - SPACE - currentSize.z; z += (SPACE + currentSize.z))
-                {
-                    GenerateBlocksCreate(x, z, 3, 0f, Color.white);// ブロックが壊れるまでの最大ヒット回数を追加
-                }
-            }
 
         }
-        if (stage == 7)
+        if (stage == 7)//初期　（１８９行目で実行）
         {
             // 接地する個数
             const int X_NUM = 4;
@@ -219,7 +149,7 @@ public class GenerateBlocks : MonoBehaviour
                 for (int j = 0; j < Z_NUM; j++)
                 {
                     Debug.Log("x:" + x + ",z:" + z);
-                    GenerateBlocksCreate(x, z, 2, 0f, Color.white);
+                    GenerateBlocksCreate(x, z, 9, 0f, Color.white);
                     z += currentSize.z + Space;
                 }
                 x += currentSize.x + Space;
@@ -260,8 +190,6 @@ public class GenerateBlocks : MonoBehaviour
             ballRigidbody = GetComponent<Rigidbody>();
             start = 0;
         }
-
-
 
     }
 }
