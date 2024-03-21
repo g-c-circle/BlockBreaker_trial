@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class start : MonoBehaviour
+public class starting : MonoBehaviour
 {
     [SerializeField] GameObject Titlepanel;
     [SerializeField] private AudioClip b1;
+    [SerializeField] GameObject Stageselectpanel;
     [SerializeField] AudioSource seAudioSource;
     // Start is called before the first frame update
     void Start()
@@ -20,9 +21,10 @@ public class start : MonoBehaviour
      
     }
 
-    public void StartingButton()
+    public void StartButton()
     {
         Titlepanel.SetActive(false);
+        Stageselectpanel.SetActive(true);
         seAudioSource.PlayOneShot(b1);
     }
 
