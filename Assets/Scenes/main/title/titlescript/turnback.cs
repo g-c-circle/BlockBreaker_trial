@@ -7,6 +7,7 @@ public class turnback : MonoBehaviour
 {
     [SerializeField] GameObject Settingpanel;
     [SerializeField] GameObject Titlepanel;
+    [SerializeField] GameObject Stageselectpanel;
     [SerializeField] private AudioClip b1;
     [SerializeField] AudioSource seAudioSource;
 
@@ -26,6 +27,7 @@ public class turnback : MonoBehaviour
     {
         Settingpanel.SetActive(false);
         Titlepanel.SetActive(true);
+        Stageselectpanel.SetActive(false);
         seAudioSource.PlayOneShot(b1);
     }
 
