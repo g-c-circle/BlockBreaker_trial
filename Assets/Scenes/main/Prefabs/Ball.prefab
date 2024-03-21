@@ -148,3 +148,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isAutoInit: 1
   countSpeedUp: 0
+  att: 1.1

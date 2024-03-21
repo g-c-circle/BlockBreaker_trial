@@ -6,7 +6,7 @@ public class stdBall : MonoBehaviour
 {
     public bool isAutoInit = true;
     public int countSpeedUp = 0;
-    public float att = 1.0f;
+    public float att = 1.1f;
     private const int MIN = 8, MAX = 16;
     private const string BALL_TAG = "Ball", WALL_TAG = "Wall";
     private Rigidbody rb;

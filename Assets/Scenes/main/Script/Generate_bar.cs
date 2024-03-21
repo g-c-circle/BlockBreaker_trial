@@ -17,11 +17,10 @@ public class Generate_bar : MonoBehaviour
         mainbar = GameObject.Find("Cube");
         while (true)
         {
-            if (Input.GetKey(KeyCode.Return))
+            if (Input.GetKeyDown(KeyCode.Return))
             {
                 tmpsubbar = Instantiate(subbar, new Vector3(mainbar.transform.position.x, 0, mainbar.transform.position.z+subbar.transform.localScale.z/2), Quaternion.identity) as GameObject;
                 flag = true;
-                Debug.Log(mainbar.transform.position.x);
                 yield return new WaitForSeconds(0.2f);
             }
 

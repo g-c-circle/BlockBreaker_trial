@@ -17,9 +17,9 @@ public class bar_inside : bar
     }
 
 
-    virtual public float append_ball_attack(float def_point) 
+    virtual public float append_ball_attack(float def_point,Collision collision) 
     {
-        Debug.Log(def_point);
+        //Debug.Log(def_point);
         return def_point*1.0f;
     }
     public void OnCollisionEnter(Collision collision)
@@ -41,11 +41,19 @@ public class bar_inside : bar
         ballspeed = (float)Math.Sqrt(ballvectorx + ballvectorz);
         //speed = ã(x^2+z^2)
 
+        if (Math.Abs(diffper) > 1)
+        {
+            ball.velocity = new Vector3(ball.velocity.x * -1, 0, ball.velocity.z);
+        }
+        else
+        {
+            ball.velocity = new Vector3(diffper * ballspeed, 0, (float)Math.Sin(Math.Acos((double)diffper)) * ballspeed);
+        }
 
-        ball.velocity = new Vector3(diffper * ballspeed, 0, (float)Math.Sin(Math.Acos((double)diffper)) * ballspeed);
-
-        ball_attack = append_ball_attack(ball_attack);
-        Debug.Log(ball_attack);
+        //Debug.Log("this ball point is "+ball_attack);
+        ball_attack = append_ball_attack(ball_attack,collision);
+        collision.gameObject.GetComponent<stdBall>().att = ball_attack;
+        //Debug.Log(ball_attack+"\n"+collision.gameObject.tag);
     }
 
 
