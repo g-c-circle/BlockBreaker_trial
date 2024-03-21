@@ -200,6 +200,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   subbar: {fileID: 9181022602918218429, guid: 6d451568019cd06428b07ecc64436471, type: 3}
+  tmpsubbar: {fileID: 0}
 --- !u!1 &254269493
 GameObject:
   m_ObjectHideFlags: 0

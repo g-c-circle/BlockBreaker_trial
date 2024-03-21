@@ -12,6 +12,7 @@ public class GenerateBalls : MonoBehaviour
     private float deltaTime = 0;
 
     // Start is called before the first frame update
+
     void Start()
     {
         // stdBallを編集する例 一度変えるとunity上のチェックボックスが書き換わるので注意

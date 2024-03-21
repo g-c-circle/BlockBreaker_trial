@@ -15,10 +15,19 @@ public class bar_inside : bar
             instance = this;
         }
     }
+
+
+    virtual public float append_ball_attack(float def_point) 
+    {
+        Debug.Log(def_point);
+        return def_point*1.0f;
+    }
     public void OnCollisionEnter(Collision collision)
     {
+        //init section.
         float barwidth = gameObject.GetComponent<Renderer>().bounds.size.x;
         float barposition = transform.position.x;
+        float ball_attack = collision.gameObject.GetComponent<stdBall>().att;
 
         if (!stay) stay = true;
 
@@ -34,6 +43,9 @@ public class bar_inside : bar
 
 
         ball.velocity = new Vector3(diffper * ballspeed, 0, (float)Math.Sin(Math.Acos((double)diffper)) * ballspeed);
+
+        ball_attack = append_ball_attack(ball_attack);
+        Debug.Log(ball_attack);
     }
 
 
