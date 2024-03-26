@@ -11,6 +11,10 @@ public class GenerateBalls : MonoBehaviour
     private int generatedBallNum = 0;
     private float deltaTime = 0;
 
+
+    private float BallLevel = 1;//この値をいじることでブロックの攻撃力を変更可能
+
+
     // Start is called before the first frame update
 
     void Start()
@@ -38,7 +42,9 @@ public class GenerateBalls : MonoBehaviour
             return;
 
         // ボールのインスタンスを作成
-        Instantiate(ballPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+        GameObject ball = Instantiate(ballPrefab, new Vector3(10.5f, 0, 15.5f), Quaternion.identity);
+        stdBall ballScript = ball.GetComponent<stdBall>();
+        ballScript.BallLevel = BallLevel;
 
         generatedBallNum++;
         deltaTime = 0;
