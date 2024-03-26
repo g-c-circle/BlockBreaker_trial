@@ -7,7 +7,6 @@ TagManager:
   - debug(sphere)
   - Ball
   - Wall
-  - Block
   layers:
   - Default
   - TransparentFX
