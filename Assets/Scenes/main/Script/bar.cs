@@ -6,7 +6,7 @@ using UnityEngine;
 public class bar : MonoBehaviour
 {
     // Start is called before the first frame update
-    public float movespeed = 1f;
+    private float movespeed = 10f;
 
     public float vInput;
 
@@ -26,59 +26,23 @@ public class bar : MonoBehaviour
 
     void GetLimit()
     {
-        // transform.position‚Å“¾‚ç‚ê‚é‚Ì‚Íƒo[‚Ì’†S‚ÌÀ•W‚¾‚ªA
-        // ÀÛ‚É‚ÍBar‚Ìæ’[‚ÌÀ•W‚ªLIMIT‚ğ’´‚¦‚Ä‚Í‚È‚ç‚È‚¢B
-        // ‚È‚Ì‚ÅLimit‚ÍABar‚Ì’†SÀ•W‚ªæ‚Á‚Ä‚æ‚¢”ÍˆÍ‚Æ‚·‚éB
+        // transform.positionã§å¾—ã‚‰ã‚Œã‚‹ã®ã¯ãƒãƒ¼ã®ä¸­å¿ƒã®åº§æ¨™ã ãŒã€
+        // å®Ÿéš›ã«ã¯Barã®å…ˆç«¯ã®åº§æ¨™ãŒLIMITã‚’è¶…ãˆã¦ã¯ãªã‚‰ãªã„ã¨ã„ã†ãµã†ã«å·®ç•°ãŒã‚ã‚‹ã€‚
+        // ã“ã“ã§LimitLeft/Rightã¯ã€Barã®ä¸­å¿ƒåº§æ¨™ãŒå–ã£ã¦ã‚ˆã„ç¯„å›²ã¨ã™ã‚‹ã€‚
         float HalfBarLength = transform.localScale.x / 2;
         //StageManager sm = GameObject.Find("StageManager").GetComponent<StageManager>();
         LimitLeft = StageManager.STAGE_LIMIT_LEFT + HalfBarLength;
         LimitRight = StageManager.STAGE_LIMIT_RIGHT - HalfBarLength;
     }
 
-    //{    void back_before_stay()
-    //    {
-
-    //        if (!stay) stay = true;
-
-    //        transform.position = new Vector3(bx, 0f, -7.5f);
-    //    }
-
-    //virtual public void OnTriggerStay(Collider other)
-    //{
-
-    //    back_before_stay();
-
-    //}
-    //virtual public void OnTriggerEnter(Collider collider)
-    //{
-    //    back_before_stay();
-
-    //    ball = collider.gameObject.GetComponent<Rigidbody>();
-
-    //    //addspeed += 0.001f;
-
-    //    //ball.velocity = new Vector3(addspeed * ball.velocity.x, 0, (ball.velocity.z * -1) * addspeed);
-
-    //}
-
-    //virtual public void OnTriggerExit(Collider other)
-    //{
-
-    //    stay = false;
-    //}
-
     virtual public void move()
     {
-        //if (!stay)
-        //{
-        //    bx = transform.position.x;//recorting bar x position that bar does't colliding to wall.
-        //}
         vInput = Input.GetAxis("Horizontal");
         transform.Translate(Vector3.right * vInput * movespeed * Time.deltaTime);
 
-        // ƒXƒe[ƒW“à‚É–ß‚·
+        // ã‚¹ãƒ†ãƒ¼ã‚¸å†…ã«æˆ»ã™
         Vector3 pos = transform.position;
-        //Debug.Log(pos.x);
+        Debug.Log(pos.x);
         if (pos.x < LimitLeft)
             pos.x = LimitLeft;
 
@@ -87,8 +51,7 @@ public class bar : MonoBehaviour
 
         transform.position = pos;
     }
-
-    void Start()
+    void Awake()
     {
         GetLimit();
     }

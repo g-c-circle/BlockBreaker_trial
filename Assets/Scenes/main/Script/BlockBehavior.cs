@@ -49,7 +49,7 @@ public class BlockBehavior : MonoBehaviour
         }
         else
         {
-            Debug.Log("BLOCK ERROER");
+            //Debug.Log("BLOCK ERROER");
         }
 
         if (collision.gameObject.tag == "Ball")//Ç‡ÇµÉ{Å[ÉãÇ…êGÇÍÇΩÇÁ

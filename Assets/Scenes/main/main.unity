@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.43851843, g: 0.48661274, b: 0.5668886, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -215,6 +215,7 @@ GameObject:
   - component: {fileID: 211427086}
   - component: {fileID: 211427087}
   - component: {fileID: 211427088}
+  - component: {fileID: 211427089}
   m_Layer: 0
   m_Name: StageManager
   m_TagString: Untagged
@@ -296,6 +297,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ceb2435f433b114db83b9929f2e026e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &211427089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 211427082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a92dca45eda41ab4294712fd36cca9ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  subbar: {fileID: 9181022602918218429, guid: 6d451568019cd06428b07ecc64436471, type: 3}
+  tmpsubbar: {fileID: 0}
 --- !u!1 &254269493
 GameObject:
   m_ObjectHideFlags: 0
@@ -383,7 +398,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 254269493}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
+  m_LocalRotation: {x: -0.7159761, y: 0.09352658, z: -0.264383, w: -0.6393221}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -935,8 +950,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7329841228952455454, guid: 9c214fca0ecfc8a47be6595091b2f250, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7329841228952455454, guid: 9c214fca0ecfc8a47be6595091b2f250, type: 3}
       propertyPath: m_IsTrigger
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8301754707255798555, guid: 9c214fca0ecfc8a47be6595091b2f250, type: 3}
       propertyPath: m_Name
@@ -962,10 +981,10 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8301754707255798555, guid: 9c214fca0ecfc8a47be6595091b2f250, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 656567912}
+      addedObject: {fileID: 656567911}
     - targetCorrespondingSourceObject: {fileID: 8301754707255798555, guid: 9c214fca0ecfc8a47be6595091b2f250, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 656567911}
+      addedObject: {fileID: 656567916}
   m_SourcePrefab: {fileID: 100100000, guid: 9c214fca0ecfc8a47be6595091b2f250, type: 3}
 --- !u!1 &656567909 stripped
 GameObject:
@@ -1004,7 +1023,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 124
   m_CollisionDetection: 2
---- !u!114 &656567912
+--- !u!114 &656567916
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1013,15 +1032,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 656567909}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b870a44e1823f34bbc31f3d23f8a798, type: 3}
+  m_Script: {fileID: 11500000, guid: e1823ff3181ac544289a58add2ed603d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movespeed: 8
-  vInput: 1
+  vInput: 0
   bx: 0
   stay: 0
-  ball: {fileID: 6753640117999826317, guid: 5f482f65c220af44c8a8d96ac02140d4, type: 3}
-  addspeed: 1.01
+  ball: {fileID: 0}
+  addspeed: 1
 --- !u!1 &876993672
 GameObject:
   m_ObjectHideFlags: 0
@@ -1179,7 +1197,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1823ff3181ac544289a58add2ed603d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movespeed: 50
   vInput: 0
   bx: 0
   stay: 0
@@ -1614,7 +1631,7 @@ GameObject:
   - component: {fileID: 1505928273}
   - component: {fileID: 1505928272}
   - component: {fileID: 1505928271}
-  - component: {fileID: 1505928269}
+  - component: {fileID: 1505928275}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -1622,24 +1639,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1505928269
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1505928268}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b870a44e1823f34bbc31f3d23f8a798, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  movespeed: 8
-  vInput: 1
-  bx: 0
-  stay: 0
-  ball: {fileID: 6753640117999826317, guid: 5f482f65c220af44c8a8d96ac02140d4, type: 3}
-  addspeed: 1.01
 --- !u!65 &1505928271
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1726,6 +1725,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1505928275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1505928268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1823ff3181ac544289a58add2ed603d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vInput: 0
+  bx: 0
+  stay: 0
+  ball: {fileID: 0}
+  addspeed: 1
 --- !u!1 &1522167358
 GameObject:
   m_ObjectHideFlags: 0
@@ -2111,7 +2127,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1823ff3181ac544289a58add2ed603d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movespeed: 50
   vInput: 0
   bx: 0
   stay: 0
@@ -2306,7 +2321,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 778f270c6253ada4abf0b30193c64a28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reflectSpeed: 1.5
+  reflectSpeed: 1.1
   maxSpeedUps: 3
 --- !u!1 &1758813280
 GameObject:

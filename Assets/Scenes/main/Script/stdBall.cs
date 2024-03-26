@@ -6,27 +6,27 @@ public class stdBall : MonoBehaviour
 {
     public bool isAutoInit = true;
     public int countSpeedUp = 0;
+    public float att = 1.1f;
     public double BallLevel = 1;
-
     private const int MIN = 8, MAX = 16;
     private const string BALL_TAG = "Ball", WALL_TAG = "Wall";
     private Rigidbody rb;
 
-    public void InitSpeed(int min, int max) // ‰‘¬‚ªmin‚©‚çmax
+    public void InitSpeed(int min, int max) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½minï¿½ï¿½ï¿½ï¿½max
     {
-        // Random.Range‚ÍA‘æˆêˆø” <= return < ‘æ“ñˆø” ‚Å‚ ‚é
+        // Random.Rangeï¿½ÍAï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ <= return < ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Å‚ï¿½ï¿½ï¿½
         rb.velocity += Vector3.right * Random.Range(min, max + 1);
         rb.velocity += Vector3.forward * Random.Range(min, max + 1);
 
-        // ƒ‰ƒ“ƒ_ƒ€‚É+-‚ğ‹t“]‚³‚¹‚é
+        // ï¿½ï¿½ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½ï¿½+-ï¿½ï¿½ï¿½tï¿½]ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         if (System.Convert.ToBoolean(Random.Range(0, 2)))
             rb.velocity = new Vector3(-1 * rb.velocity.x, rb.velocity.y, rb.velocity.z);
         if (System.Convert.ToBoolean(Random.Range(0, 2)))
             rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, -1 * rb.velocity.z);
 
-        // ForceMode.VelocityChangeF
-        // ¿—Ê‚ğ–³‹‚µA‚©‚Â1•bŠÔ—Í‚ğ‚©‚¯‚½’lvelocity‚ğ•Ï‰»‚³‚¹‚é
-        // ‘æ“ñˆø”‚ğÈ—ª‚·‚é‚ÆA0.02•b(1ƒtƒŒ[ƒ€)‚¾‚¯—Í‚ª‚©‚©‚é
+        // ForceMode.VelocityChangeï¿½F
+        // ï¿½ï¿½ï¿½Ê‚ğ–³ï¿½ï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½1ï¿½bï¿½Ô—Í‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½lvelocityï¿½ï¿½Ï‰ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È—ï¿½ï¿½ï¿½ï¿½ï¿½ÆA0.02ï¿½b(1ï¿½tï¿½ï¿½ï¿½[ï¿½ï¿½)ï¿½ï¿½ï¿½ï¿½ï¿½Í‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         //if (System.Convert.ToBoolean(Random.Range(0, 2)))
         //    rb.AddForce(new Vector3(rb.velocity.x * -2, 0, 0), ForceMode.VelocityChange);
         //if (System.Convert.ToBoolean(Random.Range(0, 2)))
@@ -52,8 +52,8 @@ public class stdBall : MonoBehaviour
         }
     }
 
-    // ƒNƒ‰ƒX‚Ìƒƒ“ƒo•Ï”‚ğ’¼Ú‚¢‚¶‚é‚Ì‚Í‚æ‚ë‚µ‚­‚È‚¢‚ç‚µ‚¢‚Ì‚Å—pˆÓ‚µ‚½
-    // d‚­‚È‚é‚æ‚¤‚È‚ç’¼Ú‘‚«Š·‚¦‚æ‚¤
+    // ï¿½Nï¿½ï¿½ï¿½Xï¿½Ìƒï¿½ï¿½ï¿½ï¿½oï¿½Ïï¿½ï¿½ğ’¼Ú‚ï¿½ï¿½ï¿½ï¿½ï¿½Ì‚Í‚ï¿½ë‚µï¿½ï¿½ï¿½È‚ï¿½ï¿½ç‚µï¿½ï¿½ï¿½Ì‚Å—pï¿½Ó‚ï¿½ï¿½ï¿½
+    // ï¿½dï¿½ï¿½ï¿½È‚ï¿½æ‚¤ï¿½È‚ç’¼ï¿½Úï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æ‚¤
     public Vector3 getVelocity()
     {
         return rb.velocity;
@@ -95,30 +95,30 @@ public class stdBall : MonoBehaviour
         rb.velocity = new Vector3(rb.velocity.x * x, rb.velocity.y * y, rb.velocity.z * z);
     }
 
-    // num‰ñ90“x‰ñ“]‚³‚¹‚é@ƒ}ƒCƒiƒX‚à‰Â
+    // numï¿½ï¿½90ï¿½xï¿½ï¿½]ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½@ï¿½}ï¿½Cï¿½iï¿½Xï¿½ï¿½ï¿½ï¿½
     public void rotate(int num)
     {
-        // —á‚¦‚Î -7%4 ‚Í -3 ‚Æ‚È‚é‚Ì‚ÅA‚Ü‚¸ƒvƒ‰ƒX‚É‚·‚é
+        // ï¿½á‚¦ï¿½ï¿½ -7%4 ï¿½ï¿½ -3 ï¿½Æ‚È‚ï¿½Ì‚ÅAï¿½Ü‚ï¿½ï¿½vï¿½ï¿½ï¿½Xï¿½É‚ï¿½ï¿½ï¿½
         while (num < 0)
             num += 4;
         num %= 4;
-        // 90“x‰ñ“]
+        // 90ï¿½xï¿½ï¿½]
         for (int i = 0; i < num; i++)
             rb.velocity = new Vector3(rb.velocity.z, rb.velocity.y, -rb.velocity.x);
     }
 
-    public void OnRefrection(string obj) // ‰¼‚ÅŒˆ‚ß‚½ˆø”AƒuƒƒbƒN‚©ƒo[‚©•Ç‚©”»’è‚·‚é
+    public void OnRefrection(string obj) // ï¿½ï¿½ï¿½ÅŒï¿½ï¿½ß‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Aï¿½uï¿½ï¿½ï¿½bï¿½Nï¿½ï¿½ï¿½oï¿½[ï¿½ï¿½ï¿½Ç‚ï¿½ï¿½ï¿½ï¿½è‚·ï¿½ï¿½
     {
-        // “–‚½‚Á‚½‚Æ‚«‰½‚©‹N‚±‚éˆ—‚ğ‘‚«‚½‚¢‚È‚ç‘‚­
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½éˆï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È‚ç‘ï¿½ï¿½
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == WALL_TAG)
         {
-            //Debug.Log("‚Ô‚Â‚©‚Á‚½");
+            //Debug.Log("ï¿½Ô‚Â‚ï¿½ï¿½ï¿½ï¿½ï¿½");
 
-            //// BALL_TAG‚ğ‚Â‚à‚Ì‘S‚Ä‚ğ”z—ñ‚É“ü‚ê‚é
+            //// BALL_TAGï¿½ï¿½ï¿½ï¿½ï¿½Â‚ï¿½ï¿½Ì‘Sï¿½Ä‚ï¿½zï¿½ï¿½É“ï¿½ï¿½ï¿½ï¿½
             //GameObject[] balls = GameObject.FindGameObjectsWithTag(BALL_TAG);
 
             //Debug.Log(balls.Length);
@@ -127,7 +127,7 @@ public class stdBall : MonoBehaviour
             //{
             //}
 
-            //// ”z—ñ‚Ìˆê‚Âˆê‚Â‚ªball‚É“ü‚é
+            //// ï¿½zï¿½ï¿½Ìˆï¿½Âˆï¿½Â‚ï¿½ballï¿½É“ï¿½ï¿½ï¿½
             //foreach (GameObject ball in balls)
             //{
             //    stdBall stdBall = ball.gameObject.GetComponent<stdBall>();
@@ -139,14 +139,14 @@ public class stdBall : MonoBehaviour
     {
         if (collision.gameObject.tag == WALL_TAG)
         {
-            //Debug.Log("‚Ô‚Â‚©‚Á‚Ä‚¢‚é");
+            //Debug.Log("ï¿½Ô‚Â‚ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½");
         }
     }
     private void OnCollisionExit(Collision collision)
     {
         if (collision.gameObject.tag == WALL_TAG)
         {
-            //Debug.Log("—£‚ê‚½");
+            //Debug.Log("ï¿½ï¿½ï¿½ê‚½");
         }
     }
 }
