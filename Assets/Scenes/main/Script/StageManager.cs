@@ -58,7 +58,6 @@ public class StageManager : MonoBehaviour
         {
             GameObject.Find("Canvas").transform.Find("TextScore").GetComponent<Text>().text = ((int)Score).ToString();
             GameObject.Find("Canvas").transform.Find("TextTime").GetComponent<Text>().text = ((int)InGameTime).ToString();
-            //Debug.Log("‚Ì‚±‚è" + Blocks.Length);
         }
     }
 
