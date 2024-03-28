@@ -4,7 +4,8 @@ MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
-  - BlockObject: {fileID: 8607168396560344464, guid: 0046f8c2441e5774298ad2cba794760f, type: 3}
+  - BlockObject: {fileID: 8607168396560344464, guid: acd15fe7bd6c6194a912a8bd215c292b, type: 3}
+  - TransparentCubePrefab: {fileID: 2178067529430923027, guid: 2b6849d977293624687594cb5d1ba827, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

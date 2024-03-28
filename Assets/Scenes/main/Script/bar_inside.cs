@@ -8,7 +8,7 @@ public class bar_inside : bar
     public static bar_inside instance;
     private float ballspeed;
     private float collideposi;
-    void Awake()
+    void Start()
     {
         if (instance == null)
         {
@@ -33,13 +33,13 @@ public class bar_inside : bar
 
         ball = collision.gameObject.GetComponent<Rigidbody>();//all colliding objects regard as ball(s).
         collideposi = (float)ball.position.x - (float)barposition;
-        float diffper = collideposi / (barwidth / 2);//-1`1
+        float diffper = collideposi / (barwidth / 2);//-1ï¿½`1
 
 
         double ballvectorx = Math.Pow((double)ball.velocity.x, 2d);
         double ballvectorz = Math.Pow((double)ball.velocity.z, 2d);
         ballspeed = (float)Math.Sqrt(ballvectorx + ballvectorz);
-        //speed = ã(x^2+z^2)
+        //speed = ï¿½ï¿½(x^2+z^2)
 
         if (Math.Abs(diffper) > 1)
         {
@@ -51,18 +51,8 @@ public class bar_inside : bar
         }
 
         //Debug.Log("this ball point is "+ball_attack);
-        ball_attack = append_ball_attack(ball_attack,collision);
+        ball_attack = append_ball_attack(ball_attack, collision);
         collision.gameObject.GetComponent<stdBall>().att = ball_attack;
         //Debug.Log(ball_attack+"\n"+collision.gameObject.tag);
-    }
-
-
-    override public void OnTriggerStay(Collider other)
-    {
-        if (!stay) stay = true;
-    }
-    override public void OnTriggerExit(Collider other)
-    {
-        stay = false;
     }
 }
