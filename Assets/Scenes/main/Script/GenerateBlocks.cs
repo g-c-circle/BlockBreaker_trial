@@ -6,8 +6,7 @@ public class GenerateBlocks : MonoBehaviour
 {
     public GameObject BlockObject;
 
-    private Vector3 initialSize = new Vector3(3f, 1f, 1f); // 初期の大きさ
-    private Vector3 currentSize; // 現在の大きさ
+    private Vector3 currentSize = new Vector3(3f, 1f, 1f); // 大きさ
 
     public Vector3 blockRotation = new Vector3(0f, 0f, 0f); // ブロックの角度
 
@@ -18,20 +17,7 @@ public class GenerateBlocks : MonoBehaviour
 
     int StageMode = 0;
 
-
-    //private int hitCount = 0; // ブロックにヒットした回数
-    //public int maxHitCount = 1; // ブロックが壊れるまでの最大ヒット回数
-
-    //public int changeCount = 5; // 色が変化する回数
-    //public Color targetColor = Color.black; // 変化後の色
-    //private int currentCount = 0; // 現在の変化回数
-    //private Color currentColor = Color.white; // 現在の色（初期値は白）
-
-
     public int start = 1;
-
-
-
 
     // Start is called before the first frame update
     void Start()
@@ -47,17 +33,15 @@ public class GenerateBlocks : MonoBehaviour
             Destroy(block);//ブロックを削除
         }
         blocks.Clear();
-        //totalBlocks = 0;
-        //destroyedBlockCount = 0; // 破壊されたブロック数をリセット
-        //Debug.Log("Blocks list cleared. Current block count: " + blocks.Count);
     }
 
-    //ブロックを一個生成　　[X座標　Z座標　ブロックが壊れるまでの最大ヒット回数(基本は１～８）　向き(角度)　初期の色]
-    void GenerateBlocksCreate(float x, float z, int MaxHitCount, float Rotation, Color color)// ブロックが壊れるまでの最大ヒット回数を[maxHitCount]に
+    //ブロックを一個生成　　[X座標　Z座標　ブロックが壊れるまでの最大ヒット回数(基本は１～８)(0は絶対に壊れない）　向き(角度)　初期の色　幅 奥行 高さ]
+    void GenerateBlocksCreate(float x, float z, int MaxHitCount, float Rotation, Color color, float width, float height, float depth)// ブロックが壊れるまでの最大ヒット回数を[maxHitCount]に
     {
         blockRotation = new Vector3(0f, Rotation, 0f);
         GameObject block = Instantiate(BlockObject, new Vector3(x, 0, z), Quaternion.Euler(blockRotation));
 
+        currentSize = new Vector3(width, height, depth);
         block.transform.localScale = currentSize;
 
         // ブロックの色を設定
@@ -71,17 +55,13 @@ public class GenerateBlocks : MonoBehaviour
 
         BlockBehavior blockScript = block.GetComponent<BlockBehavior>();
         blockScript.maxHitCount = MaxHitCount;
-        //block.GetComponent<GenerateBlocks>().maxHitCount = MaxHitCount;
 
         // 生成したブロックをリストに追加
         blocks.Add(block);
 
-        //Debug.Log("Block added to the list. Current block count: " + blocks.Count);
+        Debug.Log("Block added to the list. Current block count: " + blocks.Count);
         DestroyedBlockCount sum = GameObject.Find("BlockSumManager").GetComponent<DestroyedBlockCount>();
         sum.totalBlocks = blocks.Count;
-
-        //totalBlocks++;
-        //Debug.Log(totalBlocks);
     }
 
     //ステージ生成の関数
@@ -89,33 +69,34 @@ public class GenerateBlocks : MonoBehaviour
     {
         if (stage == 0)
         {
-            GenerateBlocksCreate(10, 10, 1, 0f, Color.green);//一例　座標が(10,10)　1回で壊れる　初期の向き(角度）　最初は緑色
-            GenerateBlocksCreate(10, 20, 5, 0f, Color.white);//一例　座標が(10,20)　5回で壊れる　初期の向き(角度）　最初は白色
+            GenerateBlocksCreate(10, 10, 1, 0f, Color.green, 3f, 1f, 1f);//一例　座標が(10,10)　1回で壊れる　初期の向き(角度）　最初は緑色 初期の大きさ
+            GenerateBlocksCreate(10, 20, 5, 10f, Color.white, 3f, 1f, 1f);//一例　座標が(10,20)　5回で壊れる　向き(角度）が10　最初は白色 初期の大きさ
+            GenerateBlocksCreate(10, 25, 0, 0f, Color.black, 10f, 1f, 1f);//一例　座標が(10,20)　絶対に壊れない　初期の向き(角度）　最初は黒色 初期の大きさ
         }
 
         if (stage == 1)
         {
-            
+
         }
 
         if (stage == 2)
         {
-            
+
         }
 
         if (stage == 3)
         {
-            
+
         }
 
         if (stage == 4)
         {
-            
+
         }
 
         if (stage == 5)
         {
-            
+
         }
         if (stage == 6)
         {
@@ -149,7 +130,7 @@ public class GenerateBlocks : MonoBehaviour
                 for (int j = 0; j < Z_NUM; j++)
                 {
                     Debug.Log("x:" + x + ",z:" + z);
-                    GenerateBlocksCreate(x, z, 9, 0f, Color.white);
+                    GenerateBlocksCreate(x, z, 9, 0f, Color.white, 3f, 1f, 1f);
                     z += currentSize.z + Space;
                 }
                 x += currentSize.x + Space;
@@ -172,24 +153,20 @@ public class GenerateBlocks : MonoBehaviour
             BlocksDestroy();
         }
 
-        //if (destroyedBlockCount >= totalBlocks) Debug.Log("All blocks destroyed!" + totalBlocks + destroyedBlockCount);
-
         //リトライ(リスタート)
         if (Input.GetKeyDown(KeyCode.B))
         {
             StageMode++;
             if (StageMode == 6) StageMode = 0;
-            //Debug.Log("Stage: " + StageMode);
+            Debug.Log("Stage: " + StageMode);
             GenerateBlocksStageRestart(StageMode);//ここで指定したステージをリトライ(リスタート)する
         }
 
         if (start == 1)
         {
-            currentSize = initialSize; // 現在の大きさに初期値を設定
             GenerateBlocksCreateStage(7); // ブロック生成
             ballRigidbody = GetComponent<Rigidbody>();
             start = 0;
         }
-
     }
 }
