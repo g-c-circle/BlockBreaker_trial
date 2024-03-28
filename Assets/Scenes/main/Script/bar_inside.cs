@@ -33,13 +33,13 @@ public class bar_inside : bar
 
         ball = collision.gameObject.GetComponent<Rigidbody>();//all colliding objects regard as ball(s).
         collideposi = (float)ball.position.x - (float)barposition;
-        float diffper = collideposi / (barwidth / 2);//-1�`1
+        float diffper = collideposi / (barwidth / 2);//-1`1
 
 
         double ballvectorx = Math.Pow((double)ball.velocity.x, 2d);
         double ballvectorz = Math.Pow((double)ball.velocity.z, 2d);
         ballspeed = (float)Math.Sqrt(ballvectorx + ballvectorz);
-        //speed = ��(x^2+z^2)
+        //speed = ã(x^2+z^2)
 
         if (Math.Abs(diffper) > 1)
         {
