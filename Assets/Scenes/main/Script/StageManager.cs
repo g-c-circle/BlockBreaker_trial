@@ -15,7 +15,7 @@ public class StageManager : MonoBehaviour
     public const float STAGE_LIMIT_TOP = 30.5f;
     public const float STAGE_LIMIT_BOTTOM = 0.5f;
     public const float STAGE_LIMIT_LEFT = 0.5f;
-    public const float STAGE_LIMIT_RIGHT = 20.5f;
+    public const float STAGE_LIMIT_RIGHT = 40.5f;
 
     private const float MAX_BONUS_SCORE = 120f;
     public float Score = 0;
