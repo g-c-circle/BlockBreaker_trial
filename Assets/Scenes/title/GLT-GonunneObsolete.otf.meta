@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 914f725f7ffa2c74292a4ed7d53a02a3
+guid: 813c03aee9de84f4fbbf623d154400a6
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - ToronoGlitchSans H4
+  - GLT-????Obsolete
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 568125d31e79f894cb868c8725fbf111
+guid: 7f12ef28bac3500418173b5098d03850
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - GLT-????Obsolete
+  - AnnyantRoman
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0

@@ -6,11 +6,11 @@ using UnityEngine.Audio;
 
 public class MainSoundScript : MonoBehaviour
 {
-    [SerializeField] AudioMixer audioMixer;
-    [SerializeField] AudioSource bgmAudioSource;
-    [SerializeField] AudioSource seAudioSource;
-    [SerializeField] Slider bgmSlider;
-    [SerializeField] Slider seSlider;
+    [SerializeField] AudioMixer AudioMixer;
+    [SerializeField] AudioSource BgmAudioSource;
+    [SerializeField] AudioSource SeAudioSource;
+    [SerializeField] Slider BgmSlider;
+    [SerializeField] Slider SeSlider;
 
 
     public bool DontDestroyEnabled = true;
@@ -24,25 +24,25 @@ public class MainSoundScript : MonoBehaviour
             DontDestroyOnLoad(this);
         }
         //スライダーをさわったら音量が変化する
-        bgmSlider.onValueChanged.AddListener((value) =>
+        BgmSlider.onValueChanged.AddListener((value) =>
         {
             Debug.Log("BGM Slider Value: " + value);
             value = Mathf.Clamp01(value);
             //変化するのは-80~0までの間
             float decibel = 20f * Mathf.Log10(value);
             decibel = Mathf.Clamp(decibel, -80f, 0f);
-            audioMixer.SetFloat("BGM", decibel);
+            AudioMixer.SetFloat("BGM", decibel);
         });
 
         //スライダーをさわったら音量が変化する
-        seSlider.onValueChanged.AddListener((value) =>
+        SeSlider.onValueChanged.AddListener((value) =>
         {
             Debug.Log("SE Slider Value: " + value);
             value = Mathf.Clamp01(value);
             //変化するのは-80~0までの間
             float decibel = 20f * Mathf.Log10(value);
             decibel = Mathf.Clamp(decibel, -80f, 0f);
-            audioMixer.SetFloat("SE", decibel);
+            AudioMixer.SetFloat("SE", decibel);
         });
     }
 

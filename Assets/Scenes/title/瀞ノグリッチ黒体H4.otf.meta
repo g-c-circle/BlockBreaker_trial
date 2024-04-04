@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c5a7aacd307cebe40a6985180dbf3129
+guid: e8bb65dda0793eb418672ca631e0bd46
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - AnnyantRoman
+  - ToronoGlitchSans H4
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
