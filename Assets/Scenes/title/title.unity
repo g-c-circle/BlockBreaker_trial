@@ -172,14 +172,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 45035565}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a56c2464a507d6a48899a75253316da4, type: 3}
+  m_Script: {fileID: 11500000, guid: 911b54e1c09fe9d4cb8fb63dfad82696, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Settingpanel: {fileID: 1934657177}
   Titlepanel: {fileID: 609343919}
   Stageselectpanel: {fileID: 1651676447}
-  b1: {fileID: 8300000, guid: b18ee97051844304e8c726047fc20f94, type: 3}
-  seAudioSource: {fileID: 1392140910}
+  b1: {fileID: 8300000, guid: 59055f0f1986dda46acd0b8eb9c0d946, type: 3}
+  seAudioSource: {fileID: 1392140908}
 --- !u!114 &45035568
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -416,7 +416,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 110092108}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b80f4c45b7f0bee459473ee68924ffbb, type: 3}
+  m_Script: {fileID: 11500000, guid: 6bc1bcaa3ca03c3478d91e4ec3205930, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &125236585
@@ -2295,7 +2295,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: c5a7aacd307cebe40a6985180dbf3129, type: 3}
+    m_Font: {fileID: 12800000, guid: 7f12ef28bac3500418173b5098d03850, type: 3}
     m_FontSize: 50
     m_FontStyle: 0
     m_BestFit: 0
@@ -2679,14 +2679,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1392140906}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 12f684c3a56d157489d8eed748a97b74, type: 3}
+  m_Script: {fileID: 11500000, guid: 10b01565e86413947823a6d84bbf4de8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioMixer: {fileID: 24100000, guid: b35ddc47c2f17f5459d5c623d2cd6917, type: 2}
-  bgmAudioSource: {fileID: 1392140908}
-  seAudioSource: {fileID: 1392140910}
-  bgmSlider: {fileID: 226282257}
-  seSlider: {fileID: 796989545}
+  AudioMixer: {fileID: 24100000, guid: 49fd0d1f86b68144e9192a6487f8058c, type: 2}
+  BgmAudioSource: {fileID: 1392140908}
+  SeAudioSource: {fileID: 1392140908}
+  BgmSlider: {fileID: 226282257}
+  SeSlider: {fileID: 796989545}
   DontDestroyEnabled: 1
 --- !u!82 &1392140908
 AudioSource:
@@ -2697,8 +2697,8 @@ AudioSource:
   m_GameObject: {fileID: 1392140906}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 397638383931722361, guid: b35ddc47c2f17f5459d5c623d2cd6917, type: 2}
-  m_audioClip: {fileID: 8300000, guid: 8fbcb92eb86d0fb4aa7249596b9eac72, type: 3}
+  OutputAudioMixerGroup: {fileID: 397638383931722361, guid: 49fd0d1f86b68144e9192a6487f8058c, type: 2}
+  m_audioClip: {fileID: 8300000, guid: d5ee92ed7760fe04e97b0fd03295735a, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.05
   m_Pitch: 1
@@ -2808,8 +2808,8 @@ AudioSource:
   m_GameObject: {fileID: 1392140906}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: -154064772877129840, guid: b35ddc47c2f17f5459d5c623d2cd6917, type: 2}
-  m_audioClip: {fileID: 8300000, guid: b18ee97051844304e8c726047fc20f94, type: 3}
+  OutputAudioMixerGroup: {fileID: -154064772877129840, guid: 49fd0d1f86b68144e9192a6487f8058c, type: 2}
+  m_audioClip: {fileID: 8300000, guid: 59055f0f1986dda46acd0b8eb9c0d946, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.05
   m_Pitch: 1
@@ -2944,11 +2944,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1467849361}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a4f5a3cd7dd799449e975f5e5743e24, type: 3}
+  m_Script: {fileID: 11500000, guid: bb5a5703b9beb8d43b7647db80a9c4d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Titlepanel: {fileID: 609343919}
-  b1: {fileID: 8300000, guid: b18ee97051844304e8c726047fc20f94, type: 3}
+  b1: {fileID: 8300000, guid: 59055f0f1986dda46acd0b8eb9c0d946, type: 3}
   Stageselectpanel: {fileID: 1651676447}
   seAudioSource: {fileID: 1392140908}
 --- !u!114 &1467849364
@@ -3461,13 +3461,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1746469775}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 066dde52d493c674f8f0bffd8e417c0f, type: 3}
+  m_Script: {fileID: 11500000, guid: 86f827ba03c5b9f4483f2c466f9cb3ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Settingpanel: {fileID: 1934657177}
   Titlepanel: {fileID: 609343919}
-  b1: {fileID: 8300000, guid: b18ee97051844304e8c726047fc20f94, type: 3}
-  seAudioSource: {fileID: 1392140910}
+  b1: {fileID: 8300000, guid: 59055f0f1986dda46acd0b8eb9c0d946, type: 3}
+  seAudioSource: {fileID: 1392140908}
 --- !u!1 &1851775062
 GameObject:
   m_ObjectHideFlags: 0
@@ -3889,7 +3889,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 372c99332696f5243a8b1965f72de7d4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0bf14d1942bc25141b1182be6d254a3d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3956,14 +3956,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 2143360320}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a56c2464a507d6a48899a75253316da4, type: 3}
+  m_Script: {fileID: 11500000, guid: 911b54e1c09fe9d4cb8fb63dfad82696, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Settingpanel: {fileID: 1934657177}
   Titlepanel: {fileID: 609343919}
   Stageselectpanel: {fileID: 1651676447}
-  b1: {fileID: 8300000, guid: b18ee97051844304e8c726047fc20f94, type: 3}
-  seAudioSource: {fileID: 1392140910}
+  b1: {fileID: 8300000, guid: 59055f0f1986dda46acd0b8eb9c0d946, type: 3}
+  seAudioSource: {fileID: 1392140908}
 --- !u!114 &2143360323
 MonoBehaviour:
   m_ObjectHideFlags: 0
