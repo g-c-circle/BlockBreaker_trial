@@ -5,30 +5,19 @@ using UnityEngine;
 public class GenerateBalls : MonoBehaviour
 {
     public GameObject ballPrefab;
-    public int ballNum;
+    public int maxBallNum;
     public float generateSpeed;
 
     private int generatedBallNum = 0;
-    private float deltaTime = 0;
+    private float time = 0;
 
+    //void Start()
+    //{
+    //}
 
-    private float BallLevel = 1;//‚±‚Ì’l‚ð‚¢‚¶‚é‚±‚Æ‚ÅƒuƒƒbƒN‚ÌUŒ‚—Í‚ð•ÏX‰Â”\
-
-
-    // Start is called before the first frame update
-
-    void Start()
-    {
-        // stdBall‚ð•ÒW‚·‚é—á ˆê“x•Ï‚¦‚é‚Æunityã‚Ìƒ`ƒFƒbƒNƒ{ƒbƒNƒX‚ª‘‚«Š·‚í‚é‚Ì‚Å’ˆÓ
-        //stdBall cs = ballPrefab.GetComponent<stdBall>();
-        //cs.isAutoInit = false;
-        //cs.InitSpeed(5, 5);
-    }
-
-    // Update is called once per frame
     void Update()
     {
-        if (generatedBallNum < ballNum)
+        if (generatedBallNum < maxBallNum)
         {
             Generate();
         }
@@ -36,17 +25,17 @@ public class GenerateBalls : MonoBehaviour
 
     private void Generate()
     {
-        deltaTime += Time.deltaTime;
-        //Debug.Log(deltaTime + ", " + generateSpeed + "," + (deltaTime < generateSpeed));
-        if (deltaTime < generateSpeed)
+        time += Time.deltaTime;
+        if (time < generateSpeed)
             return;
 
-        // ƒ{[ƒ‹‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ðì¬
-        GameObject ball = Instantiate(ballPrefab, new Vector3(10.5f, 0, 15.5f), Quaternion.identity);
-        stdBall ballScript = ball.GetComponent<stdBall>();
-        ballScript.BallLevel = BallLevel;
+        // ãƒœãƒ¼ãƒ«ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ä½œæˆ
+        GameObject ball = Instantiate(ballPrefab, new Vector3(20.5f, 0, 15.5f), Quaternion.identity);
+        BallBehaviour ballScript = ball.GetComponent<BallBehaviour>();
+        ballScript.ballLevel = 1;
+        ballScript.InitSpeed();
 
         generatedBallNum++;
-        deltaTime = 0;
+        time = 0;
     }
 }

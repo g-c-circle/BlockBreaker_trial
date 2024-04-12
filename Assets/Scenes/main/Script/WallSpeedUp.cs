@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Wall : MonoBehaviour
+public class WallSpeedUp : MonoBehaviour
 {
     public float reflectSpeed;
     public float maxSpeedUps;
@@ -28,7 +28,7 @@ public class Wall : MonoBehaviour
             Rigidbody ballRb = collision.gameObject.GetComponent<Rigidbody>();
             if (ballRb != null)
             {
-                int countSpeedUp = collision.gameObject.GetComponent<stdBall>().countSpeedUp;
+                int countSpeedUp = collision.gameObject.GetComponent<BallBehaviour>().countSpeedUp;
                 // ‰Á‘¬
                 if (countSpeedUp < maxSpeedUps)
                 {
@@ -36,8 +36,8 @@ public class Wall : MonoBehaviour
                     Vector3 reflection = Vector3.Reflect(ballRb.velocity, collision.contacts[0].normal).normalized;
                     ballRb.AddForce(reflection * reflectSpeed, ForceMode.Impulse);
 
-                    collision.gameObject.GetComponent<stdBall>().countSpeedUp++;
-                    //Debug.Log(collision.gameObject.GetComponent<stdBall>().countSpeedUp);
+                    collision.gameObject.GetComponent<BallBehaviour>().countSpeedUp++;
+                    //Debug.Log(collision.gameObject.GetComponent<BallBehaviour>().countSpeedUp);
                 }
                 //if (countSpeedUp == 49)
                 //Debug.Log(ballRb.velocity);

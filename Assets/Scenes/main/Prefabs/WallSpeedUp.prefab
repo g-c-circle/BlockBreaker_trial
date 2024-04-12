@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &9181022602918218429
+--- !u!1 &8212295351544972893
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,48 +8,48 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4946603404177370768}
-  - component: {fileID: 5565051621136442318}
-  - component: {fileID: 13399081032891039}
-  - component: {fileID: 4333003767751163233}
-  - component: {fileID: -8853543705194159135}
+  - component: {fileID: 8019810982260222532}
+  - component: {fileID: 3865272909154718012}
+  - component: {fileID: 6441480831407299154}
+  - component: {fileID: 1953712814292208474}
+  - component: {fileID: 7888535194360706177}
   m_Layer: 0
-  m_Name: subbar
+  m_Name: WallSpeedUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4946603404177370768
+--- !u!4 &8019810982260222532
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9181022602918218429}
+  m_GameObject: {fileID: 8212295351544972893}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -5}
-  m_LocalScale: {x: 5, y: 0.5, z: 5}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 10.3, y: 0, z: 20.2}
+  m_LocalScale: {x: 5, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &5565051621136442318
+--- !u!33 &3865272909154718012
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9181022602918218429}
+  m_GameObject: {fileID: 8212295351544972893}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &13399081032891039
+--- !u!23 &6441480831407299154
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9181022602918218429}
+  m_GameObject: {fileID: 8212295351544972893}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 65fd5ed1d14429a418d28b88b74a056c, type: 2}
+  - {fileID: 2100000, guid: 20d3cbcc1ac36644caf330579ed6c1a5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -85,14 +85,14 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &4333003767751163233
+--- !u!65 &1953712814292208474
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9181022602918218429}
-  m_Material: {fileID: 13400000, guid: 6119d907e068cf34882b9ab51a8cc828, type: 2}
+  m_GameObject: {fileID: 8212295351544972893}
+  m_Material: {fileID: 13400000, guid: 3883ed7cb472f6e44bd9d19d8cb03a6d, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -106,20 +106,17 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-8853543705194159135
+--- !u!114 &7888535194360706177
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9181022602918218429}
+  m_GameObject: {fileID: 8212295351544972893}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8358688287df7654884b6174ca5b7e3a, type: 3}
+  m_Script: {fileID: 11500000, guid: 778f270c6253ada4abf0b30193c64a28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vInput: 0
-  bx: 0
-  stay: 0
-  ball: {fileID: 0}
-  addspeed: 1
+  reflectSpeed: 1.5
+  maxSpeedUps: 30

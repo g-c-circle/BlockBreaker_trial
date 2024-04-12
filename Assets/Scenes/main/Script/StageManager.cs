@@ -8,62 +8,46 @@ using UnityEngine.UI;
 
 public class StageManager : MonoBehaviour
 {
-    // ---------- Main Game ----------
+    private const string BlockTag = "Block";
 
-    private const string BLOCK_TAG = "Block";
+    public const float StageLimitTop = 30.5f;
+    public const float StageLimitBottom = 0.5f;
+    public const float StageLimitLeft = 0.5f;
+    public const float StageLimitRight = 40.5f;
 
-    public const float STAGE_LIMIT_TOP = 30.5f;
-    public const float STAGE_LIMIT_BOTTOM = 0.5f;
-    public const float STAGE_LIMIT_LEFT = 0.5f;
-    public const float STAGE_LIMIT_RIGHT = 40.5f;
-
-    private const float MAX_BONUS_SCORE = 120f;
+    public float inGameTime = 0;
     public float Score = 0;
-    public float InGameTime = 0;
 
-    public bool IsPlaying = true;
+    public bool isPlaying = true;
 
     void Start()
     {
-        Score = 0;
-        InGameTime = 0;
-        IsPlaying = true;
+        inGameTime = 0;
+        isPlaying = true;
     }
 
-    // ---------- Main Game ----------
     void Update()
     {
-        if (!IsPlaying) return;
+        if (!isPlaying) return;
 
-        InGameTime += Time.deltaTime;
+        inGameTime += Time.deltaTime;
 
-        // ƒNƒŠƒA‚µ‚Ä‚¢‚é‚©‚Ç‚¤‚©
-        GameObject[] Blocks = GameObject.FindGameObjectsWithTag(BLOCK_TAG);
-        if (Blocks.Length == 0)
+        // ã‚¯ãƒªã‚¢ã—ã¦ã„ã‚‹ã‹ã©ã†ã‹
+        GameObject[] blocks = GameObject.FindGameObjectsWithTag(BlockTag);
+        if (blocks.Length == 0)
         {
-            // ----- ƒXƒRƒAŒvZ -----
-            IsPlaying = false;
-
-            float BonusScore = MAX_BONUS_SCORE - InGameTime;
-            if (0 <= BonusScore)
-            {
-                Score += BonusScore;
-            }
-
-            // ----- ƒXƒRƒA”½‰f -----
-            GameObject.Find("Canvas").transform.Find("TextScore").GetComponent<Text>().text = "‚­‚è‚ F" + Score.ToString() + "“_";
-            gameObject.GetComponent<RankingManager>().SaveScore("TestUser", Score, InGameTime);
+            GameObject.Find("Canvas").transform.Find("TextScore").GetComponent<Text>().text = "ã‚¯ãƒªã‚¢ï¼š" + Score.ToString() + "ç‚¹"; isPlaying = false;
         }
         else
         {
             GameObject.Find("Canvas").transform.Find("TextScore").GetComponent<Text>().text = ((int)Score).ToString();
-            GameObject.Find("Canvas").transform.Find("TextTime").GetComponent<Text>().text = ((int)InGameTime).ToString();
+            GameObject.Find("Canvas").transform.Find("TextTime").GetComponent<Text>().text = ((int)inGameTime).ToString();
         }
     }
 
-    // float? : null‹–—eŒ^‚Ìfloat
-    // float‚ªæ‚è‚¤‚é‘S‚Ä‚Ì’l‚ÆAnull‚ª“ü‚éifloat‚Énull‚Í“ü‚ç‚È‚¢j
-    // float?Œ^‚ğfloatŒ^‚É‘ã“ü‚·‚é‚±‚Æ‚Í‚Å‚«‚È‚¢‚Ì‚ÅA
+    // float? : nullè¨±å®¹å‹ã®float
+    // floatãŒå–ã‚Šã†ã‚‹å…¨ã¦ã®å€¤ã¨ã€nullãŒå…¥ã‚‹ï¼ˆfloatã«nullã¯å…¥ã‚‰ãªã„ï¼‰
+    // float?å‹ã‚’floatå‹ã«ä»£å…¥ã™ã‚‹ã“ã¨ã¯ã§ããªã„ã®ã§ã€
 
     // float value;
     // float? temp_value = GetLeftBlockPos(0,0,0);
@@ -72,40 +56,40 @@ public class StageManager : MonoBehaviour
     // }
     // value = (float)temp_value;
 
-    // ‚Ì‚æ‚¤‚ÉƒLƒƒƒXƒg‚µ‚Äg‚¤
-    // null‚ğ’e‚©‚¸‚É’¼Úg‚¤‚Ænull‚¾‚Á‚½‚ÉÀsƒGƒ‰[‚Æ‚È‚é‚Ì‚ÅAnull‚©‚Ç‚¤‚©‚Ì”»’è‚ğ‚·‚é‚±‚ÆB
+    // ã®ã‚ˆã†ã«ã‚­ãƒ£ã‚¹ãƒˆã—ã¦ä½¿ã†
+    // nullã‚’å¼¾ã‹ãšã«ç›´æ¥ä½¿ã†ã¨nullã ã£ãŸæ™‚ã«å®Ÿè¡Œæ™‚ã‚¨ãƒ©ãƒ¼ã¨ãªã‚‹ã®ã§ã€nullã‹ã©ã†ã‹ã®åˆ¤å®šã‚’ã™ã‚‹ã“ã¨ã€‚
 
-    // “™ŠÔŠu‚ÉƒuƒƒbƒN‚ğİ’u‚µ‚½‚¢ê‡
-    public float? GetLeftBlockPos(int Num, float Size, float Space, float Left = STAGE_LIMIT_LEFT, float Right = STAGE_LIMIT_RIGHT)
+    // ç­‰é–“éš”ã«ãƒ–ãƒ­ãƒƒã‚¯ã‚’è¨­ç½®ã—ãŸã„å ´åˆ
+    public float? GetLeftBlockPos(int num, float size, float space, float left = StageLimitLeft, float right = StageLimitRight)
     {
-        // ¶‰E‚ÆŠÔ‚Ì—]”’‚ğŠÜ‚ß‚½‘S‘Ì‚Ì‰¡‚Ì’·‚³
-        float Length = Num * Size + (Num + 1) * Space;
-        float MaxLength = Math.Abs(Right - Left);
+        // å·¦å³ã¨é–“ã®ä½™ç™½ã‚’å«ã‚ãŸå…¨ä½“ã®æ¨ªã®é•·ã•
+        float length = num * size + (num + 1) * space;
+        float maxLength = Math.Abs(right - left);
 
-        // “ü‚è‚«‚ç‚È‚¢‚Æ‚«
-        if (MaxLength < Length)
+        // å…¥ã‚Šãã‚‰ãªã„ã¨ã
+        if (maxLength < length)
         {
-            Debug.Log("ƒuƒƒbƒN‚Ìİ’u”ÍˆÍ‚ª‹·‚·‚¬‚Ü‚· : StageManager.cs");
+            Debug.Log($"ãƒ–ãƒ­ãƒƒã‚¯ã®è¨­ç½®ç¯„å›²ãŒç‹­ã™ãã¾ã™ : StageManager.cs\nnum:{num}, size:{size}, space:{space}, left:{left}, right:{right}");
             return null;
         }
 
-        float Mid = (Right + Left) / 2;
-        //Debug.Log("Left:" + Left + "Right:" + Right);
-        //Debug.Log("mid:" + Mid);
-        //Debug.Log("length/2:" + Length / 2);
-        //Debug.Log("left:" + (Mid - Length / 2 + Size / 2));
+        float mid = (right + left) / 2;
+        //Debug.Log("left:" + left + "right:" + right);
+        //Debug.Log("mid:" + mid);
+        //Debug.Log("length/2:" + length / 2);
+        //Debug.Log("left:" + (mid - length / 2 + size / 2));
 
-        float LeftEdge = Mid - Length / 2;
-        float LeftBlockPos = LeftEdge + Space + Size / 2;
+        float leftEdge = mid - length / 2;
+        float leftBlockPos = leftEdge + space + size / 2;
 
-        // 0‚ğ’†S‚Æ‚µ‚½¶’[‚ÌƒuƒƒbƒN‚Ì’†SÀ•W‚ğ•Ô‚·
-        //return Mid - Length / 2 + Size / 2;
-        return LeftBlockPos;
+        // 0ã‚’ä¸­å¿ƒã¨ã—ãŸå·¦ç«¯ã®ãƒ–ãƒ­ãƒƒã‚¯ã®ä¸­å¿ƒåº§æ¨™ã‚’è¿”ã™
+        //return mid - length / 2 + size / 2;
+        return leftBlockPos;
     }
 
-    // ˆø”‚Ì’l‚¾‚¯•Ï‚í‚Á‚Ä‚é
-    public float? GetBottomBlockPos(int Num, float Size, float Space, float Top = STAGE_LIMIT_TOP, float Bottom = STAGE_LIMIT_BOTTOM)
+    // å¼•æ•°ã®å€¤ã ã‘å¤‰ã‚ã£ã¦ã‚‹
+    public float? GetBottomBlockPos(int num, float size, float space, float top = StageLimitTop, float bottom = StageLimitBottom)
     {
-        return GetLeftBlockPos(Num, Size, Space, Top, Bottom);
+        return GetLeftBlockPos(num, size, space, top, bottom);
     }
 }
