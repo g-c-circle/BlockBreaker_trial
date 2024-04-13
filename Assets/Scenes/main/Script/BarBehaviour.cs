@@ -8,8 +8,6 @@ public class BarBehaviour : MonoBehaviour
     // Start is called before the first frame update
     private const float MoveSpeed = 10f;
 
-    public Rigidbody ball;
-
     private float limitLeft = -9.5f;
     private float limitRight = 9.5f;
 
