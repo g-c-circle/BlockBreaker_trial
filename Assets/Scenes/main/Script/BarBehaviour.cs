@@ -25,7 +25,7 @@ public class BarBehaviour : MonoBehaviour
     void Update()
     {
         float vInput = Input.GetAxis("Horizontal");
-        transform.Translate(MoveSpeed * vInput * Time.deltaTime * Vector3.right);
+        transform.Translate(MoveSpeed * vInput * Time.deltaTime * Vector3.right * 2.5f);
 
         // ステージ内に戻す
         Vector3 pos = transform.position;
